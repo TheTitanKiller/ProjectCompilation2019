@@ -5,4 +5,4 @@ pomme = 2 / 0;
 l_0k = round(resultat * 1000) / 1000;
 log = ln(pow(e, 2));
 priority =  1+ 2 * 0 + 2 + 0 * 2;
-pow(2, l_0k) * 2
+pow(2, l_0k) * 2 + 1 

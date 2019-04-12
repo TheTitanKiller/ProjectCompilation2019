@@ -6,8 +6,9 @@ TreeMap[
 2 :: pomme[TreeOperator[TreeInteger;TreeInteger]]
 3 :: l_0k[TreeOperator[TreeOperator[TreeOperator[resultat;TreeInteger]];TreeInteger]]
 4 :: log[TreeOperator[TreeOperator[TreeFloat;TreeInteger]]]
-5 :: TreeOperator[TreeOperator[TreeInteger;l_0k];TreeInteger]]
-Résultat expression: 2.0
+5 :: priority[TreeOperator[TreeOperator[TreeOperator[TreeInteger;TreeOperator[TreeInteger;TreeInteger]];TreeInteger];TreeOperator[TreeInteger;TreeInteger]]]
+6 :: TreeOperator[TreeOperator[TreeOperator[TreeInteger;l_0k];TreeInteger];TreeInteger]]
+Résultat expression: 3.0
 
 Backtrace: 
 log: 2.0
@@ -15,3 +16,4 @@ pomme: Infinity
 angle1: 0.7853981633974483
 resultat: 1.1102230246251565E-16
 l_0k: 0.0
+priority: 3.0
