@@ -7,5 +7,5 @@ package abstractTree;
  */
 public enum Types
 {
-	integer,
+    FloatNumber
 }

@@ -40,16 +40,16 @@ static public class MyEvents extends beaver.Parser.Events {
 					final TreeMap decs = (TreeMap) _symbol_decs.value;
 					final Symbol _symbol_exp = _symbols[offset + 3];
 					final AbstTree exp = (AbstTree) _symbol_exp.value;
-					 TreeMap tree = new TreeMap(decs); tree .addTree(exp); return tree;
+					 TreeMap tree = new TreeMap(decs); tree.addTree(exp); return tree;
 				}
 			},
-			new Action() {	// [1] Declarations = Declarations.dec1 SEMICOLON Declaration.dec2
+			new Action() {	// [1] Declarations = Declarations.decs SEMICOLON Declaration.dec
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_dec1 = _symbols[offset + 1];
-					final TreeMap dec1 = (TreeMap) _symbol_dec1.value;
-					final Symbol _symbol_dec2 = _symbols[offset + 3];
-					final AbstTree dec2 = (AbstTree) _symbol_dec2.value;
-					 TreeMap tree = new TreeMap(dec1); tree.addTree(dec2); return tree;
+					final Symbol _symbol_decs = _symbols[offset + 1];
+					final TreeMap decs = (TreeMap) _symbol_decs.value;
+					final Symbol _symbol_dec = _symbols[offset + 3];
+					final AbstTree dec = (AbstTree) _symbol_dec.value;
+					 TreeMap tree = new TreeMap(decs); tree.addTree(dec); return tree;
 				}
 			},
 			new Action() {	// [2] Declarations = Declaration.dec
