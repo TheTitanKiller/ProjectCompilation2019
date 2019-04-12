@@ -1,0 +1,3 @@
+#!/bin/sh
+echo ${PWD##*/} > hierarchie.txt
+tree --charset ascii --prune -I $(cat .gitignore .gitignore | egrep -v "^#.*$|^[[:space:]]*$" | tr "\\n" "|") >> hierarchie.txt

@@ -1,0 +1,32 @@
+BeaverProject
+.
+|-- build.xml
+|-- cmdHierachie
+|-- data
+|   |-- input
+|   `-- output
+|-- hierarchie.txt
+|-- LICENSE
+|-- parser
+|   `-- ParserExpr.grammar
+|-- README
+|-- scanner
+|   `-- ScannerExpr.jflex
+`-- src
+    |-- abstractTree
+    |   |-- AbstTree.java
+    |   |-- Environment.java
+    |   |-- IAbstTree.java
+    |   |-- IEnvironment.java
+    |   |-- Keywords.java
+    |   |-- TreeFloat.java
+    |   |-- TreeIdentifier.java
+    |   |-- TreeInteger.java
+    |   |-- TreeMap.java
+    |   `-- TreeOperator.java
+    |-- Main.java
+    |-- ParserExpr.java
+    |-- ScannerExpr.java
+    `-- Terminals.java
+
+5 directories, 23 files

@@ -1,0 +1,110 @@
+%import "abstractTree.*";
+%class "ParserExpr";
+
+%embed {: 
+
+static public class MyEvents extends beaver.Parser.Events {
+	
+	public void syntaxError(Symbol token) {
+		System.err.print("Erreur de syntaxe ligne ");
+		System.err.println(Symbol.getLine(token.getStart()));
+		System.err.print("Token inattendu: ");
+		System.err.println(Terminals.NAMES[token.getId()]);
+	}
+};
+
+:} ;
+
+%init {:
+	report = new MyEvents();
+:};
+
+%goal Program;
+
+%terminals LPAR, RPAR, COLON, SEMICOLON;
+%terminals TYPE;
+%terminals ASSIGN;
+%terminals PLUS, MINUS;
+%terminals MULT, DIV;
+%terminals INTEGER, FLOAT, ID;
+%terminals PI, NEP;
+%terminals UFCT, BFCT;
+ 
+%left MULT, DIV;
+%left PLUS, MINUS;
+
+%typeof Declaration, Expression = "AbstTree";
+%typeof Declarations = "TreeMap";
+%typeof UFCT, BFCT = "String";
+%typeof INTEGER = "Integer";
+%typeof ID = "String";
+%typeof PI, NEP = "Double";
+
+Program  =
+	Declarations.decs SEMICOLON Expression.exp
+	{: TreeMap tree = new TreeMap(decs); tree .addTree(exp); return tree;:}
+;
+
+Instruction_list = 
+	 Instruction_list.il Instruction.i
+	 			{: TreeMap tree = new TreeMap(il); tree.addTree(i); return tree;:}
+	|Instruction.i 
+				{: TreeMap tree = new TreeMap(i); return tree;:}
+;
+
+Instruction =
+	 Declarations.dec SEMICOLON
+	 		{: TreeMap tree = new TreeMap(dec); return tree;:}
+	|Affectation.aff SEMICOLON
+			{: TreeMap tree = new TreeMap(aff); return tree;:}
+	|
+;
+
+Declarations =
+	 Declarations.decs COLON Declaration.dec
+	 			{: TreeMap tree = new TreeMap(decs); tree.addTree(dec); return tree;:}
+	|Declaration.dec 
+				{: TreeMap tree = new TreeMap(dec); return tree;:}
+;
+
+Declaration =
+	TYPE ID.id
+				{: TreeIdentifier tree = new TreeIdentifier(id); return tree;:}
+;
+
+Affectation =
+	ID.id ASSIGN Expression.exp
+				{: TreeIdentifier tree = new TreeIdentifier(id, exp); return tree;:}
+;
+
+Expression = 
+	 Expression.l PLUS Expression.r	
+				{: TreeOperator tree = new TreeOperator(Keywords.PLUS, l, r); return tree;:}
+				
+	|Expression.l MINUS Expression.r	
+				{: TreeOperator tree = new TreeOperator(Keywords.MINUS, l, r); return tree;:}
+				
+	|Expression.l MULT Expression.r	
+				{: TreeOperator tree = new TreeOperator(Keywords.MULTIPLY, l, r); return tree;:}
+				
+	|Expression.l DIV Expression.r	
+				{: TreeOperator tree = new TreeOperator(Keywords.DIVIDE, l, r); return tree;:}
+				
+	|MINUS Expression.l	
+				{: TreeOperator tree = new TreeOperator(Keywords.MINUS, l); return tree;:}
+				
+	|LPAR Expression RPAR .tree
+				{: return tree;:}
+				
+	|UFCT.op LPAR Expression.un RPAR
+				{: TreeOperator tree = new TreeOperator(Keywords.valueOf(op), un); return tree;:}
+				
+	|BFCT.op LPAR Expression.l COLON Expression.r RPAR	
+				{: TreeOperator tree = new TreeOperator(Keywords.valueOf(op), l, r); return tree;:}
+	
+	|ID			.id		{: TreeIdentifier tree = new TreeIdentifier(id); return tree;:}
+	|INTEGER	.i		{: TreeInteger tree = new TreeInteger(i); return tree;:}
+;
+
+
+
