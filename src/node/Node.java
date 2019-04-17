@@ -8,7 +8,8 @@ import java.util.List;
 
 import main.ClonableSymbol;
 
-public abstract class Node extends ClonableSymbol implements NodeInterface {
+public abstract class Node extends ClonableSymbol implements NodeInterface
+{
 	
 	private static int staticUniqId;
 	protected List<Node> elts;
