@@ -1,20 +1,21 @@
 package node;
 
-public final class NodeCaseList extends NodeExp {
-
-	public NodeCaseList() {
-		super();
-	}
-
-	@Override
-	public boolean checksType() {
-		super.checksType();
-		return true;
-	}
-
-	@Override
-	public NodeCaseList clone() {
-		return new NodeCaseList();
-	}
-
+public final class NodeCaseList extends NodeExp
+{
+    public NodeCaseList()
+    {
+	super();
+    }
+    
+    @Override public boolean checksType()
+    {
+	super.checksType();
+	return true;
+    }
+    
+    @Override public NodeCaseList clone()
+    {
+	return new NodeCaseList();
+    }
+    
 }

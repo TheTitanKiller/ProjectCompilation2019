@@ -4,13 +4,13 @@ import beaver.Scanner;
 
 %%
 
-%class Scanner
-%extends beaver.Scanner
+%class ScannerLEA
+%extends Scanner
 %function nextToken
 %type Symbol
 %yylexthrow Scanner.Exception
 %eofval{
-	System.out.println(yytext()); return new Symbol(Terminals.TOKEN_END);
+	System.out.println(yytext()); return new Symbol(Terminals.EOF);
 %eofval}
 %unicode
 %line
@@ -105,4 +105,8 @@ BigComment = "/*"~"*/"
 
 {Comment} | {BigComment} | \n | \s {}
 
-[^] {throw new Scanner.Exception("Caractère inattendu '" + yytext() + "'" + " en ligne " + yyline() + " colonne " + yycolumn() + ".");}
+[^] {throw new Scanner.Exception("Unexpected character '" + yytext() + "'" + " line " + yyline + " colomn" + yycolumn + ".");}
+
+
+
+/*END*/

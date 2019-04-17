@@ -2,17 +2,15 @@
  */
 package environment;
 
-/**
- * @author mcerutti
- */
+//TODO Used but no idea why
 public class StackEnvironment
 {
-	
-	/**
-	 * @param string
-	 */
-	public StackEnvironment(String string)
-	{
-	}
-	
+    
+    /**
+     * @param string
+     */
+    public StackEnvironment(String string)
+    {
+    }
+    
 }

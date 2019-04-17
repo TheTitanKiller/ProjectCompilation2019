@@ -2,33 +2,36 @@ package node;
 
 import type.Type;
 
-public final class NodeLiteral extends NodeExp {
+public final class NodeLiteral extends NodeExp
+{
+    private Object value;
 
-	private Object value;
+    public NodeLiteral(Type type, Object value)
+    {
+	super();
+	this.type = type;
+	this.value = value;
+    }
 
-	public NodeLiteral(Type type, Object value) {
-		super();
-		this.type = type;
-		this.value = value;
-	}
+    @Override public boolean checksType()
+    {
+	super.checksType();
+	return true;
+    }
 
-	public String toString() {
-		return this.getClass().getSimpleName() + '#' + value + ':' + type + '#';
-	}
+    @Override public NodeLiteral clone()
+    {
+	return new NodeLiteral(this.type, this.value);
+    }
 
-	@Override
-	public boolean checksType() {
-		super.checksType();
-		return true;
-	}
+    @Override public String toDotNodeName()
+    {
+	return "NodeLiteral " + this.value.toString();
+    }
 
-	public String toDotNodeName() {
-		return "NodeLiteral " + value.toString();
-	}
-
-	@Override
-	public NodeLiteral clone() {
-		return new NodeLiteral(type, value);
-	}
+    @Override public String toString()
+    {
+	return this.getClass().getSimpleName() + '#' + this.value + ':' + this.type + '#';
+    }
 
 }

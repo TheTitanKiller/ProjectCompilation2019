@@ -4,32 +4,9 @@ package main;
 
 import beaver.Symbol;
 
-/**
- * @author mcerutti
- */
+//TODO Problem unimplement method in types, make it not abstract.
+//No idea of utility
 public abstract class ClonableSymbol extends Symbol
 {
-	
-	/**
-	 * @return
-	 */
-	public boolean checksType()
-	{
-		return false;
-	}
-	
-	/**
-	 * 
-	 */
-	public void generateIntermediateCode()
-	{
-	}
-	
-	/**
-	 * @param file
-	 */
-	public void toDot(String file)
-	{
-	}
-	
+
 }

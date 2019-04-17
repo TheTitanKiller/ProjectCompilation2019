@@ -63,7 +63,15 @@
 * A completer
 ***/
 
-%goal program;
+//PRIORITIES
+%right TOKEN_TIMES, TOKEN_DIV;
+%right TOKEN_PLUS, TOKEN_MINUS;
+
+%left TOKEN_LT, TOKEN_LE, TOKEN_GT, TOKEN_GE, TOKEN_EQ, TOKEN_NE;
+%right TOKEN_NOT;
+%left TOKEN_AND, TOKEN_OR;
+
+%left TOKEN_IF, TOKEN_THEN, TOKEN_ELSE;
 
 /***
 * Semantique A completer
@@ -74,7 +82,7 @@
 *
 * b) quand vous souhaitez mettre du code avant la fin de la regle, 
 *     X= A {: je voudrais mettre du code ici :} B {: pour l'exploiter ici :}
-* utilisez une rege vide comme ceci:
+* utilisez une regle vide comme ceci:
 *
 *     X= A empty_X B {: pour l'exploiter ici  :} ;
 *     empty_X= {: je voudrais mettre du code ici :};
@@ -316,7 +324,7 @@ structured_statement=
 	;
 	
 if_statement=
-	TOKEN_IF expression TOKEN_THEN statement
+	TOKEN_IF expression TOKEN_THEN statement 
 	| TOKEN_IF expression TOKEN_THEN statement TOKEN_ELSE statement
 	;
 	
