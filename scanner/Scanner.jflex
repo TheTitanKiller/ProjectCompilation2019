@@ -1,15 +1,16 @@
+package main;
 import beaver.Symbol;
 import beaver.Scanner;
 
 %%
 
-%class ScannerExpr
-%extends Scanner
+%class Scanner
+%extends beaver.Scanner
 %function nextToken
 %type Symbol
 %yylexthrow Scanner.Exception
 %eofval{
-	System.out.println(yytext()); return Symbol(Terminals.EOF);
+	System.out.println(yytext()); return new Symbol(Terminals.TOKEN_END);
 %eofval}
 %unicode
 %line
@@ -20,12 +21,12 @@ import beaver.Scanner;
 	// voir beaver-rt/src/main/java/beaver/Symbol.java
 	private Symbol newToken(short id)
 	{
-		return Symbol(id, yyline + 1, yycolumn + 1, yylength(), null);
+		return new Symbol(id, yyline + 1, yycolumn + 1, yylength(), null);
 	}
 
 	private Symbol newToken(short id, Object value)
 	{
-		return Symbol(id, yyline + 1, yycolumn + 1, yylength(), value);
+		return new Symbol(id, yyline + 1, yycolumn + 1, yylength(), value);
 	}
 
 %}
