@@ -17,6 +17,7 @@ CERUTTI Marc :
 > création des environnements
 
 Liste de taches restantes:
+> desembiguiser la grammaire (regle priorité if else)
 > associer code aux noeuds de la grammaire
 > vérifier les priorités et conflits
 > écriture du code intermédiaire
