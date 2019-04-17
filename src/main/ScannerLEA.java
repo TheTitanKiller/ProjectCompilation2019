@@ -887,7 +887,9 @@ class ScannerLEA extends Scanner {
             // fall through
           case 89: break;
           case 34: 
-            { return newToken(Terminals.TOKEN_LIT_INTEGER, Integer.parseInt(yytext(), 16));
+            { String s = yytext();
+	s = s.replaceAll("0x", ""); 
+	return newToken(Terminals.TOKEN_LIT_INTEGER, Integer.parseInt( s, 16));
             } 
             // fall through
           case 90: break;
