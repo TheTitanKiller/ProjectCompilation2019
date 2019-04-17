@@ -1,5 +1,3 @@
 *** Fichier data/progr1.lea
-*** Erreur de syntaxe en ligne 10, colonne 1. Token inattendu: TOKEN_ELSE
-10,1-10,4: Recovered: removed unexpected token #56
 
 *** Analyse syntaxique ok
