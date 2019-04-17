@@ -1,0 +1,378 @@
+//////////////////////////////////////////////////
+// version 20190403
+// Difference avec version 20190401
+// - Case respecte plus la syntaxe Lea
+// - Quelques typos
+//////////////////////////////////////////////////
+
+%package "main";
+%class "Parser";
+%import "node.*";
+%import "type.*";
+%import "environment.*";
+%import "java.util.ArrayList";
+%import "java.util.Iterator";
+
+%embed {: 
+	static class Events extends beaver.Parser.Events {
+		public void syntaxError(Symbol token) {
+			System.err.format("*** Erreur de syntaxe en ligne %d, colonne %d. Token inattendu: %s\n",
+				Symbol.getLine(token.getStart()),
+				Symbol.getColumn(token.getStart()),
+				Terminals.NAMES[token.getId()]);
+		}
+	}
+	
+	public void semanticError(String msg, Symbol token) {
+			System.err.format("*** " + msg + " ligne %d, colonne %d\n",
+				Symbol.getLine(token.getStart()),
+				Symbol.getColumn(token.getStart()));
+		}
+		
+	private Environment typeEnvironment = new Environment("types");
+	private Environment procedureEnvironment = new Environment("procedures");
+	private StackEnvironment stackEnvironment = new StackEnvironment("local variables stack");
+	private String type_declaration_name;
+	
+:};
+
+%init {: 
+	report = new Events();
+:};
+
+// KEYWORDS
+%terminals TOKEN_TYPE, TOKEN_STRING, TOKEN_INTEGER, TOKEN_BOOLEAN, TOKEN_ARRAY, TOKEN_OF, TOKEN_STRUCT;
+%terminals TOKEN_VAR, TOKEN_PROCEDURE, TOKEN_FUNCTION, TOKEN_BEGIN, TOKEN_END, TOKEN_NEW, TOKEN_DISPOSE;
+%terminals TOKEN_PRINTLN, TOKEN_READLN, TOKEN_RETURN, TOKEN_IF, TOKEN_THEN, TOKEN_ELSE, TOKEN_WHILE, TOKEN_DO;
+%terminals TOKEN_SWITCH, TOKEN_CASE, TOKEN_DEFAULT;
+
+// PONCTS
+%terminals TOKEN_SEMIC, TOKEN_DOTDOT, TOKEN_COLON, TOKEN_COMMA;
+%terminals TOKEN_LPAR, TOKEN_RPAR, TOKEN_LBRACKET, TOKEN_RBRACKET, TOKEN_LBRACE, TOKEN_RBRACE;
+
+// OPERATORS
+%terminals TOKEN_AFF, TOKEN_CIRC;
+%terminals TOKEN_PLUS, TOKEN_MINUS, TOKEN_TIMES, TOKEN_DIV;
+%terminals TOKEN_AND, TOKEN_OR, TOKEN_NOT;
+%terminals TOKEN_LT, TOKEN_LE, TOKEN_GT, TOKEN_GE, TOKEN_EQ, TOKEN_NE;
+
+// LITERALS
+%terminals TOKEN_IDENTIFIER, TOKEN_LIT_INTEGER, TOKEN_LIT_STRING, TOKEN_TRUE, TOKEN_FALSE, TOKEN_NULL; 
+
+/***
+* A completer
+***/
+
+%goal program;
+
+/***
+* Semantique A completer
+*
+* Quelques astuces:
+*
+* a) ne mettez jamais de lettres accentuees, Beaver ne fonctionnerait pas
+*
+* b) quand vous souhaitez mettre du code avant la fin de la regle, 
+*     X= A {: je voudrais mettre du code ici :} B {: pour l'exploiter ici :}
+* utilisez une rege vide comme ceci:
+*
+*     X= A empty_X B {: pour l'exploiter ici  :} ;
+*     empty_X= {: je voudrais mettre du code ici :};
+*
+* c) pour implementer une liste, faites comme ceci:
+* xxx_list=
+*	xxx_list.list xxx.elt {: list.add(elt); return list; :}
+*	| xxx.elt {: MyList list = new MyList(); list.add(elt); return list; :}
+*	;
+*	
+*
+***/
+%goal program;
+
+program=
+	type_declaration_part
+	variable_declaration_part 
+	procedure_definition_part
+	TOKEN_BEGIN
+	statement_list
+	TOKEN_END
+	;
+	
+type_declaration_part= 
+	/* empty */	
+	| TOKEN_TYPE type_declaration_list
+	;
+	
+type_declaration_list=
+	type_declaration_list type_declaration
+	| type_declaration
+	;
+	
+type_declaration=
+	type_declaration_head TOKEN_AFF type TOKEN_SEMIC 
+	;
+	
+type_declaration_head=
+	TOKEN_IDENTIFIER
+	;
+	
+type=
+	simple_type
+	| named_type		
+	| index_type
+	| array_type
+	| pointer_type
+	| structure_type
+	;
+	
+simple_type=
+	TOKEN_STRING	
+	| TOKEN_INTEGER
+	| TOKEN_BOOLEAN
+	;
+	
+named_type=
+	TOKEN_IDENTIFIER
+	;
+	
+index_type=
+	enumerated_type
+	| subrange_type
+	;
+	
+enumerated_type=
+	init_enumerated_type TOKEN_LPAR identifier_list TOKEN_RPAR 
+	;
+	
+init_enumerated_type=
+	;
+
+subrange_type= 
+	TOKEN_LIT_INTEGER TOKEN_DOTDOT TOKEN_LIT_INTEGER 
+	| TOKEN_IDENTIFIER TOKEN_DOTDOT TOKEN_IDENTIFIER	
+	;
+	
+array_type=
+	TOKEN_ARRAY TOKEN_LBRACKET range_type TOKEN_RBRACKET TOKEN_OF type 
+	;
+	
+range_type=
+	enumerated_type
+	| subrange_type
+	| named_type	
+	;
+	
+pointer_type=
+	TOKEN_CIRC type
+	;
+	
+structure_type=
+	TOKEN_STRUCT TOKEN_LBRACE feature_list_type TOKEN_RBRACE
+	;
+	
+feature_list_type=
+	feature_list_type feature_type
+	| feature_type
+	;
+	
+feature_type=
+	TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_SEMIC
+	;
+	
+variable_declaration_part= 
+	/* empty */ 
+	| TOKEN_VAR variable_declaration_list 
+	;
+	
+variable_declaration_list=
+	variable_declaration_list variable_declaration
+	| variable_declaration
+	;
+	
+variable_declaration=
+	identifier_list TOKEN_COLON type TOKEN_SEMIC 	
+	;
+	
+identifier_list=
+	identifier_list TOKEN_COMMA TOKEN_IDENTIFIER
+	| TOKEN_IDENTIFIER
+	;
+	
+procedure_definition_part=
+	| procedure_definition_list
+	;
+	
+procedure_definition_list=
+	procedure_definition_list procedure_definition
+	| procedure_definition
+	;
+	
+procedure_definition=
+	procedure_definition_head block
+	| procedure_declaration_head TOKEN_SEMIC
+	;
+
+procedure_definition_head=
+	procedure_head 
+	;
+	
+procedure_declaration_head=
+	procedure_head 
+	;
+	
+procedure_head=
+	TOKEN_PROCEDURE TOKEN_IDENTIFIER TOKEN_LPAR argt_part TOKEN_RPAR 
+	| TOKEN_FUNCTION TOKEN_IDENTIFIER TOKEN_LPAR argt_part TOKEN_RPAR TOKEN_COLON type
+	;
+	
+argt_part=
+	/* empty */
+	| argt_list
+	;
+	
+argt_list=
+	argt_list TOKEN_COMMA argt
+	| argt
+	;
+	
+argt=
+	TOKEN_IDENTIFIER TOKEN_COLON type
+	;
+	
+block=
+	variable_declaration_part 
+	TOKEN_BEGIN
+	statement_list
+	TOKEN_END 					
+	;
+
+statement_list=
+	statement_list statement
+	| statement
+	;
+	
+statement=
+	simple_statement
+	| structured_statement
+	;
+	
+simple_statement=
+	assignment_statement
+	| procedure_statement
+	| new_statement
+	| dispose_statement
+	| println_statement
+	| readln_statement
+	| return_statement
+	;
+	
+assignment_statement=
+	variable_access TOKEN_AFF expression TOKEN_SEMIC
+	;
+	
+procedure_statement=
+	procedure_expression TOKEN_SEMIC
+	;
+	
+procedure_expression=
+	TOKEN_IDENTIFIER TOKEN_LPAR expression_part TOKEN_RPAR
+	;
+	
+expression_part=
+	/* empty */
+	| expression_list
+	;
+	
+expression_list=
+	expression_list TOKEN_COMMA expression
+	| expression
+	;
+	
+new_statement=
+	TOKEN_NEW variable_access TOKEN_SEMIC
+	;
+	
+dispose_statement=
+	TOKEN_DISPOSE variable_access TOKEN_SEMIC
+	;
+	
+println_statement=
+	TOKEN_PRINTLN expression TOKEN_SEMIC
+	;	
+	
+readln_statement=
+	TOKEN_READLN expression TOKEN_SEMIC
+	;
+	
+return_statement=
+	TOKEN_RETURN expression TOKEN_SEMIC
+	;
+	
+structured_statement=
+	block
+	| if_statement
+	| while_statement
+	| switch_statement
+	;
+	
+if_statement=
+	TOKEN_IF expression TOKEN_THEN statement
+	| TOKEN_IF expression TOKEN_THEN statement TOKEN_ELSE statement
+	;
+	
+while_statement=
+	TOKEN_WHILE expression TOKEN_DO statement
+	;
+	
+switch_statement=
+	TOKEN_SWITCH expression TOKEN_BEGIN case_statement_list TOKEN_END
+	;
+	
+case_statement_list=
+	case_statement_list case_statement case_default
+	| case_statement						
+	;
+	
+case_statement=
+	TOKEN_CASE identifier_list TOKEN_COLON statement 	
+	;
+	
+case_default=
+	/* empty */
+	| TOKEN_DEFAULT TOKEN_COLON statement
+	;
+		
+variable_access=
+	TOKEN_IDENTIFIER
+	| variable_access TOKEN_LBRACKET expression TOKEN_RBRACKET 
+	| expression TOKEN_CIRC 	
+	;
+	
+expression=
+	expression TOKEN_PLUS expression
+	| expression TOKEN_MINUS expression
+	| expression TOKEN_TIMES expression
+	| expression TOKEN_DIV expression
+	| TOKEN_MINUS expression
+	| expression TOKEN_OR expression
+	| expression TOKEN_AND expression
+	| TOKEN_NOT expression
+	| expression TOKEN_LT expression
+	| expression TOKEN_LE expression
+	| expression TOKEN_GT expression
+	| expression TOKEN_GE expression
+	| expression TOKEN_EQ expression
+	| expression TOKEN_NE expression
+	| TOKEN_LPAR expression TOKEN_RPAR
+	| procedure_expression
+	| variable_access
+	| literal
+	;
+	
+literal=
+	TOKEN_LIT_INTEGER
+	| TOKEN_LIT_STRING
+	| TOKEN_TRUE
+	| TOKEN_FALSE
+	| TOKEN_NULL
+	;
