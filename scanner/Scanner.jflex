@@ -31,7 +31,7 @@ import beaver.Scanner;
 
 %}
 
-Integer = [+-]?[0-9]+
+Integer = [0-9]+
 HexInteger = "0x"[0-9A-Fa-f]+
 Identifier = [a-zA-Z_][a-zA-Z0-9_]*
 String = "\""~"\""
@@ -62,6 +62,9 @@ BigComment = "/*"~"*/"
 "else" {return newToken(Terminals.TOKEN_ELSE);}
 "while" {return newToken(Terminals.TOKEN_WHILE);}
 "do" {return newToken(Terminals.TOKEN_DO);}
+"switch" {return newToken(Terminals.TOKEN_SWITCH);}
+"case" {return newToken(Terminals.TOKEN_CASE);}
+"default" {return newToken(Terminals.TOKEN_DEFAULT);}
 "return" {return newToken(Terminals.TOKEN_RETURN);}
 "new" {return newToken(Terminals.TOKEN_NEW);}
 "dispose" {return newToken(Terminals.TOKEN_DISPOSE);}
@@ -109,7 +112,7 @@ BigComment = "/*"~"*/"
 
 {Comment} | {BigComment} | \n | \s {}
 
-[^] {throw new Scanner.Exception("Unexpected character '" + yytext() + "'" + " line " + yyline + " colomn" + yycolumn + ".");}
+[.] {throw new Scanner.Exception("Unexpected character '" + yytext() + "'" + " line " + yyline + " colomn" + yycolumn + ".");}
 
 
 

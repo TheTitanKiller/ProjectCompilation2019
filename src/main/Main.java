@@ -8,7 +8,7 @@ import node.Node;
 public class Main
 {
     private static boolean checksType;
-    
+
     public static void main(String[] args) throws Exception
     {
 	for (String arg : args)
@@ -46,7 +46,7 @@ public class Main
 		    System.err.println("*** Erreur de syntaxe: " + arg + ":" + e.getMessage());
 		}
 	    }
-	    
+
 	}
     }
 }

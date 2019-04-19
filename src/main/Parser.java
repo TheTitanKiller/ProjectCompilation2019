@@ -15,45 +15,46 @@ import java.util.ArrayList;
 public class Parser extends beaver.Parser {
 
 	static final ParsingTables PARSING_TABLES = new ParsingTables(
-		"U9pjMNcSLcCKVkvIsHf4gJI9ecc4b4hBo4XDGxkKCg9Yr32sPCaMMKDKGlj6bAsc26alHNk" +
-		"49DcohzcLZkVUUxuxztxV$Rvy$VpY3z$ydlUSzzpdFUUyzxxlUyyjm2v1PrH2ExJ0#QY0cT" +
-		"WN#s5$783ooC21E0W7un0SYefeW5FH67beY3R8nnauKzx1Hgn3MTcQU0tNOWtwe1WTS1Qwe" +
-		"ZiAq0#LqGnD6MUKl8pLM8QNK6vFO#Ck#GgFeLUIs8yan4vazSOHE1BN9l5W9NW8PhfF6fcs" +
-		"zMQT94wPVopEwJZDcL5q796KSGhJY5CjvNoQfupJDuqurLF6oKqPvz8qujH86QTzoZZNf17" +
-		"dg9HnBaWPvxcaSJ8n3jFn9AQXbkukPrKVZgfu6hLH1yVYE9o04r45DN4qsSSegwMyXA6uCW" +
-		"axqsMtGXDanNar8tYPCeHPFi$UGELvxVN#g5D2eyxHNBBLTzsu68j2x7ELVRooweNPiYR4x" +
-		"gdi#iewASxt4n7vDrBEmxZAvrqTuYrLhoShSn5UmNnSvBCl3xBvX3rsZZxnDRY4JxYJp#uV" +
-		"aKDhzTmSP$ky0H6ypkYel2a#RqeahulBcu69oil4tI7U5RvzKiZUNEs7uQQGVHnkmH3SYnj" +
-		"nCmRXLjo6mRvjM8HjH8HjJ8HjIOHjPOHjGy2Mk8F#jwHhyTwWzyXgrTRoNNu$XcilCw0jm8" +
-		"FiUQlY0L#x3m$XTjo1EmFQI8oAj7kU7iLOrKPZF5TjBC84Qgimcv4UnmjuaJqRap5LFjD89" +
-		"P4#C#NJK6#RlvwVeUzCxSt1ow4pgPlkinugprDveSeYbPUfdCMy1ihRRbvBSGEUnLFSBvDa" +
-		"FURo55Z1Ks0U5c8nNiLhM8xhy3hUvDzwl078x$1#JgNJXDwQSM$by2nimMUHoxTrIxwpMt7" +
-		"dv$dFnE3vQd7sPL2MjP7pzizWfkVonCo8k5QPxzEgd5CrphOwvrU3Cup5CNdYD#REFPxxTq" +
-		"zZU$raiHian4va7Uk#jIedyP2JDFjqCusDYuwJyO$5AUQwS6OK7GTxQJvPUocEjPVYLFpFh" +
-		"uEshCJQipgByMErM3sjnIfeDLQ9Rqt3PrNXNp$T0ubimsLdanFlzS88di4QmydIO7teyRps" +
-		"F7zKdPIvnCSmqs9NIOjT495$Z5F4wZR6QnJYTOlpQh8cxiNwBRxkzTWP2VUweRkIOkoBK#I" +
-		"G5U3LJiapazolCAyxetiyWvLIa5VesxD3zYorrsKcGNjidNLajTYPtm9TM0t#MxR47VI$9L" +
-		"sBrtVUnPxclCkptDNaz8o0biqAkxokYZg#TXHh#Lgivey9QFKv9ihkUIhWYlAqscnDFq9NQ" +
-		"ZtvbUQiqDxyrYpFhnUJzZeQwT98dmQlXtknzToLemtjLVJtYTV6dmkxaqvUNRcZdRowCU$Q" +
-		"FDMo#LVHdO5p2bHnxSvzjFWjvMYcitT4K5VSdrlf06yDyYekYoWaCeWPn9L41MAxStrF09X" +
-		"RsVG4Z2sbDdwPmAn6EOlo2ChFYAl8EPnoCsK7sZ#b74ovdN8EOE$BzCwXP6vMBygMb4MKFI" +
-		"ZxKz9ctKZ9$AqxAFjH3kNuNPIFqCTFWVYERIAlxLDgCxgngK7veVO$8cSQETEJp6i#ETTxk" +
-		"bN2$dYrRs1$BcM9NbjAlQRggwatLVqjwfqqrcmsZnCTzHhlcTcNoYQzNbxjdzFEEHgvsl#1" +
-		"$H7iCvwnGUDtKKb$nW3LDn7lUxfz6SUnmZP$JUCPBkEOdM6RjOKDduVr3V41iKlzbz7hFrA" +
-		"lHQLHwHYRQydUZwYX$SP44$hNzMUt2N0h4Nc1VasY0Q7tpxwOk9npd1REonwiEO$MVdULpf" +
-		"ee9XxbjTQKTsgUN6TsZ3kGE27WQo8nYNok7ti8mNLhdnIupdjiJrNz9g8PCLBxWqfv1jS7t" +
-		"nImFd7wt7RBANhixhxl3lIp8pntw3CsAgXihNAWokagvwdSgFVAKbbEPLMLrLMUgBAXoZoL" +
-		"1V4vqTO$qOPhuZZt$9tvaJSkhZ#pLBTp0dfkG6yL5xiCCLIlvQjjiSfVrDxEaqQszdLVcYE" +
-		"9kgftAlLfz5HUK#fh0$aj$plpslsyZH41d#jLRWxOgd8jlHCUOsuBzwqlzoos7Lixm#FizT" +
-		"I#BVbOxsmBZCaFNFik8bRW6Pg$ntIkwoNEsHkOYvKu5Zm$PPTiXV#J5VAgB9EbiaGMoo9PA" +
-		"0jalioK6VASF2l3NCOycSoMErec4XE8ySHOOWmnYk3f8DpjyZ31foyF4UE8qUxu4J9SFKsH" +
-		"1#KnLvlhjY$A0p9KxfVxv5wPGzOhj0sJ5znhm#HvLyvssrbkMw8vlwRo6U9frP$oPpHTfie" +
-		"qL#D98#$B5hLlbj$aL$b5VfQVv4VPBZ$8z$8TxL$8j$9Du8xmVI6VgFwnVAJQ1og$9jwLJQ" +
-		"x#fNoerlTKFY5FEkUKEFVvJU8DsU3xNUUsgzpsTLc9m4$MoaQsVyfExVz1xA0oW5zYPVcD1" +
-		"i94NnS6ApkRjPt12ZeQdG9eHtHMjEUujlJLWJMBWxFekn$jCNIX$xF9AQ8iOh#0UWxvEUnV" +
-		"ui9WjUJKTnPXiAe3OR2UCmc35OlfmgdyUXDztFznAiUg2eJ1sieY3DPN5hykdN$jCGc3NyC" +
-		"UJas1qyXlINupIhwD2GF5z5DCUJfbAw8raKUq8N9f3oAVu$8vtpCepsHUXUGKqjwTVRuL2O" +
-		"iLea7OXCbwqOg3cKIFWk6ZUGIk#0ieG$4f");
+		"U9pjM7byLDKL$jxCeAZL5X9CWAXOgf00HKIhW94bh88nH0XX2uiXB062jJL2gyMbbbq9A20" +
+		"gH1GGaNtVGK14H44MaRPneLMqjXKjsbez$TwRavaxCs$6OOJwZyFlUsUvtxtdl7VlFVS6e4" +
+		"fTvE9It8gMw8VgM8CBS24kmezmCIx1Z$4JL4CIab43JT4ADw03haT7TC8jw4p#1gJXFAIY1" +
+		"Pgp$#Me8nNs4xLGofOxC0AtuNRaeIVwOAYsN8two413$1pNuFo4On$2OKOOWDe9nnuO4djr" +
+		"rDXFuNUOW8duBUx3MDoF1$0W$Y0VuraKXOomwWooz#00rkCcZh0Hcv427tuZ5J8EvPZ5xDT" +
+		"6P6$6gNe6SIfpdnhCdLzf1fRW8EEKd$KuqymuZ5GABr6AvM5neeymEoJJAYByIgN8Zfdfa0" +
+		"GotHCIfpMoq9zn1iUCCpo1E6#4n5cCN#9NZ7DNp3Xt9n3dQ4YSNsCU$vNYtfXnbfv1d4ZFE" +
+		"COPZyburDbluJCSkT#k9Ukd#1bgeej$pyhw6Anrt1$DqCxP7swiHnnMP5PtilzbMXCMeotQ" +
+		"uEOOKV9nXN8VYy7gZIkLDIi6gm1rbJKp1kigvJo99rnPhpYiDDHJNbSCmdQyvCejSRWtaPs" +
+		"kxASvwtDG72D#0sK#W#TYnc#alEvOYTUYn4$J#FCPrLyHexBa0vIXSR1MXx7IC0dJyH1#Zu" +
+		"UZZfI69jg$3ClahvZhoXbbZ5GkVt7bNAVZ#2EzwChPXDtyLuPVn9NpLjal#rquyUoZ6pN2D" +
+		"ZaW6#BgyOFd#$BuLqmq$nWiu8hPmNNZjqVBMwhjelznl6oic39MxaLOYEUflMhuzs8BzXbs" +
+		"K4j3fgwK$PY2rt5CrrjxzUOYHsKtH$PGVo#LVLKMgXocSgJA5Ih7o56yZSFo6YCSmLjuGVu" +
+		"Dy$TcGDk9UrIpisx6tYrO3J9PSLlo2xLcxSrY1Mx733i4lfJ5ku#Nzvqgl3UUxzmnRBx5Ib" +
+		"pPtpwHalLSIcLBBTxnx9f#EMjr7LRYy1EhEcjQeh5xywpw$yJkmbCtcoTa3YjwBi$9Rgoi$" +
+		"cnw9fpz89xY$LbjUlAKBsJ5AUAfaSmAc45cAi$ZyEmJZUEMUpAhQ3tMhbH6ExTnaXaZaqYD" +
+		"Y1F$2E1NIkKz#zncwkNTnixs#dCSfmdtz0sCC#GSnwb7dkUiVhT8JsF6yN1sherploMHLOD" +
+		"ts9H03ZLZiEpzKPChrDuVRgnqXnMPLGFwAiTlmWfPGcOykJIDY#M9YzKt1gkIay8vScFrqF" +
+		"SAygxXtye3NRd93hU#mVOomppUVBuzleVpzrtZMnhVvwmsUnwYizAfcRKwb6NnfbdNkMDV7" +
+		"NMaO4v9t4Nfhgl7uj#1mP4oNEVUChw17IdFbPFYl5FyETUCai#txwFWtALmZ7Xw$E3vlZn#" +
+		"Eve$Zpi$YNDOkHiAd0ffQpteB#QE3wwOf43bJY8dw6$4lpwyXXtKBADk3dCgl7#zLNhFbin" +
+		"ZrlRjodwFXboJ1MWenWz30re6XgjcPmqS7#k$K#u0h1g0RnPbCzfBYUhKi#tsHC3VTC1JZQ" +
+		"ZZjprz#BWCyAwcx4svYx8MvNxAVCgZb1cKxr0EeJn9C4VlAQ8LyHMHonnzb8MK5rFUJNafv" +
+		"JX$3DyLn46YFdrFK3PXtAR1dAnwz3MdhxtXku$SnPH3DS#wv6HHdd9$BszLSfjhl2xahLL$" +
+		"RThTQN#XRGNKYrGVJ7sqwgEeJzBO9NoyJ#HessYspQ4$XSWXRbJ$0$Ile3rSxOcqzz1#YBA" +
+		"5ZZLMfJsNSrN$a3Yfyp6RETQXVIJ#ERJ#nl5hX$bEyp63VdvRwnEEsKxVVun#lzk8QLHs1l" +
+		"juk1Pyz7dcgVqUSO9zsgZzfS7THt#QyRql81ZBsrPjpZ4unzQX8CTdvrD1L0tDrVUvvfogV" +
+		"UzI#IB1x#pTHemdRuhokTPyyrMVJCmnnjf2SCrw9r1k9LOI2upsOq2L2rL$b#2QybMkXHD1" +
+		"7kzxmAT4RzlcLdoPOgQPToBWE1yOCQxIRzbOfSwH9rzbiSfxLKvLkL3bPfK7L7wbtosm5gY" +
+		"tLDbTvSFXEV6zPqVwB0dZp8$d$SXR56OlCVGLXhx6q3U4zc7z1$PfsnRrPMbULwf$XzhwNh" +
+		"xTVkaH#lfeMrVZVSOhRpcH7VJxn$sku9WbnfZbAWyRxHsPM#UmzpmTQlldzynZUzFr7JSRy" +
+		"VPgZC9GhlMnBRaEAwAFvoa9jNszZFuPBlobHdk1qM#9VOOPRMMHVN6SsNmZ5GZyP8$ibbso" +
+		"KrwI7R9TjibMsIBBPPaibILIvZ0s4yyGvSHSWZL2dYAU97YU2Cz7cKcmtiZZn6CoXS#dYTb" +
+		"E$#aoJKTwHARAeuwsqNckayaoIIRA11alQydQH5#Ph77QocIr8rSvpvNESuNc$8fALYnPhF" +
+		"hpWJTQAC$A0aURH$nP$gJ#u$AbV26dvL$okNmcf#HJ#QVyW$wJydVvnFWYF1$aXEhlotkgl" +
+		"QEIrL$UbcEE$f6ygzu$gdnEvglsWYoogvWS8GuHRyh1G8GtdES#vxbNNeNnazVbC9zVot$L" +
+		"$W$1Knwb6CLxsY1gWtYZ6Uh0uft1v$mFKauKT3LmAv6ho6O$djEyjtaTtCwnXz5VYMuSlpi" +
+		"vnPJ5jFjIpoG$a$Pm1nPlLFPTqKjOA69R4UK8jesWx4Tfep$rEuX2Lfb2tZ87a3U0za3s6q" +
+		"ZPW$9cZfDFRZxjbefMCT26$2poMr3QTuKI#aPod96KRIdR4Us93aH7eZNz9ZgnNoU#Rq$O$" +
+		"$TbuHRApinlCBc3QVUYpRiMuULjCXoUABeRh02QE$0H7jvDhGZS#J$ga3Nw");
 
 	static final Action RETURN6 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
@@ -262,41 +263,43 @@ public class Parser extends beaver.Parser {
 			Action.RETURN,	// [79] structured_statement = if_statement
 			Action.RETURN,	// [80] structured_statement = while_statement
 			Action.RETURN,	// [81] structured_statement = switch_statement
-			RETURN4,	// [82] if_statement = TOKEN_IF expression TOKEN_THEN statement; returns 'statement' although none is marked
-			RETURN6,	// [83] if_statement = TOKEN_IF expression TOKEN_THEN statement TOKEN_ELSE statement; returns 'statement' although none is marked
-			RETURN4,	// [84] while_statement = TOKEN_WHILE expression TOKEN_DO statement; returns 'statement' although none is marked
-			RETURN5,	// [85] switch_statement = TOKEN_SWITCH expression TOKEN_BEGIN case_statement_list TOKEN_END; returns 'TOKEN_END' although none is marked
-			RETURN3,	// [86] case_statement_list = case_statement_list case_statement case_default; returns 'case_default' although none is marked
-			Action.RETURN,	// [87] case_statement_list = case_statement
-			RETURN4,	// [88] case_statement = TOKEN_CASE identifier_list TOKEN_COLON statement; returns 'statement' although none is marked
-			Action.NONE,  	// [89] case_default = 
-			RETURN3,	// [90] case_default = TOKEN_DEFAULT TOKEN_COLON statement; returns 'statement' although none is marked
-			Action.RETURN,	// [91] variable_access = TOKEN_IDENTIFIER
-			RETURN4,	// [92] variable_access = variable_access TOKEN_LBRACKET expression TOKEN_RBRACKET; returns 'TOKEN_RBRACKET' although none is marked
-			RETURN2,	// [93] variable_access = expression TOKEN_CIRC; returns 'TOKEN_CIRC' although none is marked
-			RETURN3,	// [94] expression = expression TOKEN_PLUS expression; returns 'expression' although none is marked
-			RETURN3,	// [95] expression = expression TOKEN_MINUS expression; returns 'expression' although none is marked
-			RETURN3,	// [96] expression = expression TOKEN_TIMES expression; returns 'expression' although none is marked
-			RETURN3,	// [97] expression = expression TOKEN_DIV expression; returns 'expression' although none is marked
-			RETURN2,	// [98] expression = TOKEN_MINUS expression; returns 'expression' although none is marked
-			RETURN3,	// [99] expression = expression TOKEN_OR expression; returns 'expression' although none is marked
-			RETURN3,	// [100] expression = expression TOKEN_AND expression; returns 'expression' although none is marked
-			RETURN2,	// [101] expression = TOKEN_NOT expression; returns 'expression' although none is marked
-			RETURN3,	// [102] expression = expression TOKEN_LT expression; returns 'expression' although none is marked
-			RETURN3,	// [103] expression = expression TOKEN_LE expression; returns 'expression' although none is marked
-			RETURN3,	// [104] expression = expression TOKEN_GT expression; returns 'expression' although none is marked
-			RETURN3,	// [105] expression = expression TOKEN_GE expression; returns 'expression' although none is marked
-			RETURN3,	// [106] expression = expression TOKEN_EQ expression; returns 'expression' although none is marked
-			RETURN3,	// [107] expression = expression TOKEN_NE expression; returns 'expression' although none is marked
-			RETURN3,	// [108] expression = TOKEN_LPAR expression TOKEN_RPAR; returns 'TOKEN_RPAR' although none is marked
-			Action.RETURN,	// [109] expression = procedure_expression
-			Action.RETURN,	// [110] expression = variable_access
-			Action.RETURN,	// [111] expression = literal
-			Action.RETURN,	// [112] literal = TOKEN_LIT_INTEGER
-			Action.RETURN,	// [113] literal = TOKEN_LIT_STRING
-			Action.RETURN,	// [114] literal = TOKEN_TRUE
-			Action.RETURN,	// [115] literal = TOKEN_FALSE
-			Action.RETURN	// [116] literal = TOKEN_NULL
+			RETURN4,	// [82] if_statement = TOKEN_IF expression TOKEN_THEN if2_statement; returns 'if2_statement' although none is marked
+			RETURN6,	// [83] if_statement = TOKEN_IF expression TOKEN_THEN if2_statement TOKEN_ELSE statement; returns 'statement' although none is marked
+			RETURN4,	// [84] if2_statement = TOKEN_IF expression TOKEN_THEN statement; returns 'statement' although none is marked
+			Action.RETURN,	// [85] if2_statement = statement
+			RETURN4,	// [86] while_statement = TOKEN_WHILE expression TOKEN_DO statement; returns 'statement' although none is marked
+			RETURN5,	// [87] switch_statement = TOKEN_SWITCH expression TOKEN_BEGIN case_statement_list TOKEN_END; returns 'TOKEN_END' although none is marked
+			RETURN3,	// [88] case_statement_list = case_statement_list case_statement case_default; returns 'case_default' although none is marked
+			Action.RETURN,	// [89] case_statement_list = case_statement
+			RETURN4,	// [90] case_statement = TOKEN_CASE identifier_list TOKEN_COLON statement; returns 'statement' although none is marked
+			Action.NONE,  	// [91] case_default = 
+			RETURN3,	// [92] case_default = TOKEN_DEFAULT TOKEN_COLON statement; returns 'statement' although none is marked
+			RETURN3,	// [93] expression = expression TOKEN_PLUS expression; returns 'expression' although none is marked
+			RETURN3,	// [94] expression = expression TOKEN_MINUS expression; returns 'expression' although none is marked
+			RETURN3,	// [95] expression = expression TOKEN_TIMES expression; returns 'expression' although none is marked
+			RETURN3,	// [96] expression = expression TOKEN_DIV expression; returns 'expression' although none is marked
+			RETURN2,	// [97] expression = TOKEN_MINUS expression; returns 'expression' although none is marked
+			RETURN3,	// [98] expression = expression TOKEN_OR expression; returns 'expression' although none is marked
+			RETURN3,	// [99] expression = expression TOKEN_AND expression; returns 'expression' although none is marked
+			RETURN2,	// [100] expression = TOKEN_NOT expression; returns 'expression' although none is marked
+			RETURN3,	// [101] expression = expression TOKEN_LT expression; returns 'expression' although none is marked
+			RETURN3,	// [102] expression = expression TOKEN_LE expression; returns 'expression' although none is marked
+			RETURN3,	// [103] expression = expression TOKEN_GT expression; returns 'expression' although none is marked
+			RETURN3,	// [104] expression = expression TOKEN_GE expression; returns 'expression' although none is marked
+			RETURN3,	// [105] expression = expression TOKEN_EQ expression; returns 'expression' although none is marked
+			RETURN3,	// [106] expression = expression TOKEN_NE expression; returns 'expression' although none is marked
+			RETURN3,	// [107] expression = TOKEN_LPAR expression TOKEN_RPAR; returns 'TOKEN_RPAR' although none is marked
+			Action.RETURN,	// [108] expression = procedure_expression
+			Action.RETURN,	// [109] expression = variable_access
+			Action.RETURN,	// [110] expression = literal
+			Action.RETURN,	// [111] variable_access = TOKEN_IDENTIFIER
+			RETURN4,	// [112] variable_access = variable_access TOKEN_LBRACKET expression TOKEN_RBRACKET; returns 'TOKEN_RBRACKET' although none is marked
+			RETURN2,	// [113] variable_access = expression TOKEN_CIRC; returns 'TOKEN_CIRC' although none is marked
+			Action.RETURN,	// [114] literal = TOKEN_LIT_INTEGER
+			Action.RETURN,	// [115] literal = TOKEN_LIT_STRING
+			Action.RETURN,	// [116] literal = TOKEN_TRUE
+			Action.RETURN,	// [117] literal = TOKEN_FALSE
+			Action.RETURN	// [118] literal = TOKEN_NULL
 		};
 
  
