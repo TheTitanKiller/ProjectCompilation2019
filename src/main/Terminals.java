@@ -18,17 +18,17 @@ public class Terminals {
 	static public final short TOKEN_TIMES = 10;
 	static public final short TOKEN_DIV = 11;
 	static public final short TOKEN_PLUS = 12;
-	static public final short TOKEN_LT = 13;
-	static public final short TOKEN_LE = 14;
-	static public final short TOKEN_GT = 15;
-	static public final short TOKEN_GE = 16;
-	static public final short TOKEN_EQ = 17;
-	static public final short TOKEN_NE = 18;
-	static public final short TOKEN_CIRC = 19;
-	static public final short TOKEN_BEGIN = 20;
-	static public final short TOKEN_OR = 21;
-	static public final short TOKEN_AND = 22;
-	static public final short TOKEN_SEMIC = 23;
+	static public final short TOKEN_CIRC = 13;
+	static public final short TOKEN_OR = 14;
+	static public final short TOKEN_AND = 15;
+	static public final short TOKEN_BEGIN = 16;
+	static public final short TOKEN_SEMIC = 17;
+	static public final short TOKEN_LT = 18;
+	static public final short TOKEN_LE = 19;
+	static public final short TOKEN_GT = 20;
+	static public final short TOKEN_GE = 21;
+	static public final short TOKEN_EQ = 22;
+	static public final short TOKEN_NE = 23;
 	static public final short TOKEN_VAR = 24;
 	static public final short TOKEN_RPAR = 25;
 	static public final short TOKEN_IF = 26;
@@ -53,11 +53,11 @@ public class Terminals {
 	static public final short TOKEN_FUNCTION = 45;
 	static public final short TOKEN_PROCEDURE = 46;
 	static public final short TOKEN_DOTDOT = 47;
-	static public final short TOKEN_THEN = 48;
-	static public final short TOKEN_CASE = 49;
-	static public final short TOKEN_OF = 50;
-	static public final short TOKEN_LBRACE = 51;
-	static public final short TOKEN_RBRACE = 52;
+	static public final short TOKEN_CASE = 48;
+	static public final short TOKEN_OF = 49;
+	static public final short TOKEN_LBRACE = 50;
+	static public final short TOKEN_RBRACE = 51;
+	static public final short TOKEN_THEN = 52;
 	static public final short TOKEN_ELSE = 53;
 	static public final short TOKEN_DO = 54;
 	static public final short TOKEN_DEFAULT = 55;
@@ -77,17 +77,17 @@ public class Terminals {
 		"TOKEN_TIMES",
 		"TOKEN_DIV",
 		"TOKEN_PLUS",
+		"TOKEN_CIRC",
+		"TOKEN_OR",
+		"TOKEN_AND",
+		"TOKEN_BEGIN",
+		"TOKEN_SEMIC",
 		"TOKEN_LT",
 		"TOKEN_LE",
 		"TOKEN_GT",
 		"TOKEN_GE",
 		"TOKEN_EQ",
 		"TOKEN_NE",
-		"TOKEN_CIRC",
-		"TOKEN_BEGIN",
-		"TOKEN_OR",
-		"TOKEN_AND",
-		"TOKEN_SEMIC",
 		"TOKEN_VAR",
 		"TOKEN_RPAR",
 		"TOKEN_IF",
@@ -112,11 +112,11 @@ public class Terminals {
 		"TOKEN_FUNCTION",
 		"TOKEN_PROCEDURE",
 		"TOKEN_DOTDOT",
-		"TOKEN_THEN",
 		"TOKEN_CASE",
 		"TOKEN_OF",
 		"TOKEN_LBRACE",
 		"TOKEN_RBRACE",
+		"TOKEN_THEN",
 		"TOKEN_ELSE",
 		"TOKEN_DO",
 		"TOKEN_DEFAULT",

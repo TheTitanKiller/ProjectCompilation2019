@@ -67,9 +67,10 @@
 %right TOKEN_TIMES, TOKEN_DIV;
 %right TOKEN_PLUS, TOKEN_MINUS;
 
-%right TOKEN_LT, TOKEN_LE, TOKEN_GT, TOKEN_GE, TOKEN_EQ, TOKEN_NE;
-%right TOKEN_NOT;
 %left TOKEN_AND, TOKEN_OR;
+%right TOKEN_NOT;
+%left TOKEN_LT, TOKEN_LE, TOKEN_GT, TOKEN_GE, TOKEN_EQ, TOKEN_NE;
+
 
 %right TOKEN_IF, TOKEN_THEN, TOKEN_ELSE;
 
@@ -324,13 +325,8 @@ structured_statement=
 	;
 	
 if_statement=
-	TOKEN_IF expression TOKEN_THEN if2_statement 
-	| TOKEN_IF expression TOKEN_THEN if2_statement TOKEN_ELSE statement
-	;
-
-if2_statement=
-	TOKEN_IF expression TOKEN_THEN statement 
-	| statement
+	TOKEN_IF expression TOKEN_THEN statement TOKEN_ELSE statement
+	| TOKEN_IF expression TOKEN_THEN statement 
 	;
 	
 while_statement=
@@ -354,6 +350,12 @@ case_default=
 	/* empty */
 	| TOKEN_DEFAULT TOKEN_COLON statement
 	;
+		
+variable_access=
+	TOKEN_IDENTIFIER
+	| variable_access TOKEN_LBRACKET expression TOKEN_RBRACKET 
+	| expression TOKEN_CIRC 	
+	;
 	
 expression=
 	expression TOKEN_PLUS expression
@@ -374,12 +376,6 @@ expression=
 	| procedure_expression
 	| variable_access
 	| literal
-	;
-
-variable_access=
-	TOKEN_IDENTIFIER
-	| variable_access TOKEN_LBRACKET expression TOKEN_RBRACKET 
-	| expression TOKEN_CIRC 	
 	;
 	
 literal=
