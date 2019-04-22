@@ -6,10 +6,15 @@ import node.Node;
 import type.Type;
 
 //TODO Used but no idea why
-public class StackEnvironment
+public class StackEnvironment implements EnvironmentInterface
 {
-String name_environment;
-    List<HashMap<String, NodeId>> stack = new LinkedList<>();
+    String name_stack;
+    LinkedList<Environment> stack = new LinkedList<>();
+
+    StackEnvironment(String name_stack)
+    {
+      this.name_stack = name_stack;
+    }
     /**
      * @param string
      */
@@ -18,4 +23,15 @@ String name_environment;
       this.name_environment = name_environment;
     }
 
+    PushEnvironment(String name_environment);
+
+    Environment PopEnvironment();
+
+    NodeId getVariable(String variable);
+
+    void putVariable(String var, NodeId value);
+
+    void backTrace();
+
+    void toString();
 }
