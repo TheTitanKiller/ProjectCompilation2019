@@ -6,7 +6,11 @@ import type.Type;
 //TODO Make it more flexible
 public interface EnvironmentInterface
 {
-    Pair<Type, Node> getVariableValue(String variable);
-    
-    void putVariable(String var, Type type, Node value);
+    NodeId getVariable(String variable);
+
+    void putVariable(String var, NodeId value);
+
+    void backTrace();
+
+    void toString();
 }
