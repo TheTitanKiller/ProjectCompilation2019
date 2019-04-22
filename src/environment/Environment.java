@@ -10,30 +10,32 @@ import type.Type;
 public class Environment implements EnvironmentInterface
 {
 
-    HashMap<String, Pair<Type, Node>> tableId = new HashMap<>();
+    String name_environment;
+    HashMap<String, NodeId> tableId = new HashMap<>();
 
     //TODO See why a string
-    public Environment(String string)
+    public Environment(String name_environment)
     {
+      this.name_environment = name_environment;
     }
 
     public void backTrace()
     {
-	for (String key : this.tableId.keySet())
-	{
-	    System.out.println(key + ": " + getVariableValue(key));
-	}
+        for (String key : this.tableId.keySet())
+        {
+            System.out.println(key + ": " + getVariableValue(key));
+        }
     }
 
     //TODO See the implementation for variable value, only a start.
-    @Override public Pair<Type, Node> getVariableValue(String variable)
+    @Override public NodeId getVariable(String variable)
     {
-	return this.tableId.get(variable);
+	    return this.tableId.get(variable);
     }
 
-    @Override public void putVariable(String var, Type type, Node value)
+    @Override public void putVariable(String var, Type type, NodeId value)
     {
-	this.tableId.put(var, new Pair<Type, Node>(type, value));
+	    this.tableId.put(var,  NodeId);
     }
 
 }
