@@ -113,12 +113,12 @@ type_declaration_part=
 	;
 	
 type_declaration_list=
-	type_declaration_list type_declaration
-	| type_declaration
+	type_declaration_list type_declaration.elt {: list.add(elt); return list; :}
+	| type_declaration.elt {: MyList list = new MyList(); list.add(elt); return list; :}
 	;
 	
 type_declaration=
-	type_declaration_head TOKEN_AFF type TOKEN_SEMIC 
+	type_declaration_head TOKEN_AFF type TOKEN_SEMIC
 	;
 	
 type_declaration_head=
@@ -272,11 +272,11 @@ simple_statement=
 	| dispose_statement
 	| println_statement
 	| readln_statement
-	| return_statement
+	| return_statement.r {: return NodeReturn(r); :}
 	;
 	
 assignment_statement=
-	variable_access TOKEN_AFF expression TOKEN_SEMIC
+	variable_access.v TOKEN_AFF expression.e TOKEN_SEMIC {: return NodeAssign(v, e); :}
 	;
 	
 procedure_statement=
@@ -381,7 +381,10 @@ expression=
 literal=
 	TOKEN_LIT_INTEGER
 	| TOKEN_LIT_STRING
-	| TOKEN_TRUE
-	| TOKEN_FALSE
-	| TOKEN_NULL
+	| TOKEN_TRUE {: return true; :}
+	| TOKEN_FALSE {: return false; :}
+	| TOKEN_NULL {: return Null; :}
 	;
+
+	
+	
