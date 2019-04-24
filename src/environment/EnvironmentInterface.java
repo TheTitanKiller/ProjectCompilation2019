@@ -1,12 +1,13 @@
 package environment;
 
-import node.Node;
-import type.Type;
+import node.NodeId;
 
 //TODO Make it more flexible
 public interface EnvironmentInterface
 {
-    Pair<Type, Node> getVariableValue(String variable);
+    void backtrace();
     
-    void putVariable(String var, Type type, Node value);
+    NodeId getVariable(String variable) throws Exception;
+    
+    void putVariable(String var, NodeId value) throws Exception;
 }
