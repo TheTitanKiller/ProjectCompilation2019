@@ -12,12 +12,20 @@ public class Environment implements EnvironmentInterface
     String name_environment;
     HashMap<String, NodeId> tableId = new HashMap<>();
     
-    //TODO See why a string
+    /**
+     * Crée un environement.
+     *
+     * @param name_environment
+     *        son nom.
+     */
     public Environment(String name_environment)
     {
 	this.name_environment = name_environment;
     }
     
+    /**
+     * Permet d'afficher tout les noeuds enregistré à un instant donné.
+     */
     @Override public void backtrace()
     {
 	System.err.println(this);
