@@ -249,7 +249,13 @@ public class Parser extends beaver.Parser {
 			Action.RETURN,	// [62] simple_statement = dispose_statement
 			Action.RETURN,	// [63] simple_statement = println_statement
 			Action.RETURN,	// [64] simple_statement = readln_statement
-			Action.RETURN,	// [65] simple_statement = return_statement.r
+			new Action() {	// [65] simple_statement = return_statement.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_r = _symbols[offset + 1];
+					final NodeReturn r = (NodeReturn) _symbol_r.value;
+					 return new NodeReturn(r);
+				}
+			},
 			RETURN3,	// [66] assignment_statement = variable_access.v TOKEN_AFF expression.e TOKEN_SEMIC; returns 'e' although more are marked
 			RETURN2,	// [67] procedure_statement = procedure_expression TOKEN_SEMIC; returns 'TOKEN_SEMIC' although none is marked
 			RETURN4,	// [68] procedure_expression = TOKEN_IDENTIFIER TOKEN_LPAR expression_part TOKEN_RPAR; returns 'TOKEN_RPAR' although none is marked

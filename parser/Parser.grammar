@@ -135,7 +135,7 @@
 %typeof case_statement             ="Node";
 %typeof case_default 	           ="Node";
 %typeof variable_access            ="Node";
-%typeof expression                 ="Node";
+%typeof expression                 ="NodeExp";
 %typeof literal                    ="NodeLiteral";
 
 %typeof TOKEN_LIT_INTEGER 		  = "Integer";
@@ -317,11 +317,11 @@ simple_statement=
 	| dispose_statement
 	| println_statement
 	| readln_statement
-	| return_statement.r {: return NodeReturn(r); :}
+	| return_statement.r {: return new NodeReturn(r); :}
 	;
 	
 assignment_statement=
-	variable_access.v TOKEN_AFF expression.e TOKEN_SEMIC {: return NodeAssign(v, e); :} /*TODO env*/
+	variable_access.v TOKEN_AFF expression.e TOKEN_SEMIC /*{: return new NodeAssign(v, e); :}*/ /*TODO env*/
 	;
 	
 procedure_statement=
