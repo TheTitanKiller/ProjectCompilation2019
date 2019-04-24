@@ -2,7 +2,6 @@ package environment;
 
 import node.NodeId;
 
-//TODO Make it more flexible
 public interface EnvironmentInterface
 {
     /**
@@ -10,7 +9,7 @@ public interface EnvironmentInterface
      * instant donné.
      */
     void backtrace();
-    
+
     /**
      * Permet de récupérer le noeud correspondant à une variable enregistre dans
      * l'environnement.
@@ -23,7 +22,7 @@ public interface EnvironmentInterface
      *         Si la variable n'a pas été initialisé.
      */
     NodeId getVariable(String variable) throws Exception;
-    
+
     /**
      * Permet de mettre le noeud correspondant à une variable àenregistrer dans
      * l'environnement.

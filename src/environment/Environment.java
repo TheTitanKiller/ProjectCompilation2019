@@ -8,12 +8,12 @@ import node.NodeId;
 
 public class Environment implements EnvironmentInterface
 {
-    
+
     String name_environment;
     HashMap<String, NodeId> tableId = new HashMap<>();
-    
+
     /**
-     * Crée un environement.
+     * Créer un environement.
      *
      * @param name_environment
      *        son nom.
@@ -22,9 +22,9 @@ public class Environment implements EnvironmentInterface
     {
 	this.name_environment = name_environment;
     }
-    
+
     /**
-     * Permet d'afficher tout les noeuds enregistré à un instant donné.
+     * @see EnvironmentInterface
      */
     @Override public void backtrace()
     {
@@ -43,7 +43,10 @@ public class Environment implements EnvironmentInterface
 	}
 	System.err.println(">");
     }
-    
+
+    /**
+     * @see EnvironmentInterface
+     */
     @Override public NodeId getVariable(String variable) throws Exception
     {
 	NodeId el = this.tableId.get(variable);
@@ -51,7 +54,10 @@ public class Environment implements EnvironmentInterface
 	{ return el; }
 	throw new Exception("Variable " + variable + " not initialised in " + this + ".");
     }
-    
+
+    /**
+     * @see EnvironmentInterface
+     */
     @Override public void putVariable(String var, NodeId value) throws Exception
     {
 	NodeId el = this.tableId.put(var, value);
@@ -59,10 +65,13 @@ public class Environment implements EnvironmentInterface
 	{ return; }
 	throw new Exception("Variable " + var + " already initialised in " + this + ".");
     }
-    
+
+    /**
+     * @see EnvironmentInterface
+     */
     @Override public String toString()
     {
 	return getClass().getSimpleName() + "::" + this.name_environment;
     }
-
+    
 }
