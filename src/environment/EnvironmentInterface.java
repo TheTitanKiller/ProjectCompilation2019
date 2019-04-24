@@ -7,7 +7,7 @@ public interface EnvironmentInterface
 {
     void backtrace();
     
-    NodeId getVariable(String variable);
+    NodeId getVariable(String variable) throws Exception;
     
-    void putVariable(String var, NodeId value);
+    void putVariable(String var, NodeId value) throws Exception;
 }

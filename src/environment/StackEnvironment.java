@@ -8,12 +8,12 @@ public class StackEnvironment implements EnvironmentInterface
 {
     String name_stack;
     LinkedList<Environment> stack = new LinkedList<>();
-
+    
     public StackEnvironment(String name_stack)
     {
 	this.name_stack = name_stack;
     }
-
+    
     @Override public void backtrace()
     {
 	System.err.println(this);
@@ -26,29 +26,40 @@ public class StackEnvironment implements EnvironmentInterface
 	}
 	System.err.println("**");
     }
-
-    @Override public NodeId getVariable(String variable)
-    {
-	return this.stack.getFirst().getVariable(variable);
-    }
     
+    @Override public NodeId getVariable(String variable) throws Exception
+    {
+	for (Environment e : this.stack)
+	{
+	    try
+	    {
+		NodeId el = e.getVariable(variable);
+		return el;
+	    }
+	    catch (Exception err)
+	    {
+	    }
+	}
+	throw new Exception("Variable " + variable + " not initialised in " + this + ".");
+    }
+
     public Environment PopEnvironment()
     {
 	return this.stack.removeFirst();
     }
-    
+
     public void PushEnvironment(String name_environment)
     {
 	this.stack.push(new Environment(name_environment));
     }
-    
-    @Override public void putVariable(String var, NodeId value)
+
+    @Override public void putVariable(String var, NodeId value) throws Exception
     {
 	this.stack.getFirst().putVariable(var, value);
     }
 
     @Override public String toString()
     {
-	return getClass().getSimpleName() + " : " + this.name_stack;
+	return getClass().getSimpleName() + "::" + this.name_stack;
     }
 }
