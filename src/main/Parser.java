@@ -106,7 +106,10 @@ public class Parser extends beaver.Parser {
 			Symbol.getLine(token.getStart()),
 			Symbol.getColumn(token.getStart()));
 	}
-		
+	
+	/*
+	 * Environnements disponibles pour la gestion des types complexes, des variables et des fonctions.
+	 */
 	private Environment typeEnvironment = new Environment("types");
 	private Environment procedureEnvironment = new Environment("procedures");
 	private StackEnvironment stackEnvironment = new StackEnvironment("local_variables_stack");
