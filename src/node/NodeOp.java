@@ -9,7 +9,7 @@ public class NodeOp extends NodeExp
     {
 	super(op);
 	this.name = name;
-	// le type d'un opérateur 
+	// le type d'un opérateur
 	NodeExp exprFct = (NodeExp) get(0);
 	this.type = exprFct.type;
     }
@@ -20,7 +20,7 @@ public class NodeOp extends NodeExp
     {
 	super(op1, op2);
 	this.name = name;
-	// le type d'un opérateur 
+	// le type d'un opérateur
 	NodeExp exprFct = (NodeExp) get(1);
 	this.type = exprFct.type;
     }
@@ -28,7 +28,8 @@ public class NodeOp extends NodeExp
     @Override public boolean checksType()
     {
 	super.checksType();
-	if (super.size() > 1 && getOp2() != null && !getOp1().getType().equals(getOp2().getType())) { return false; }
+	if (super.size() > 1 && getOp2() != null && !getOp1().getType().equals(getOp2().getType()))
+	{ return false; }
 	return true;
     }
     
@@ -38,14 +39,20 @@ public class NodeOp extends NodeExp
 	{
 	    return new NodeOp(this.name, (NodeExp) getOp1().clone());
 	}
-	else if (size() == 2) { return new NodeOp(this.name, (NodeExp) getOp1().clone(), (NodeExp) getOp2().clone()); }
+	else if (size() == 2)
+	{ return new NodeOp(this.name, (NodeExp) getOp1().clone(), (NodeExp) getOp2().clone()); }
 	return null;
     };
+    
+    public String getNameOp()
+    {
+	return this.name;
+    }
     
     private NodeExp getOp1()
     {
 	return (NodeExp) get(0);
-    }
+    };
     
     private NodeExp getOp2()
     {

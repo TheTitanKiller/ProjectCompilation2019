@@ -6,8 +6,8 @@ package main;
  */
 public class Terminals {
 	static public final short EOF = 0;
-	static public final short TOKEN_MINUS = 1;
-	static public final short TOKEN_IDENTIFIER = 2;
+	static public final short TOKEN_IDENTIFIER = 1;
+	static public final short TOKEN_MINUS = 2;
 	static public final short TOKEN_LPAR = 3;
 	static public final short TOKEN_LIT_INTEGER = 4;
 	static public final short TOKEN_NOT = 5;
@@ -65,8 +65,8 @@ public class Terminals {
 
 	static public final String[] NAMES = {
 		"EOF",
-		"TOKEN_MINUS",
 		"TOKEN_IDENTIFIER",
+		"TOKEN_MINUS",
 		"TOKEN_LPAR",
 		"TOKEN_LIT_INTEGER",
 		"TOKEN_NOT",
