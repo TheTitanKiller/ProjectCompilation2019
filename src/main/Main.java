@@ -7,7 +7,8 @@ import node.Node;
 
 public class Main
 {
-    private static boolean checksType;
+    private static boolean checksType = false;
+    private static boolean backtrace = false;
 
     public static void main(String[] args) throws Exception
     {
@@ -15,9 +16,18 @@ public class Main
 	{
 	    if (arg.charAt(0) == '-')
 	    {
-		if (arg.equals("-checkType"))
+		if (arg.equals("-checktype"))
 		{
 		    checksType = true;
+		}
+		if (arg.equals("-backtrace"))
+		{
+		    backtrace = true;
+		}
+		if (arg.equals("-all"))
+		{
+		    checksType = true;
+		    backtrace = true;
 		}
 	    }
 	    else
@@ -40,6 +50,13 @@ public class Main
 			    System.err.println("*** Typage correct");
 			}
 		    }
+		    if (backtrace)
+		    {
+			System.err.println("*** Backtrace");
+			parser.backtrace();
+			System.err.println("*** End backtrace");
+		    }
+
 		}
 		catch (beaver.Parser.Exception e)
 		{
