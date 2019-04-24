@@ -78,31 +78,69 @@
 %right TOKEN_NOT;
 %left TOKEN_LT, TOKEN_LE, TOKEN_GT, TOKEN_GE, TOKEN_EQ, TOKEN_NE;
 
-
 %right TOKEN_IF, TOKEN_THEN, TOKEN_ELSE;
 
-/***
-* Semantique A completer
-*
-* Quelques astuces:
-*
-* a) ne mettez jamais de lettres accentuees, Beaver ne fonctionnerait pas
-*
-* b) quand vous souhaitez mettre du code avant la fin de la regle, 
-*     X= A {: je voudrais mettre du code ici :} B {: pour l'exploiter ici :}
-* utilisez une regle vide comme ceci:
-*
-*     X= A empty_X B {: pour l'exploiter ici  :} ;
-*     empty_X= {: je voudrais mettre du code ici :};
-*
-* c) pour implementer une liste, faites comme ceci:
-* xxx_list=
-*	xxx_list.list xxx.elt {: list.add(elt); return list; :}
-*	| xxx.elt {: MyList list = new MyList(); list.add(elt); return list; :}
-*	;
-*	
-*
-***/
+//TYPES
+
+//TODO to change each if needed
+%typeof program	                   ="Node";
+%typeof type_declaration_part      ="Node";
+%typeof type_declaration_list      ="Node";
+%typeof type_declaration           ="Node";
+%typeof type_declaration_head      ="Node";
+%typeof type                       ="Node";
+%typeof simple_type                ="Node";
+%typeof named_type                 ="Node";
+%typeof index_type                 ="Node";
+%typeof enumerated_type            ="Node";
+%typeof init_enumerated_type       ="Node";
+%typeof subrange_type              ="Node";
+%typeof array_type                 ="Node";
+%typeof range_type                 ="Node";
+%typeof pointer_type               ="Node";
+%typeof structure_type             ="Node";
+%typeof feature_list_type          ="Node";
+%typeof feature_type               ="Node";
+%typeof variable_declaration_part  ="Node";
+%typeof variable_declaration_list  ="Node";
+%typeof variable_declaration       ="Node";
+%typeof identifier_list            ="Node";
+%typeof procedure_definition_part  ="Node";
+%typeof procedure_definition_list  ="Node";
+%typeof procedure_definition       ="Node";
+%typeof procedure_definition_head  ="Node";
+%typeof procedure_declaration_head ="Node";
+%typeof procedure_head             ="Node";
+%typeof argt_part                  ="Node";
+%typeof argt_list                  ="Node";
+%typeof argt                       ="Node";
+%typeof block                      ="Node";
+%typeof statement_list             ="Node";
+%typeof statement                  ="Node";
+%typeof simple_statement           ="Node";
+%typeof assignment_statement       ="NodeAssign";
+%typeof procedure_statement        ="Node";
+%typeof procedure_expression       ="Node";
+%typeof expression_part            ="Node";
+%typeof expression_list            ="Node";
+%typeof new_statement              ="Node";
+%typeof dispose_statement          ="Node";
+%typeof println_statement          ="Node";
+%typeof readln_statement           ="Node";
+%typeof return_statement           ="NodeReturn";
+%typeof structured_statement       ="Node";
+%typeof if_statement               ="Node";
+%typeof while_statement            ="Node";
+%typeof case_statement_list        ="Node";
+%typeof case_statement             ="Node";
+%typeof case_default 	           ="Node";
+%typeof variable_access            ="Node";
+%typeof expression                 ="Node";
+%typeof literal                    ="NodeLiteral";
+
+%typeof TOKEN_LIT_INTEGER 		  = "Integer";
+%typeof TOKEN_LIT_STRING 		  = "String";
+
 %goal program;
 
 program=
@@ -120,8 +158,8 @@ type_declaration_part=
 	;
 	
 type_declaration_list=
-	type_declaration_list type_declaration.elt {: list.add(elt); return list; :}
-	| type_declaration.elt {: MyList list = new MyList(); list.add(elt); return list; :}
+	type_declaration_list type_declaration.elt
+	| type_declaration.elt
 	;
 	
 type_declaration=
@@ -279,11 +317,11 @@ simple_statement=
 	| dispose_statement
 	| println_statement
 	| readln_statement
-	| return_statement.r {: return NodeReturn(r); :}
+	| return_statement.r /*{: return NodeReturn(r); :}*/
 	;
 	
 assignment_statement=
-	variable_access.v TOKEN_AFF expression.e TOKEN_SEMIC {: return NodeAssign(v, e); :}
+	variable_access.v TOKEN_AFF expression.e TOKEN_SEMIC /*{: return NodeAssign(v, e); :}*/
 	;
 	
 procedure_statement=
@@ -386,11 +424,11 @@ expression=
 	;
 	
 literal=
-	TOKEN_LIT_INTEGER
-	| TOKEN_LIT_STRING
-	| TOKEN_TRUE {: return true; :}
-	| TOKEN_FALSE {: return false; :}
-	| TOKEN_NULL {: return Null; :}
+	TOKEN_LIT_INTEGER.val {: return new NodeLiteral(new TypeInt(), val); :}
+	| TOKEN_LIT_STRING.str {: return new NodeLiteral(new TypeString(), str); :}
+	| TOKEN_TRUE {: return new NodeLiteral(new TypeBoolean(), true); :}
+	| TOKEN_FALSE {: return new NodeLiteral(new TypeBoolean(), false); :}
+	| TOKEN_NULL {: return new NodeLiteral(null, null); :}
 	;
 
 	
