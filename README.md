@@ -9,6 +9,7 @@ AMEEUW Vincent :
 > création et complétion du scanner .jflex
 
 BARRERE Louis-Gabriel :
+> remplissage du .grammar (partie Node)
 
 CAPDORDY Maxime :
 

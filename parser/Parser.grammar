@@ -403,20 +403,20 @@ variable_access=
 	;
 	
 expression=
-	expression.e1 TOKEN_PLUS expression.e2 {: return nodeOp(e1, e2); :}
-	| expression.e1 TOKEN_MINUS expression.e2 {: return nodeOp(e1, e2); :}
-	| expression.e1 TOKEN_TIMES expression.e2 {: return nodeOp(e1, e2); :}
-	| expression.e1 TOKEN_DIV expression.e2 {: return nodeOp(e1, e2); :}
-	| TOKEN_MINUS expression
-	| expression.e1 TOKEN_OR expression.e2 {: return nodeOp(e1, e2); :}
-	| expression.e1 TOKEN_AND expression.e2 {: return nodeOp(e1, e2); :}
-	| TOKEN_NOT expression
-	| expression.e1 TOKEN_LT expression.e2 {: return nodeOp(e1, e2); :}
-	| expression.e1 TOKEN_LE expression.e2 {: return nodeOp(e1, e2); :}
-	| expression.e1 TOKEN_GT expression.e2 {: return nodeOp(e1, e2); :}
-	| expression.e1 TOKEN_GE expression.e2 {: return nodeOp(e1, e2); :}
-	| expression.e1 TOKEN_EQ expression.e2 {: return nodeOp(e1, e2); :}
-	| expression TOKEN_NE
+	expression.e1 TOKEN_PLUS expression.e2 {: return new nodeOp(yytext(), e1, e2); :}
+	| expression.e1 TOKEN_MINUS expression.e2 {: return new nodeOp(yytext(), e1, e2); :}
+	| expression.e1 TOKEN_TIMES expression.e2 {: return new nodeOp(yytext(), e1, e2); :}
+	| expression.e1 TOKEN_DIV expression.e2 {: return new nodeOp(yytext(), e1, e2); :}
+	| TOKEN_MINUS expression.e {: return new nodeOp(yytext(), e); :}
+	| expression.e1 TOKEN_OR expression.e2 {: return new nodeOp(yytext(), e1, e2); :}
+	| expression.e1 TOKEN_AND expression.e2 {: return new nodeOp(yytext(), e1, e2); :}
+	| TOKEN_NOT expression.e {: return new nodeOp(yytext(), e); :}
+	| expression.e1 TOKEN_LT expression.e2 {: return new nodeOp(yytext(), e1, e2); :}
+	| expression.e1 TOKEN_LE expression.e2 {: return new nodeOp(yytext(), e1, e2); :}
+	| expression.e1 TOKEN_GT expression.e2 {: return new nodeOp(yytext(), e1, e2); :}
+	| expression.e1 TOKEN_GE expression.e2 {: return new nodeOp(yytext(), e1, e2); :}
+	| expression.e1 TOKEN_EQ expression.e2 {: return new nodeOp(yytext(), e1, e2); :}
+	| expression.e TOKEN_NE {: return new nodeOp(yytext(), e); :}
 	| TOKEN_LPAR expression TOKEN_RPAR
 	| procedure_expression 
 	| variable_access	
