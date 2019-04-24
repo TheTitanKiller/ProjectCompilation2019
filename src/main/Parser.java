@@ -102,15 +102,22 @@ public class Parser extends beaver.Parser {
 	}
 	
 	public void semanticError(String msg, Symbol token) {
-			System.err.format("*** " + msg + " ligne %d, colonne %d\n",
-				Symbol.getLine(token.getStart()),
-				Symbol.getColumn(token.getStart()));
-		}
+		System.err.format("*** " + msg + " ligne %d, colonne %d\n",
+			Symbol.getLine(token.getStart()),
+			Symbol.getColumn(token.getStart()));
+	}
 		
 	private Environment typeEnvironment = new Environment("types");
 	private Environment procedureEnvironment = new Environment("procedures");
 	private StackEnvironment stackEnvironment = new StackEnvironment("local variables stack");
 	private String type_declaration_name;
+	
+	public void backtrace() 
+	{
+		typeEnvironment.backtrace();
+		procedureEnvironment.backtrace();
+		stackEnvironment.backtrace();
+	}
 
 	private final Action[] actions;
 

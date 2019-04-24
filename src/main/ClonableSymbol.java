@@ -8,5 +8,5 @@ import beaver.Symbol;
 //No idea of utility
 public abstract class ClonableSymbol extends Symbol
 {
-    public abstract ClonableSymbol clone() ;
+    @Override public abstract ClonableSymbol clone();
 }

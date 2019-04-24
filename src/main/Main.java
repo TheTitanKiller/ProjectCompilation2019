@@ -8,7 +8,7 @@ import node.Node;
 public class Main
 {
     private static boolean checksType;
-
+    
     public static void main(String[] args) throws Exception
     {
 	for (String arg : args)
@@ -40,13 +40,14 @@ public class Main
 			    System.err.println("*** Typage correct");
 			}
 		    }
+		    parser.backtrace();
 		}
 		catch (beaver.Parser.Exception e)
 		{
 		    System.err.println("*** Erreur de syntaxe: " + arg + ":" + e.getMessage());
 		}
 	    }
-
+	    
 	}
     }
 }
