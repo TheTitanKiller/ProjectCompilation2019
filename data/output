@@ -1,3 +1,126 @@
 *** Fichier data/progr1.lea
 
 *** Analyse syntaxique ok
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+**
+*** End backtrace
+*** Fichier data/progr2.lea
+
+*** Analyse syntaxique ok
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+**
+*** End backtrace
+*** Fichier data/progr3.lea
+
+*** Analyse syntaxique ok
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+**
+*** End backtrace
+*** Fichier data/progr4.lea
+
+*** Analyse syntaxique ok
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+**
+*** End backtrace
+*** Fichier data/progr5.lea
+
+*** Analyse syntaxique ok
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+**
+*** End backtrace
+*** Fichier data/progr6.lea
+
+*** Analyse syntaxique ok
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+**
+*** End backtrace
+*** Fichier data/progr7.lea
+
+*** Analyse syntaxique ok
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+**
+*** End backtrace
+*** Fichier data/progr8.lea
+
+*** Analyse syntaxique ok
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+**
+*** End backtrace
+*** Fichier data/progr9.lea
+
+*** Analyse syntaxique ok
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+**
+*** End backtrace

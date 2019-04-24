@@ -24,24 +24,37 @@ public class Environment implements EnvironmentInterface
 	System.err.println(">");
 	for (String key : this.tableId.keySet())
 	{
-	    System.err.println(key + ": " + getVariable(key));
+	    try
+	    {
+		System.err.println(key + ": " + getVariable(key));
+	    }
+	    catch (Exception e)
+	    {
+		e.printStackTrace();
+	    }
 	}
 	System.err.println(">");
     }
     
-    @Override public NodeId getVariable(String variable)
+    @Override public NodeId getVariable(String variable) throws Exception
     {
-	return this.tableId.get(variable);
+	NodeId el = this.tableId.get(variable);
+	if (el != null)
+	{ return el; }
+	throw new Exception("Variable " + variable + " not initialised in " + this + ".");
     }
     
-    @Override public void putVariable(String var, NodeId value)
+    @Override public void putVariable(String var, NodeId value) throws Exception
     {
-	this.tableId.put(var, value);
+	NodeId el = this.tableId.put(var, value);
+	if (el == null)
+	{ return; }
+	throw new Exception("Variable " + var + " already initialised in " + this + ".");
     }
     
     @Override public String toString()
     {
-	return getClass().getSimpleName() + " : " + this.name_environment;
+	return getClass().getSimpleName() + "::" + this.name_environment;
     }
 
 }

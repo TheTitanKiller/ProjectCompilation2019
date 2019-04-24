@@ -109,7 +109,7 @@ public class Parser extends beaver.Parser {
 		
 	private Environment typeEnvironment = new Environment("types");
 	private Environment procedureEnvironment = new Environment("procedures");
-	private StackEnvironment stackEnvironment = new StackEnvironment("local variables stack");
+	private StackEnvironment stackEnvironment = new StackEnvironment("local_variables_stack");
 	private String type_declaration_name;
 	
 	public void backtrace() 
