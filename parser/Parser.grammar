@@ -358,20 +358,20 @@ variable_access=
 	;
 	
 expression=
-	expression TOKEN_PLUS expression
-	| expression TOKEN_MINUS expression
-	| expression TOKEN_TIMES expression
-	| expression TOKEN_DIV expression
+	expression.e1 TOKEN_PLUS expression.e2 {: return nodeOp(e1, e2); :}
+	| expression.e1 TOKEN_MINUS expression.e2 {: return nodeOp(e1, e2); :}
+	| expression.e1 TOKEN_TIMES expression.e2 {: return nodeOp(e1, e2); :}
+	| expression.e1 TOKEN_DIV expression.e2 {: return nodeOp(e1, e2); :}
 	| TOKEN_MINUS expression
-	| expression TOKEN_OR expression
-	| expression TOKEN_AND expression
+	| expression.e1 TOKEN_OR expression.e2 {: return nodeOp(e1, e2); :}
+	| expression.e1 TOKEN_AND expression.e2 {: return nodeOp(e1, e2); :}
 	| TOKEN_NOT expression
-	| expression TOKEN_LT expression
-	| expression TOKEN_LE expression
-	| expression TOKEN_GT expression
-	| expression TOKEN_GE expression
-	| expression TOKEN_EQ expression
-	| expression TOKEN_NE expression
+	| expression.e1 TOKEN_LT expression.e2 {: return nodeOp(e1, e2); :}
+	| expression.e1 TOKEN_LE expression.e2 {: return nodeOp(e1, e2); :}
+	| expression.e1 TOKEN_GT expression.e2 {: return nodeOp(e1, e2); :}
+	| expression.e1 TOKEN_GE expression.e2 {: return nodeOp(e1, e2); :}
+	| expression.e1 TOKEN_EQ expression.e2 {: return nodeOp(e1, e2); :}
+	| expression TOKEN_NE
 	| TOKEN_LPAR expression TOKEN_RPAR
 	| procedure_expression
 	| variable_access
