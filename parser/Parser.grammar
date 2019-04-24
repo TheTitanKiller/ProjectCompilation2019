@@ -186,7 +186,7 @@ simple_type=
 	;
 	
 named_type=
-	TOKEN_IDENTIFIER
+	TOKEN_IDENTIFIER /*TODO env*/
 	;
 	
 index_type=
@@ -221,7 +221,7 @@ pointer_type=
 	;
 	
 structure_type=
-	TOKEN_STRUCT TOKEN_LBRACE feature_list_type TOKEN_RBRACE
+	TOKEN_STRUCT TOKEN_LBRACE feature_list_type TOKEN_RBRACE /*TODO env*/
 	;
 	
 feature_list_type=
@@ -230,7 +230,7 @@ feature_list_type=
 	;
 	
 feature_type=
-	TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_SEMIC
+	TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_SEMIC /*TODO env*/
 	;
 	
 variable_declaration_part= 
@@ -244,12 +244,12 @@ variable_declaration_list=
 	;
 	
 variable_declaration=
-	identifier_list TOKEN_COLON type TOKEN_SEMIC 	
+	identifier_list TOKEN_COLON type TOKEN_SEMIC /*TODO env*/
 	;
 	
 identifier_list=
 	identifier_list TOKEN_COMMA TOKEN_IDENTIFIER
-	| TOKEN_IDENTIFIER
+	| TOKEN_IDENTIFIER /*TODO env*/
 	;
 	
 procedure_definition_part=
@@ -271,7 +271,7 @@ procedure_definition_head=
 	;
 	
 procedure_declaration_head=
-	procedure_head 
+	procedure_head /*TODO env*/
 	;
 	
 procedure_head=
@@ -317,19 +317,19 @@ simple_statement=
 	| dispose_statement
 	| println_statement
 	| readln_statement
-	| return_statement.r /*{: return NodeReturn(r); :}*/
+	| return_statement.r {: return NodeReturn(r); :}
 	;
 	
 assignment_statement=
-	variable_access.v TOKEN_AFF expression.e TOKEN_SEMIC /*{: return NodeAssign(v, e); :}*/
+	variable_access.v TOKEN_AFF expression.e TOKEN_SEMIC {: return NodeAssign(v, e); :} /*TODO env*/
 	;
 	
 procedure_statement=
-	procedure_expression TOKEN_SEMIC
+	procedure_expression TOKEN_SEMIC /*TODO env*/
 	;
 	
 procedure_expression=
-	TOKEN_IDENTIFIER TOKEN_LPAR expression_part TOKEN_RPAR
+	TOKEN_IDENTIFIER TOKEN_LPAR expression_part TOKEN_RPAR /*TODO env*/
 	;
 	
 expression_part=
@@ -398,8 +398,8 @@ case_default=
 		
 variable_access=
 	TOKEN_IDENTIFIER
-	| variable_access TOKEN_LBRACKET expression TOKEN_RBRACKET 
-	| expression TOKEN_CIRC 	
+	| variable_access TOKEN_LBRACKET expression TOKEN_RBRACKET /*TODO env*/
+	| expression TOKEN_CIRC 	/*TODO env*/
 	;
 	
 expression=
@@ -418,8 +418,8 @@ expression=
 	| expression TOKEN_EQ expression
 	| expression TOKEN_NE expression
 	| TOKEN_LPAR expression TOKEN_RPAR
-	| procedure_expression
-	| variable_access
+	| procedure_expression 
+	| variable_access	
 	| literal
 	;
 	
