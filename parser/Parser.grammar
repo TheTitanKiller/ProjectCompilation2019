@@ -388,11 +388,11 @@ switch_statement=
 	
 case_statement_list=
 	case_statement_list case_statement case_default
-	| case_statement						
+	| case_statement.s								{: return s; :}
 	;
 	
 case_statement=
-	TOKEN_CASE identifier_list.n TOKEN_COLON statement.stm
+	TOKEN_CASE identifier_list TOKEN_COLON statement.stm {: return new NodeCase(stm); :}
 	;
 
 case_default=

@@ -336,7 +336,13 @@ public class Parser extends beaver.Parser {
 			},
 			RETURN3,	// [86] case_statement_list = case_statement_list case_statement case_default; returns 'case_default' although none is marked
 			Action.RETURN,	// [87] case_statement_list = case_statement
-			RETURN4,	// [88] case_statement = TOKEN_CASE identifier_list.n TOKEN_COLON statement.stm; returns 'stm' although more are marked
+			new Action() {	// [88] case_statement = TOKEN_CASE identifier_list TOKEN_COLON statement.stm
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_stm = _symbols[offset + 4];
+					final Node stm = (Node) _symbol_stm.value;
+					 return new NodeCase(stm);
+				}
+			},
 			Action.NONE,  	// [89] case_default = 
 			new Action() {	// [90] case_default = TOKEN_DEFAULT TOKEN_COLON statement.stm
 				public Symbol reduce(Symbol[] _symbols, int offset) {
