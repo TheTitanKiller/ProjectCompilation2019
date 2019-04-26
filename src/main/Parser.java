@@ -568,7 +568,13 @@ public class Parser extends beaver.Parser {
 			},
 			Action.RETURN,	// [109] expression = procedure_expression
 			Action.RETURN,	// [110] expression = variable_access
-			Action.RETURN,	// [111] expression = literal
+			new Action() {	// [111] expression = literal.l
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final NodeLiteral l = (NodeLiteral) _symbol_l.value;
+					 return l;
+				}
+			},
 			new Action() {	// [112] literal = TOKEN_LIT_INTEGER.val
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_val = _symbols[offset + 1];
