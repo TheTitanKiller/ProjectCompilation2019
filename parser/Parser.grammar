@@ -48,6 +48,7 @@
 
 %init {: 
 	report = new Events();
+	stackEnvironment.PushEnvironment("Global"); 
 :};
 
 // KEYWORDS
@@ -91,23 +92,23 @@
 %typeof type_declaration_list      ="NodeList";
 %typeof type_declaration           ="Node";
 %typeof type_declaration_head      ="Node";
-%typeof type                       ="Node";
-%typeof simple_type                ="Node";
-%typeof named_type                 ="Node";
-%typeof index_type                 ="Node";
-%typeof enumerated_type            ="Node";
-%typeof init_enumerated_type       ="Node";
-%typeof subrange_type              ="Node";
-%typeof array_type                 ="Node";
-%typeof range_type                 ="Node";
-%typeof pointer_type               ="Node";
-%typeof structure_type             ="Node";
-%typeof feature_list_type          ="Node";
-%typeof feature_type               ="Node";
+%typeof type                       ="Type";
+%typeof simple_type                ="Type";
+%typeof named_type                 ="Type";
+%typeof index_type                 ="Type";
+%typeof enumerated_type            ="Type";
+%typeof init_enumerated_type       ="Type";
+%typeof subrange_type              ="Type";
+%typeof array_type                 ="Type";
+%typeof range_type                 ="Type";
+%typeof pointer_type               ="Type";
+%typeof structure_type             ="Type";
+%typeof feature_list_type          ="Type";
+%typeof feature_type               ="Type";
 %typeof variable_declaration_part  ="Node";
 %typeof variable_declaration_list  ="Node";
 %typeof variable_declaration       ="Node";
-%typeof identifier_list            ="Node";
+%typeof identifier_list            ="IdentifierList";
 %typeof procedure_definition_part  ="Node";
 %typeof procedure_definition_list  ="Node";
 %typeof procedure_definition       ="Node";
@@ -148,12 +149,13 @@
 %goal program;
 
 program=
-	type_declaration_part
-	variable_declaration_part 
-	procedure_definition_part
+	type_declaration_part.n1
+	variable_declaration_part.n2
+	procedure_definition_part.n3
 	TOKEN_BEGIN
-	statement_list
+	statement_list.n4
 	TOKEN_END
+	{: return new NodeList(n1,n2,n3,n4); :}	
 	;
 	
 type_declaration_part= 
@@ -248,12 +250,24 @@ variable_declaration_list=
 	;
 	
 variable_declaration=
-	identifier_list TOKEN_COLON type TOKEN_SEMIC /*TODO env*/
+	identifier_list.list TOKEN_COLON type.ty TOKEN_SEMIC 
+	{: 	
+		NodeList node_list = new NodeList(); 
+		Iterator<String> itr = list.iterator();
+		while(itr.hasNext()) 
+		{
+	         String name = itr.next();
+	         NodeId var = new NodeId(name, ty);
+	         stackEnvironment.putVariable(name, var);
+	         node_list.add(var);
+      	} 
+      	return node_list;
+    :}
 	;
 	
 identifier_list=
-	identifier_list TOKEN_COMMA TOKEN_IDENTIFIER
-	| TOKEN_IDENTIFIER /*TODO env*/
+	identifier_list.list TOKEN_COMMA TOKEN_IDENTIFIER.name 	{: list.add(name); return list; :}
+	| TOKEN_IDENTIFIER.name 								{: return new IdentifierList(name); :}
 	;
 	
 procedure_definition_part=
@@ -298,10 +312,11 @@ argt=
 	;
 	
 block=
-	variable_declaration_part 
+	variable_declaration_part.n1
 	TOKEN_BEGIN
-	statement_list
-	TOKEN_END 					
+	statement_list.n2
+	TOKEN_END 		
+	{: return new NodeList(n1,n2); :}			
 	;
 
 statement_list=
@@ -333,7 +348,7 @@ procedure_statement=
 	;
 	
 procedure_expression=
-	TOKEN_IDENTIFIER TOKEN_LPAR expression_part TOKEN_RPAR /*TODO env*/
+	TOKEN_IDENTIFIER.name TOKEN_LPAR expression_part.ep TOKEN_RPAR /*{: return new NodeCallFct(name, , ep); :}*/ /*TODO env*/
 	;
 	
 expression_part=
@@ -387,12 +402,23 @@ switch_statement=
 	;
 	
 case_statement_list=
-	case_statement_list case_statement case_default
+	case_statement_list.list case_statement.cstmn case_default.cdef		{: list.add(cstmn); list.add(cdef); return list; :}
 	| case_statement						
 	;
 	
 case_statement=
-	TOKEN_CASE identifier_list.n TOKEN_COLON statement.stm
+	TOKEN_CASE identifier_list.list TOKEN_COLON statement.stm
+	{: 	
+		NodeList node_list = new NodeList(); 
+		Iterator<String> itr = list.iterator();
+		while(itr.hasNext()) 
+		{
+	         String name = itr.next();
+	         NodeCase newcase = new NodeCase(name, stm);
+	         node_list.add(newcase);
+      	} 
+      	return node_list;
+    :}
 	;
 
 case_default=
@@ -402,8 +428,8 @@ case_default=
 		
 variable_access=
 	TOKEN_IDENTIFIER.name 												{: return stackEnvironment.getVariable(name); :}
-	| variable_access.t TOKEN_LBRACKET expression.i TOKEN_RBRACKET 		{: return new NodeArrayAccess(t, i); :}/*TODO env*/
-	| expression.e TOKEN_CIRC 											{: return new NodePtrAccess (e); :} /*TODO env*/
+	| variable_access.t TOKEN_LBRACKET expression.i TOKEN_RBRACKET 		{: return new NodeArrayAccess(t, i); :}
+	| expression.e TOKEN_CIRC 											{: return new NodePtrAccess(e); :}
 	;
 	
 expression=

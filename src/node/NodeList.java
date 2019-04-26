@@ -4,17 +4,17 @@ import java.util.Iterator;
 
 public final class NodeList extends Node
 {
-    
+
     public NodeList()
     {
 	super();
     }
-    
-    public NodeList(Node stm)
+
+    public NodeList(Node... stm)
     {
 	super(stm);
     }
-    
+
     @Override public boolean checksType()
     {
 	super.checksType();
@@ -29,7 +29,7 @@ public final class NodeList extends Node
 	}
 	return result;
     }
-    
+
     @Override public NodeList clone()
     {
 	NodeList node = new NodeList();
@@ -39,15 +39,15 @@ public final class NodeList extends Node
 	}
 	return node;
     }
-    
+
     public Iterator<Node> iterator()
     {
 	return this.elts.iterator();
     }
-    
+
     @Override public int size()
     {
 	return this.elts.size();
     }
-    
+
 }
