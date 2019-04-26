@@ -88,7 +88,7 @@
 //TODO to change each if needed
 %typeof program	                   ="Node";
 %typeof type_declaration_part      ="Node";
-%typeof type_declaration_list      ="NodeList";
+%typeof type_declaration_list      ="Node";
 %typeof type_declaration           ="Node";
 %typeof type_declaration_head      ="Node";
 %typeof type                       ="Node";
@@ -343,7 +343,7 @@ expression_part=
 expression_list=
 	expression_list TOKEN_COMMA expression
 	| expression
-	;
+	;	
 	
 new_statement=
 	TOKEN_NEW variable_access.v TOKEN_SEMIC {: return new NodeNew(v); :}
@@ -420,10 +420,10 @@ expression=
 	| expression.e1 TOKEN_GE expression.e2 {: return new NodeOp(">=", e1, e2); :}
 	| expression.e1 TOKEN_EQ expression.e2 {: return new NodeOp("==", e1, e2); :}
 	| expression.e TOKEN_NE {: return new NodeOp("!=", e); :}
-	| TOKEN_LPAR expression TOKEN_RPAR
+	| TOKEN_LPAR expression.e TOKEN_RPAR
 	| procedure_expression 
 	| variable_access	
-	| literal
+	| literal.l {: return l; :}
 	;
 	
 literal=
@@ -433,6 +433,4 @@ literal=
 	| TOKEN_FALSE {: return new NodeLiteral(new TypeBoolean(), false); :}
 	| TOKEN_NULL {: return new NodeLiteral(null, null); :}
 	;
-
-	
 	
