@@ -315,8 +315,20 @@ public class Parser extends beaver.Parser {
 					 return new NodeDispose(v);
 				}
 			},
-			RETURN3,	// [75] println_statement = TOKEN_PRINTLN expression TOKEN_SEMIC; returns 'TOKEN_SEMIC' although none is marked
-			RETURN3,	// [76] readln_statement = TOKEN_READLN expression TOKEN_SEMIC; returns 'TOKEN_SEMIC' although none is marked
+			new Action() {	// [75] println_statement = TOKEN_PRINTLN expression.e TOKEN_SEMIC
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					 return NodeCallFct("println", void, e);
+				}
+			},
+			new Action() {	// [76] readln_statement = TOKEN_READLN expression.e TOKEN_SEMIC
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					 return NodeCallFct("readln", void, e);
+				}
+			},
 			new Action() {	// [77] return_statement = TOKEN_RETURN expression.e TOKEN_SEMIC
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];

@@ -49,6 +49,7 @@
 %init {: 
 	report = new Events();
 	stackEnvironment.PushEnvironment("Global"); 
+	procedureEnvironment.pushEnvironment("Global");
 :};
 
 // KEYWORDS
@@ -368,11 +369,17 @@ dispose_statement=
 	;
 	
 println_statement=
-	TOKEN_PRINTLN expression TOKEN_SEMIC
+	TOKEN_PRINTLN expression.e TOKEN_SEMIC {: return NodeCallFct("println", void, e); :}
 	;	
 	
 readln_statement=
-	TOKEN_READLN expression TOKEN_SEMIC
+	TOKEN_READLN expression.e TOKEN_SEMIC
+	{:
+		
+		NodeId(name, type);
+	    procedureEnvironment.putVariable(name, node);
+      	return node_list;
+    :}
 	;
 	
 return_statement=
