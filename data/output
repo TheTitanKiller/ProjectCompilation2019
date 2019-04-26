@@ -11,12 +11,17 @@ Environment::procedures
 StackEnvironment::local_variables_stack
 **
 Layer 0 :
+Environment::Main
+>
+>
+Layer 0 :
 Environment::Global
 >
 a: NodeId#a:TypeInt_null#
 >
 **
 *** End backtrace
+
 *** Fichier data/progr2.lea
 
 *** Analyse syntaxique ok
@@ -30,6 +35,10 @@ Environment::procedures
 StackEnvironment::local_variables_stack
 **
 Layer 0 :
+Environment::Main
+>
+>
+Layer 0 :
 Environment::Global
 >
 b: NodeId#b:TypeBoolean#
@@ -40,6 +49,7 @@ y: NodeId#y:TypeInt_null#
 >
 **
 *** End backtrace
+
 *** Fichier data/progr3.lea
 
 *** Analyse syntaxique ok
@@ -52,6 +62,10 @@ Environment::procedures
 >
 StackEnvironment::local_variables_stack
 **
+Layer 0 :
+Environment::Main
+>
+>
 Layer 0 :
 Environment::Global
 >
@@ -66,6 +80,7 @@ y: NodeId#y:TypeInt_null#
 >
 **
 *** End backtrace
+
 *** Fichier data/progr4.lea
 
 *** Analyse syntaxique ok
@@ -79,6 +94,10 @@ Environment::procedures
 StackEnvironment::local_variables_stack
 **
 Layer 0 :
+Environment::Main
+>
+>
+Layer 0 :
 Environment::Global
 >
 x: NodeId#x:TypeInt_null#
@@ -86,4 +105,44 @@ y: NodeId#y:TypeInt_null#
 >
 **
 *** End backtrace
+
 *** Fichier data/progr5.lea
+
+*** Analyse syntaxique ok
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+sum: NodeId#sum:([i:TypeInt_null], [j:TypeInt_null]) -> TypeInt_null Defined: false Name: sum#
+pgcd: NodeId#pgcd:([i:TypeInt_null], [j:TypeInt_null]) -> TypeInt_null Defined: false Name: pgcd#
+>
+StackEnvironment::local_variables_stack
+**
+Layer 0 :
+Environment::Main
+>
+>
+Layer 0 :
+Environment::pgcd
+>
+i: NodeId#i:[i:TypeInt_null]#
+j: NodeId#j:[j:TypeInt_null]#
+>
+Layer 0 :
+Environment::sum
+>
+i: NodeId#i:[i:TypeInt_null]#
+j: NodeId#j:[j:TypeInt_null]#
+k: NodeId#k:TypeInt_null#
+>
+Layer 0 :
+Environment::Global
+>
+x: NodeId#x:TypeInt_null#
+>
+**
+*** End backtrace
+
+*** Fichier data/progr6.lea
