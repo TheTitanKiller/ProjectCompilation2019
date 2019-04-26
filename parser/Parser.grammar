@@ -91,7 +91,7 @@
 %typeof type_declaration_part      ="Node";
 %typeof type_declaration_list      ="Node";
 %typeof type_declaration           ="Node";
-%typeof type_declaration_head      ="Node";
+%typeof type_declaration_head      ="String";
 %typeof type                       ="Type";
 %typeof simple_type                ="Type";
 %typeof named_type                 ="Type";
@@ -99,8 +99,8 @@
 %typeof enumerated_type            ="Type";
 %typeof init_enumerated_type       ="Type";
 %typeof subrange_type              ="Type";
-%typeof array_type                 ="Type";
-%typeof range_type                 ="Type";
+%typeof array_type                 ="TypeArray";
+%typeof range_type                 ="TypeRange";
 %typeof pointer_type               ="Type";
 %typeof structure_type             ="Type";
 %typeof feature_list_type          ="Type";
@@ -125,7 +125,7 @@
 %typeof assignment_statement       ="NodeAssign";
 %typeof procedure_statement        ="Node";
 %typeof procedure_expression       ="Node";
-%typeof expression_part            ="Node";
+%typeof expression_part            ="NodeList";
 %typeof expression_list            ="Node";
 %typeof new_statement              ="Node";
 %typeof dispose_statement          ="Node";
@@ -168,7 +168,8 @@ type_declaration_list=
 	;
 	
 type_declaration=
-	type_declaration_head.v TOKEN_AFF type.e TOKEN_SEMIC
+	type_declaration_head.tname TOKEN_AFF type.ty TOKEN_SEMIC 	{: 	NodeId node = new NodeId(tname, ty); stackEnvironment.putVariable(tname, node); 
+																	return node; :}
 	;
 	
 type_declaration_head=
@@ -185,13 +186,13 @@ type=
 	;
 	
 simple_type=
-	TOKEN_STRING	
-	| TOKEN_INTEGER
-	| TOKEN_BOOLEAN
+	TOKEN_STRING		{: return new TypeString(); :}
+	| TOKEN_INTEGER		{: return new TypeInt(); :}
+	| TOKEN_BOOLEAN		{: return new TypeBoolean(); :}
 	;
 	
 named_type=
-	TOKEN_IDENTIFIER /*TODO env*/
+	TOKEN_IDENTIFIER.name {: return typeEnvironment.getVariable(name); :}/*TODO env*/
 	;
 	
 index_type=
@@ -207,22 +208,24 @@ init_enumerated_type=
 	;
 
 subrange_type= 
-	TOKEN_LIT_INTEGER TOKEN_DOTDOT TOKEN_LIT_INTEGER 
-	| TOKEN_IDENTIFIER TOKEN_DOTDOT TOKEN_IDENTIFIER	
+	TOKEN_LIT_INTEGER.int1 TOKEN_DOTDOT TOKEN_LIT_INTEGER.int2 		{: return new TypeArrayRange(new TypeInt(int1), new TypeInt(int2)); :}
+	| TOKEN_IDENTIFIER.name1 TOKEN_DOTDOT TOKEN_IDENTIFIER.name2	/*{: int1 = typeEnvironment.getVariable(name1); 
+																		int2 = typeEnvironment.getVariable(name2); 
+																		return new TypeEnumRange(int1, int2); :}*/
 	;
 	
 array_type=
-	TOKEN_ARRAY TOKEN_LBRACKET range_type TOKEN_RBRACKET TOKEN_OF type 
+	TOKEN_ARRAY TOKEN_LBRACKET range_type.r TOKEN_RBRACKET TOKEN_OF type.ty {: return new TypeArray(r, ty); :}
 	;
 	
 range_type=
-	enumerated_type
+	enumerated_type 	
 	| subrange_type
 	| named_type	
 	;
 	
 pointer_type=
-	TOKEN_CIRC type
+	TOKEN_CIRC type.ty 	{: return new TypePointer(ty); :}
 	;
 	
 structure_type=
@@ -240,11 +243,11 @@ feature_type=
 	
 variable_declaration_part= 
 	/* empty */ 
-	| TOKEN_VAR variable_declaration_list 
+	| TOKEN_VAR variable_declaration_list. list 			{: return list; :}
 	;
 	
 variable_declaration_list=
-	variable_declaration_list variable_declaration
+	variable_declaration_list.list variable_declaration.dec {: list.add(dec); return list; :}
 	| variable_declaration
 	;
 	
@@ -302,12 +305,13 @@ argt_part=
 	;
 	
 argt_list=
-	argt_list TOKEN_COMMA argt
-	| argt
+	argt_list.list TOKEN_COMMA argt.node   		{: list.add(node); return list; :}
+	| argt.node            						{: return new NodeList(node); :}
 	;
 	
 argt=
-	TOKEN_IDENTIFIER TOKEN_COLON type
+	TOKEN_IDENTIFIER.name TOKEN_COLON type.ty	{: 	NodeId node = new NodeId(name, ty); stackEnvironment.putVariable(name, node); 
+													return node; :}
 	;
 	
 block=
@@ -334,19 +338,20 @@ simple_statement=
 	| dispose_statement
 	| println_statement
 	| readln_statement
-	| return_statement.r {: return new NodeReturn(r); :}
+	| return_statement.r 											{: return new NodeReturn(r); :}
 	;
 	
 assignment_statement=
-	variable_access.v TOKEN_AFF expression.e TOKEN_SEMIC {: return new NodeAssign(v, e); :}
+	variable_access.v TOKEN_AFF expression.e TOKEN_SEMIC 			{: return new NodeAssign(v, e); :}
 	;
 	
 procedure_statement=
-	procedure_expression TOKEN_SEMIC /*TODO env*/
+	procedure_expression TOKEN_SEMIC
 	;
 	
 procedure_expression=
-	TOKEN_IDENTIFIER.name TOKEN_LPAR expression_part.ep TOKEN_RPAR /*{: return new NodeCallFct(name, , ep); :}*/ /*TODO env*/
+	TOKEN_IDENTIFIER.name TOKEN_LPAR expression_part.ep TOKEN_RPAR		{: 	NodeId funct = procedureEnvironment.getVariable(name); 
+																			return new NodeCallFct( name, (TypeFunct)funct.getType(), ep); :}
 	;
 	
 expression_part=
@@ -355,16 +360,16 @@ expression_part=
 	;
 	
 expression_list=
-	expression_list TOKEN_COMMA expression
-	| expression
+	expression_list.list TOKEN_COMMA expression.node   	{: list.add(node); return list; :}
+	| expression.node                   				{: return new NodeList(node); :}
 	;	
 	
 new_statement=
-	TOKEN_NEW variable_access.v TOKEN_SEMIC {: return new NodeNew(v); :}
+	TOKEN_NEW variable_access.v TOKEN_SEMIC 			{: return new NodeNew(v); :}
 	;
 	
 dispose_statement=
-	TOKEN_DISPOSE variable_access.v TOKEN_SEMIC {: return new NodeDispose(v); :}
+	TOKEN_DISPOSE variable_access.v TOKEN_SEMIC 		{: return new NodeDispose(v); :}
 	;
 	
 println_statement=
@@ -376,7 +381,7 @@ readln_statement=
 	;
 	
 return_statement=
-	TOKEN_RETURN expression.e TOKEN_SEMIC {: return new NodeReturn(e); :}
+	TOKEN_RETURN expression.e TOKEN_SEMIC 				{: return new NodeReturn(e); :}
 	;
 	
 structured_statement=
@@ -400,13 +405,13 @@ switch_statement=
 	;
 	
 case_statement_list=
-	case_statement_list.list case_statement.cstmn case_default.cdef		/*{: list.add(cstmn); list.add(cdef); return list; :}*/
+	case_statement_list.list case_statement.cstmn case_default.cdef				{: list.add(cstmn); list.add(cdef); return list; :}
 	| case_statement						
 	;
 	
 case_statement=
 	TOKEN_CASE identifier_list.list TOKEN_COLON statement.stm
-	/*{: 	
+	{: 	
 		NodeList node_list = new NodeList(); 
 		Iterator<String> itr = list.iterator();
 		while(itr.hasNext()) 
@@ -416,12 +421,12 @@ case_statement=
 	         node_list.add(newcase);
       	} 
       	return node_list;
-    :}*/
+    :}
 	;
 
 case_default=
 	/* empty */
-	| TOKEN_DEFAULT TOKEN_COLON statement.stm 							/*{: return new NodeCase(stm); :}*/
+	| TOKEN_DEFAULT TOKEN_COLON statement.stm 							{: return new NodeCase(stm); :}
 	;
 		
 variable_access=
