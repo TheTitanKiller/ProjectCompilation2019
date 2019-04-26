@@ -91,6 +91,16 @@ public class StackEnvironment implements EnvironmentInterface
 	this.stack.getFirst().putVariable(var, value);
     }
 
+    /**
+     * Remplace dans l'environnement actuel la variable.
+     *
+     * @see EnvironmentInterface
+     */
+    @Override public void replaceVariable(String var, NodeId value) throws Error
+    {
+	this.stack.getFirst().replaceVariable(var, value);
+    }
+
     @Override public String toString()
     {
 	return getClass().getSimpleName() + "::" + this.name_stack;

@@ -113,9 +113,9 @@
 %typeof procedure_definition_part  ="NodeList";
 %typeof procedure_definition_list  ="Node";
 %typeof procedure_definition       ="Node";
-%typeof procedure_definition_head  ="Node";
-%typeof procedure_declaration_head ="Node";
-%typeof procedure_head             ="Node";
+%typeof procedure_definition_head  ="NodeId";
+%typeof procedure_declaration_head ="NodeId";
+%typeof procedure_head             ="NodeId";
 %typeof argt_part                  ="TypeTuple";
 %typeof argt_list                  ="NodeList";
 %typeof argt                       ="Node";
@@ -296,27 +296,33 @@ procedure_definition_list=
 	
 procedure_definition=
 	procedure_definition_head.h block.b				{: stackEnvironment.popEnvironment(); return new NodeList(h,b); :}
-	| procedure_declaration_head TOKEN_SEMIC
+	| procedure_declaration_head.h TOKEN_SEMIC		{: stackEnvironment.popEnvironment(); return h; :}
 	;
 
 procedure_definition_head=
-	procedure_head 
+	procedure_head.node {: try 
+								{
+									procedureEnvironment.putVariable(node.getName(), node);
+								}
+							 	catch (Error err)
+							 	{
+							 		procedureEnvironment.replaceVariable(node.getName(), node);
+							 	}
+							 	return node; :}
 	;
 	
 procedure_declaration_head=
-	procedure_head
+	procedure_head.node 	{: procedureEnvironment.putVariable(node.getName(),  node); return node; :}
 	;
 	
 procedure_head=
 	TOKEN_PROCEDURE procedure_name.nid TOKEN_LPAR argt_part.args TOKEN_RPAR 
-						{: 	NodeId node = new NodeId(type_declaration_name, new TypeFunct(nid.getName(), args, new TypeVoid())); 
-							procedureEnvironment.putVariable(nid.getName(),  node); 
+						{: 	NodeId node = new NodeId(nid.getName(), new TypeFunct(nid.getName(), args, new TypeVoid())); 
 							return node; 
 						:}
 						
 	| TOKEN_FUNCTION procedure_name.nid TOKEN_LPAR argt_part.args TOKEN_RPAR TOKEN_COLON type.ty
 						{: 	NodeId node = new NodeId(nid.getName(), new TypeFunct(nid.getName(), args, ty)); 
-							procedureEnvironment.putVariable(nid.getName(),  node); 
 							return node; 
 						:}
 	;

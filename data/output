@@ -113,3 +113,49 @@ x: NodeId#x:TypeInt_null#
 *** End backtrace
 
 *** Fichier data/progr6.lea
+
+*** Analyse syntaxique ok
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+hanoi: NodeId#hanoi:([a:TypeString], [b:TypeString], [c:TypeString], [k:TypeInt_null]) -> TypeVoid Defined: false Name: hanoi#
+fact2: NodeId#fact2:([k:TypeInt_null]) -> TypeInt_null Defined: false Name: fact2#
+pair: NodeId#pair:([i:TypeInt_null]) -> TypeBoolean Defined: false Name: pair#
+fact1: NodeId#fact1:([k:TypeInt_null]) -> TypeInt_null Defined: false Name: fact1#
+impair: NodeId#impair:([i:TypeInt_null]) -> TypeBoolean Defined: false Name: impair#
+>
+StackEnvironment::local_variables_stack
+**
+Layer 0 :
+Environment::Global
+>
+x: NodeId#x:TypeInt_null#
+>
+**
+*** End backtrace
+
+*** Fichier data/progr7.lea
+
+*** Analyse syntaxique ok
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+Layer 0 :
+Environment::Global
+>
+week: NodeId#week:TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeString)#
+year: NodeId#year:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_7], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_12], TypeString)))#
+>
+**
+*** End backtrace
+
+*** Fichier data/progr8.lea
