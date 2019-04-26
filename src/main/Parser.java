@@ -157,7 +157,7 @@ public class Parser extends beaver.Parser {
 					final String tname = (String) _symbol_tname.value;
 					final Symbol _symbol_ty = _symbols[offset + 3];
 					final Type ty = (Type) _symbol_ty.value;
-					 	NodeId node = new NodeId(tname, ty); stackEnvironment.putVariable(tname, node); 
+					 	NodeId node = new NodeId(tname, ty); typeEnvironment.putVariable(tname, node); 
 																	return node;
 				}
 			},
@@ -258,7 +258,13 @@ public class Parser extends beaver.Parser {
 					 list.add(dec); return list;
 				}
 			},
-			Action.RETURN,	// [36] variable_declaration_list = variable_declaration
+			new Action() {	// [36] variable_declaration_list = variable_declaration.node
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_node = _symbols[offset + 1];
+					final Node node = (Node) _symbol_node.value;
+					 return new NodeList(node);
+				}
+			},
 			new Action() {	// [37] variable_declaration = identifier_list.list TOKEN_COLON type.ty TOKEN_SEMIC
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_list = _symbols[offset + 1];
@@ -455,7 +461,13 @@ public class Parser extends beaver.Parser {
 				}
 			},
 			Action.RETURN,	// [59] statement = simple_statement
-			Action.RETURN,	// [60] statement = structured_statement
+			new Action() {	// [60] statement = structured_statement.n
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_n = _symbols[offset + 1];
+					final Node n = (Node) _symbol_n.value;
+					 return n;
+				}
+			},
 			Action.RETURN,	// [61] simple_statement = assignment_statement
 			Action.RETURN,	// [62] simple_statement = procedure_statement
 			Action.RETURN,	// [63] simple_statement = new_statement
@@ -536,7 +548,13 @@ public class Parser extends beaver.Parser {
 					 return new NodeReturn(e);
 				}
 			},
-			Action.RETURN,	// [80] structured_statement = block
+			new Action() {	// [80] structured_statement = block.n
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_n = _symbols[offset + 1];
+					final Node n = (Node) _symbol_n.value;
+					 return n;
+				}
+			},
 			new Action() {	// [81] structured_statement = if_statement.n
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_n = _symbols[offset + 1];

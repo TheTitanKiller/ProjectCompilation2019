@@ -181,7 +181,7 @@ type_declaration_list=
 	;
 	
 type_declaration=
-	type_declaration_head.tname TOKEN_AFF type.ty TOKEN_SEMIC 	{: 	NodeId node = new NodeId(tname, ty); stackEnvironment.putVariable(tname, node); 
+	type_declaration_head.tname TOKEN_AFF type.ty TOKEN_SEMIC 	{: 	NodeId node = new NodeId(tname, ty); typeEnvironment.putVariable(tname, node); 
 																	return node; :}
 	;
 	
@@ -259,7 +259,7 @@ variable_declaration_part=
 	
 variable_declaration_list=
 	variable_declaration_list.list variable_declaration.dec 	{: list.add(dec); return list; :}
-	| variable_declaration
+	| variable_declaration.node									{: return new NodeList(node); :}
 	;
 	
 variable_declaration=
@@ -371,7 +371,7 @@ statement_list=
 	
 statement=
 	simple_statement
-	| structured_statement
+	| structured_statement.n 				{: return n; :}
 	;
 	
 simple_statement=
@@ -428,7 +428,7 @@ return_statement=
 	;
 	
 structured_statement=
-	block
+	block.n 				{: return n; :}
 	| if_statement.n 		{: return n; :}
 	| while_statement.n		{: return n; :}
 	| switch_statement.n	{: return n; :}
