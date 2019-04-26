@@ -87,7 +87,7 @@
 //TYPES
 
 //TODO to change each if needed
-%typeof program	                   ="Node";
+%typeof program	                   ="NodeList";
 %typeof type_declaration_part      ="Node";
 %typeof type_declaration_list      ="Node";
 %typeof type_declaration           ="Node";
@@ -135,9 +135,9 @@
 %typeof structured_statement       ="Node";
 %typeof if_statement               ="Node";
 %typeof while_statement            ="Node";
-%typeof case_statement_list        ="Node";
-%typeof case_statement             ="Node";
-%typeof case_default 	           ="Node";
+%typeof case_statement_list        ="NodeList";
+%typeof case_statement             ="NodeList";
+%typeof case_default 	           ="NodeCase";
 %typeof variable_access            ="NodeExp";
 %typeof expression                 ="NodeExp";
 %typeof literal                    ="NodeLiteral";
@@ -149,13 +149,12 @@
 %goal program;
 
 program=
-	type_declaration_part.n1
-	variable_declaration_part.n2
-	procedure_definition_part.n3
+	type_declaration_part
+	variable_declaration_part
+	procedure_definition_part
 	TOKEN_BEGIN
-	statement_list.n4
+	statement_list
 	TOKEN_END
-	{: return new NodeList(n1,n2,n3,n4); :}	
 	;
 	
 type_declaration_part= 
@@ -257,9 +256,9 @@ variable_declaration=
 		while(itr.hasNext()) 
 		{
 	         String name = itr.next();
-	         NodeId var = new NodeId(name, ty);
-	         stackEnvironment.putVariable(name, var);
-	         node_list.add(var);
+	         NodeId node = new NodeId(name, ty);
+	         stackEnvironment.putVariable(name, node);
+	         node_list.add(node);
       	} 
       	return node_list;
     :}
@@ -312,11 +311,10 @@ argt=
 	;
 	
 block=
-	variable_declaration_part.n1
+	variable_declaration_part
 	TOKEN_BEGIN
-	statement_list.n2
-	TOKEN_END 		
-	{: return new NodeList(n1,n2); :}			
+	statement_list
+	TOKEN_END 				
 	;
 
 statement_list=
@@ -340,7 +338,7 @@ simple_statement=
 	;
 	
 assignment_statement=
-	variable_access.v TOKEN_AFF expression.e TOKEN_SEMIC /*TODO env*/
+	variable_access.v TOKEN_AFF expression.e TOKEN_SEMIC {: return new NodeAssign(v, e); :}
 	;
 	
 procedure_statement=
@@ -389,26 +387,26 @@ structured_statement=
 	;
 	
 if_statement=
-	TOKEN_IF expression.e TOKEN_THEN statement.stm1 TOKEN_ELSE statement.stm2 {: return new NodeIf(e, stm1, stm2); :}
-	| TOKEN_IF expression.e TOKEN_THEN statement.stm {: return new NodeIf(e, stm); :}
+	TOKEN_IF expression.e TOKEN_THEN statement.stm1 TOKEN_ELSE statement.stm2 	{: return new NodeIf(e, stm1, stm2); :}
+	| TOKEN_IF expression.e TOKEN_THEN statement.stm 							{: return new NodeIf(e, stm); :}
 	;
 	
 while_statement=
-	TOKEN_WHILE expression.e TOKEN_DO statement.stm {: return new NodeWhile(e, stm); :}
+	TOKEN_WHILE expression.e TOKEN_DO statement.stm 							{: return new NodeWhile(e, stm); :}
 	;
 	
 switch_statement=
-	TOKEN_SWITCH expression.e TOKEN_BEGIN case_statement_list.stm TOKEN_END {: return new NodeSwitch(e, stm); :}
+	TOKEN_SWITCH expression.e TOKEN_BEGIN case_statement_list.stm TOKEN_END 	{: return new NodeSwitch(e, stm); :}
 	;
 	
 case_statement_list=
-	case_statement_list.list case_statement.cstmn case_default.cdef		{: list.add(cstmn); list.add(cdef); return list; :}
+	case_statement_list.list case_statement.cstmn case_default.cdef		/*{: list.add(cstmn); list.add(cdef); return list; :}*/
 	| case_statement						
 	;
 	
 case_statement=
 	TOKEN_CASE identifier_list.list TOKEN_COLON statement.stm
-	{: 	
+	/*{: 	
 		NodeList node_list = new NodeList(); 
 		Iterator<String> itr = list.iterator();
 		while(itr.hasNext()) 
@@ -418,12 +416,12 @@ case_statement=
 	         node_list.add(newcase);
       	} 
       	return node_list;
-    :}
+    :}*/
 	;
 
 case_default=
 	/* empty */
-	| TOKEN_DEFAULT TOKEN_COLON statement.stm {: return new NodeCase(stm); :}
+	| TOKEN_DEFAULT TOKEN_COLON statement.stm 							/*{: return new NodeCase(stm); :}*/
 	;
 		
 variable_access=
@@ -449,8 +447,8 @@ expression=
 	| expression.e TOKEN_NE 					{: return new NodeOp("!=", e); :}
 	| TOKEN_LPAR expression.e TOKEN_RPAR		{: return e; :}
 	| procedure_expression 
-	| variable_access	
-	| literal.l {: return l; :}
+	| variable_access.v							{: return v; :}		
+	| literal.l 								{: return l; :}
 	;
 	
 literal=
