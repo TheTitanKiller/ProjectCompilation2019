@@ -161,12 +161,12 @@ type_declaration_part=
 	;
 	
 type_declaration_list=
-	type_declaration_list type_declaration.elt
-	| type_declaration.elt
+	type_declaration_list type_declaration
+	| type_declaration
 	;
 	
 type_declaration=
-	type_declaration_head TOKEN_AFF type TOKEN_SEMIC
+	type_declaration_head.v TOKEN_AFF type.e TOKEN_SEMIC
 	;
 	
 type_declaration_head=
@@ -346,11 +346,11 @@ expression_list=
 	;
 	
 new_statement=
-	TOKEN_NEW variable_access TOKEN_SEMIC
+	TOKEN_NEW variable_access.v TOKEN_SEMIC {: return new NodeNew(v); :}
 	;
 	
 dispose_statement=
-	TOKEN_DISPOSE variable_access TOKEN_SEMIC
+	TOKEN_DISPOSE variable_access.v TOKEN_SEMIC {: return new NodeDispose(v); :}
 	;
 	
 println_statement=
@@ -362,7 +362,7 @@ readln_statement=
 	;
 	
 return_statement=
-	TOKEN_RETURN expression TOKEN_SEMIC
+	TOKEN_RETURN expression.e TOKEN_SEMIC {: return new NodeReturn(e); :}
 	;
 	
 structured_statement=
@@ -373,16 +373,16 @@ structured_statement=
 	;
 	
 if_statement=
-	TOKEN_IF expression TOKEN_THEN statement TOKEN_ELSE statement
-	| TOKEN_IF expression TOKEN_THEN statement 
+	TOKEN_IF expression.e TOKEN_THEN statement.stm1 TOKEN_ELSE statement.stm2 {: return new NodeIf(e, stm1, stm2); :}
+	| TOKEN_IF expression.e TOKEN_THEN statement.stm {: return new NodeIf(e, stm); :}
 	;
 	
 while_statement=
-	TOKEN_WHILE expression TOKEN_DO statement
+	TOKEN_WHILE expression.e TOKEN_DO statement.stm {: return new NodeWhile(e, stm); :}
 	;
 	
 switch_statement=
-	TOKEN_SWITCH expression TOKEN_BEGIN case_statement_list TOKEN_END
+	TOKEN_SWITCH expression.e TOKEN_BEGIN case_statement_list.stm TOKEN_END {: return new NodeSwitch(Node e, Node stm); :}
 	;
 	
 case_statement_list=
@@ -391,12 +391,12 @@ case_statement_list=
 	;
 	
 case_statement=
-	TOKEN_CASE identifier_list TOKEN_COLON statement 	
+	TOKEN_CASE identifier_list.n TOKEN_COLON statement.stm {: return new NodeCase(n, stm); :}
 	;
 	
 case_default=
 	/* empty */
-	| TOKEN_DEFAULT TOKEN_COLON statement
+	| TOKEN_DEFAULT TOKEN_COLON statement.stm {: return new NodeCase(Node stm); :}
 	;
 		
 variable_access=
