@@ -137,12 +137,13 @@
 %typeof case_statement_list        ="Node";
 %typeof case_statement             ="Node";
 %typeof case_default 	           ="Node";
-%typeof variable_access            ="Node";
+%typeof variable_access            ="NodeExp";
 %typeof expression                 ="NodeExp";
 %typeof literal                    ="NodeLiteral";
 
 %typeof TOKEN_LIT_INTEGER 		  = "Integer";
-%typeof TOKEN_LIT_STRING 		  = "String";
+%typeof TOKEN_LIT_STRING  		  = "String";
+%typeof TOKEN_IDENTIFIER 		  = "String";
 
 %goal program;
 
@@ -324,7 +325,7 @@ simple_statement=
 	;
 	
 assignment_statement=
-	variable_access.v TOKEN_AFF expression.e TOKEN_SEMIC /*{: return new NodeAssign(v, e); :}*/ /*TODO env*/
+	variable_access.v TOKEN_AFF expression.e TOKEN_SEMIC /*TODO env*/
 	;
 	
 procedure_statement=
@@ -400,38 +401,38 @@ case_default=
 	;
 		
 variable_access=
-	TOKEN_IDENTIFIER
-	| variable_access TOKEN_LBRACKET expression TOKEN_RBRACKET /*TODO env*/
-	| expression TOKEN_CIRC 	/*TODO env*/
+	TOKEN_IDENTIFIER.name 												{: return stackEnvironment.getVariable(name); :}
+	| variable_access.t TOKEN_LBRACKET expression.i TOKEN_RBRACKET 		{: return new NodeArrayAccess(t, i); :}/*TODO env*/
+	| expression.e TOKEN_CIRC 											{: return new NodePtrAccess (e); :} /*TODO env*/
 	;
 	
 expression=
-	expression.e1 TOKEN_PLUS expression.e2 {: return new NodeOp("+", e1, e2); :}
-	| expression.e1 TOKEN_MINUS expression.e2 {: return new NodeOp("-", e1, e2); :}
-	| expression.e1 TOKEN_TIMES expression.e2 {: return new NodeOp("*", e1, e2); :}
-	| expression.e1 TOKEN_DIV expression.e2 {: return new NodeOp("/", e1, e2); :}
-	| TOKEN_MINUS expression.e {: return new NodeOp("-", e); :}
-	| expression.e1 TOKEN_OR expression.e2 {: return new NodeOp("|", e1, e2); :}
-	| expression.e1 TOKEN_AND expression.e2 {: return new NodeOp("&", e1, e2); :}
-	| TOKEN_NOT expression.e {: return new NodeOp("!", e); :}
-	| expression.e1 TOKEN_LT expression.e2 {: return new NodeOp("<", e1, e2); :}
-	| expression.e1 TOKEN_LE expression.e2 {: return new NodeOp("<=", e1, e2); :}
-	| expression.e1 TOKEN_GT expression.e2 {: return new NodeOp(">", e1, e2); :}
-	| expression.e1 TOKEN_GE expression.e2 {: return new NodeOp(">=", e1, e2); :}
-	| expression.e1 TOKEN_EQ expression.e2 {: return new NodeOp("==", e1, e2); :}
-	| expression.e TOKEN_NE {: return new NodeOp("!=", e); :}
-	| TOKEN_LPAR expression TOKEN_RPAR
+	expression.e1 TOKEN_PLUS expression.e2 		{: return new NodeOp("+", e1, e2); :}
+	| expression.e1 TOKEN_MINUS expression.e2 	{: return new NodeOp("-", e1, e2); :}
+	| expression.e1 TOKEN_TIMES expression.e2 	{: return new NodeOp("*", e1, e2); :}
+	| expression.e1 TOKEN_DIV expression.e2 	{: return new NodeOp("/", e1, e2); :}
+	| TOKEN_MINUS expression.e 					{: return new NodeOp("-", e); :}
+	| expression.e1 TOKEN_OR expression.e2 		{: return new NodeOp("||", e1, e2); :}
+	| expression.e1 TOKEN_AND expression.e2 	{: return new NodeOp("&&", e1, e2); :}
+	| TOKEN_NOT expression.e 					{: return new NodeOp("!", e); :}
+	| expression.e1 TOKEN_LT expression.e2 		{: return new NodeOp("<", e1, e2); :}
+	| expression.e1 TOKEN_LE expression.e2 		{: return new NodeOp("<=", e1, e2); :}
+	| expression.e1 TOKEN_GT expression.e2 		{: return new NodeOp(">", e1, e2); :}
+	| expression.e1 TOKEN_GE expression.e2 		{: return new NodeOp(">=", e1, e2); :}
+	| expression.e1 TOKEN_EQ expression.e2 		{: return new NodeOp("==", e1, e2); :}
+	| expression.e TOKEN_NE 					{: return new NodeOp("!=", e); :}
+	| TOKEN_LPAR expression.e TOKEN_RPAR		{: return e; :}
 	| procedure_expression 
 	| variable_access	
 	| literal
 	;
 	
 literal=
-	TOKEN_LIT_INTEGER.val {: return new NodeLiteral(new TypeInt(), val); :}
-	| TOKEN_LIT_STRING.str {: return new NodeLiteral(new TypeString(), str); :}
-	| TOKEN_TRUE {: return new NodeLiteral(new TypeBoolean(), true); :}
-	| TOKEN_FALSE {: return new NodeLiteral(new TypeBoolean(), false); :}
-	| TOKEN_NULL {: return new NodeLiteral(null, null); :}
+	TOKEN_LIT_INTEGER.val 						{: return new NodeLiteral(new TypeInt(), val); :}
+	| TOKEN_LIT_STRING.str 						{: return new NodeLiteral(new TypeString(), str); :}
+	| TOKEN_TRUE 								{: return new NodeLiteral(new TypeBoolean(), true); :}
+	| TOKEN_FALSE 								{: return new NodeLiteral(new TypeBoolean(), false); :}
+	| TOKEN_NULL 								{: return new NodeLiteral(null, null); :}
 	;
 
 	
