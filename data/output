@@ -1,1 +1,20 @@
 *** Fichier data/progr1.lea
+
+*** Analyse syntaxique ok
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+Layer 0 :
+Environment::Global
+>
+a: NodeId#a:null#
+>
+**
+*** End backtrace
+*** Fichier data/progr2.lea
