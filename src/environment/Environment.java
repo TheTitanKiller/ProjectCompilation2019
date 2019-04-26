@@ -8,10 +8,10 @@ import node.NodeId;
 
 public class Environment implements EnvironmentInterface
 {
-
+    
     String name_environment;
     HashMap<String, NodeId> tableId = new HashMap<>();
-
+    
     /**
      * Créer un environement.
      *
@@ -22,7 +22,7 @@ public class Environment implements EnvironmentInterface
     {
 	this.name_environment = name_environment;
     }
-
+    
     /**
      * @see EnvironmentInterface
      */
@@ -43,29 +43,29 @@ public class Environment implements EnvironmentInterface
 	}
 	System.err.println(">");
     }
-
+    
     /**
      * @see EnvironmentInterface
      */
-    @Override public NodeId getVariable(String variable) throws Exception
+    @Override public NodeId getVariable(String variable) throws Error
     {
 	NodeId el = this.tableId.get(variable);
 	if (el != null)
 	{ return el; }
-	throw new Exception("Variable " + variable + " not initialised in " + this + ".");
+	throw new Error("Variable \"" + variable + "\" is not initialised in " + this + ".");
     }
-
+    
     /**
      * @see EnvironmentInterface
      */
-    @Override public void putVariable(String var, NodeId value) throws Exception
+    @Override public void putVariable(String var, NodeId value) throws Error
     {
 	NodeId el = this.tableId.put(var, value);
 	if (el == null)
 	{ return; }
-	throw new Exception("Variable " + var + " already initialised in " + this + ".");
+	throw new Error("Variable \"" + var + "\" already initialised in " + this + ".");
     }
-
+    
     /**
      * @see EnvironmentInterface
      */
@@ -73,5 +73,5 @@ public class Environment implements EnvironmentInterface
     {
 	return getClass().getSimpleName() + "::" + this.name_environment;
     }
-    
+
 }

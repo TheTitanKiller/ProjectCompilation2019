@@ -41,7 +41,7 @@ public class StackEnvironment implements EnvironmentInterface
      *
      * @see EnvironmentInterface
      */
-    @Override public NodeId getVariable(String variable) throws Exception
+    @Override public NodeId getVariable(String variable) throws Error
     {
 	for (Environment e : this.stack)
 	{
@@ -54,7 +54,7 @@ public class StackEnvironment implements EnvironmentInterface
 	    {
 	    }
 	}
-	throw new Exception("Variable " + variable + " not initialised in " + this + ".");
+	throw new Error("Variable \"" + variable + "\" is not initialised in " + this + ".");
     }
 
     /**
@@ -86,7 +86,7 @@ public class StackEnvironment implements EnvironmentInterface
      *
      * @see EnvironmentInterface
      */
-    @Override public void putVariable(String var, NodeId value) throws Exception
+    @Override public void putVariable(String var, NodeId value) throws Error
     {
 	this.stack.getFirst().putVariable(var, value);
     }

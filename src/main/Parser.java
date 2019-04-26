@@ -189,12 +189,12 @@ public class Parser extends beaver.Parser {
 			RETURN4,	// [36] variable_declaration = identifier_list TOKEN_COLON type TOKEN_SEMIC; returns 'TOKEN_SEMIC' although none is marked
 			new Action() {	// [37] identifier_list = identifier_list TOKEN_COMMA TOKEN_IDENTIFIER
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 3]); return _symbols[offset + 1];
+					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 3].value); return _symbols[offset + 1];
 				}
 			},
 			new Action() {	// [38] identifier_list = TOKEN_IDENTIFIER
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1]); return new Symbol(lst);
+					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1].value); return new Symbol(lst);
 				}
 			},
 			Action.NONE,  	// [39] procedure_definition_part = 
@@ -272,14 +272,14 @@ public class Parser extends beaver.Parser {
 			new Action() {	// [73] new_statement = TOKEN_NEW variable_access.v TOKEN_SEMIC
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_v = _symbols[offset + 2];
-					final Node v = (Node) _symbol_v.value;
+					final NodeExp v = (NodeExp) _symbol_v.value;
 					 return new NodeNew(v);
 				}
 			},
 			new Action() {	// [74] dispose_statement = TOKEN_DISPOSE variable_access.v TOKEN_SEMIC
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_v = _symbols[offset + 2];
-					final Node v = (Node) _symbol_v.value;
+					final NodeExp v = (NodeExp) _symbol_v.value;
 					 return new NodeDispose(v);
 				}
 			},
@@ -345,9 +345,29 @@ public class Parser extends beaver.Parser {
 					 return new NodeCase(stm);
 				}
 			},
-			Action.RETURN,	// [91] variable_access = TOKEN_IDENTIFIER
-			RETURN4,	// [92] variable_access = variable_access TOKEN_LBRACKET expression TOKEN_RBRACKET; returns 'TOKEN_RBRACKET' although none is marked
-			RETURN2,	// [93] variable_access = expression TOKEN_CIRC; returns 'TOKEN_CIRC' although none is marked
+			new Action() {	// [91] variable_access = TOKEN_IDENTIFIER.name
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_name = _symbols[offset + 1];
+					final String name = (String) _symbol_name.value;
+					 return stackEnvironment.getVariable(name);
+				}
+			},
+			new Action() {	// [92] variable_access = variable_access.t TOKEN_LBRACKET expression.i TOKEN_RBRACKET
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_t = _symbols[offset + 1];
+					final NodeExp t = (NodeExp) _symbol_t.value;
+					final Symbol _symbol_i = _symbols[offset + 3];
+					final NodeExp i = (NodeExp) _symbol_i.value;
+					 return new NodeArrayAccess(t, i);
+				}
+			},
+			new Action() {	// [93] variable_access = expression.e TOKEN_CIRC
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 1];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					 return new NodePtrAccess (e);
+				}
+			},
 			new Action() {	// [94] expression = expression.e1 TOKEN_PLUS expression.e2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e1 = _symbols[offset + 1];
@@ -397,7 +417,7 @@ public class Parser extends beaver.Parser {
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 return new NodeOp("|", e1, e2);
+					 return new NodeOp("||", e1, e2);
 				}
 			},
 			new Action() {	// [100] expression = expression.e1 TOKEN_AND expression.e2
@@ -406,7 +426,7 @@ public class Parser extends beaver.Parser {
 					final NodeExp e1 = (NodeExp) _symbol_e1.value;
 					final Symbol _symbol_e2 = _symbols[offset + 3];
 					final NodeExp e2 = (NodeExp) _symbol_e2.value;
-					 return new NodeOp("&", e1, e2);
+					 return new NodeOp("&&", e1, e2);
 				}
 			},
 			new Action() {	// [101] expression = TOKEN_NOT expression.e
@@ -468,7 +488,13 @@ public class Parser extends beaver.Parser {
 					 return new NodeOp("!=", e);
 				}
 			},
-			RETURN2,	// [108] expression = TOKEN_LPAR expression.e TOKEN_RPAR
+			new Action() {	// [108] expression = TOKEN_LPAR expression.e TOKEN_RPAR
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final NodeExp e = (NodeExp) _symbol_e.value;
+					 return e;
+				}
+			},
 			Action.RETURN,	// [109] expression = procedure_expression
 			Action.RETURN,	// [110] expression = variable_access
 			new Action() {	// [111] expression = literal.l
