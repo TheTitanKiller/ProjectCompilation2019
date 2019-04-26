@@ -13,8 +13,77 @@ StackEnvironment::local_variables_stack
 Layer 0 :
 Environment::Global
 >
-a: NodeId#a:null#
+a: NodeId#a:TypeInt_null#
 >
 **
 *** End backtrace
 *** Fichier data/progr2.lea
+
+*** Analyse syntaxique ok
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+Layer 0 :
+Environment::Global
+>
+b: NodeId#b:TypeBoolean#
+c: NodeId#c:TypeString#
+d: NodeId#d:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)#
+x: NodeId#x:TypeInt_null#
+y: NodeId#y:TypeInt_null#
+>
+**
+*** End backtrace
+*** Fichier data/progr3.lea
+
+*** Analyse syntaxique ok
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+Layer 0 :
+Environment::Global
+>
+p: NodeId#p:TypePointer(TypeInt_null)#
+q: NodeId#q:TypePointer(TypeString)#
+b: NodeId#b:TypeBoolean#
+r: NodeId#r:TypePointer(TypeInt_null)#
+c: NodeId#c:TypeString#
+d: NodeId#d:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)#
+x: NodeId#x:TypeInt_null#
+y: NodeId#y:TypeInt_null#
+>
+**
+*** End backtrace
+*** Fichier data/progr4.lea
+
+*** Analyse syntaxique ok
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+Layer 0 :
+Environment::Global
+>
+x: NodeId#x:TypeInt_null#
+y: NodeId#y:TypeInt_null#
+>
+**
+*** End backtrace
+*** Fichier data/progr5.lea
