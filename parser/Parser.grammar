@@ -88,7 +88,7 @@
 //TODO to change each if needed
 %typeof program	                   ="Node";
 %typeof type_declaration_part      ="Node";
-%typeof type_declaration_list      ="Node";
+%typeof type_declaration_list      ="NodeList";
 %typeof type_declaration           ="Node";
 %typeof type_declaration_head      ="Node";
 %typeof type                       ="Node";
@@ -382,7 +382,7 @@ while_statement=
 	;
 	
 switch_statement=
-	TOKEN_SWITCH expression.e TOKEN_BEGIN case_statement_list.stm TOKEN_END {: return new NodeSwitch(Node e, Node stm); :}
+	TOKEN_SWITCH expression.e TOKEN_BEGIN case_statement_list.stm TOKEN_END {: return new NodeSwitch(e, stm); :}
 	;
 	
 case_statement_list=
@@ -391,12 +391,12 @@ case_statement_list=
 	;
 	
 case_statement=
-	TOKEN_CASE identifier_list.n TOKEN_COLON statement.stm {: return new NodeCase(n, stm); :}
+	TOKEN_CASE identifier_list.n TOKEN_COLON statement.stm
 	;
-	
+
 case_default=
 	/* empty */
-	| TOKEN_DEFAULT TOKEN_COLON statement.stm {: return new NodeCase(Node stm); :}
+	| TOKEN_DEFAULT TOKEN_COLON statement.stm {: return new NodeCase(stm); :}
 	;
 		
 variable_access=
@@ -406,20 +406,20 @@ variable_access=
 	;
 	
 expression=
-	expression.e1 TOKEN_PLUS expression.e2 {: return new nodeOp("+", e1, e2); :}
-	| expression.e1 TOKEN_MINUS expression.e2 {: return new nodeOp("-", e1, e2); :}
-	| expression.e1 TOKEN_TIMES expression.e2 {: return new nodeOp("*", e1, e2); :}
-	| expression.e1 TOKEN_DIV expression.e2 {: return new nodeOp("/", e1, e2); :}
-	| TOKEN_MINUS expression.e {: return new nodeOp("-", e); :}
-	| expression.e1 TOKEN_OR expression.e2 {: return new nodeOp("|", e1, e2); :}
-	| expression.e1 TOKEN_AND expression.e2 {: return new nodeOp("&", e1, e2); :}
-	| TOKEN_NOT expression.e {: return new nodeOp("!", e); :}
-	| expression.e1 TOKEN_LT expression.e2 {: return new nodeOp("<", e1, e2); :}
-	| expression.e1 TOKEN_LE expression.e2 {: return new nodeOp("<=", e1, e2); :}
-	| expression.e1 TOKEN_GT expression.e2 {: return new nodeOp(">", e1, e2); :}
-	| expression.e1 TOKEN_GE expression.e2 {: return new nodeOp(">=", e1, e2); :}
-	| expression.e1 TOKEN_EQ expression.e2 {: return new nodeOp("==", e1, e2); :}
-	| expression.e TOKEN_NE {: return new nodeOp("!=", e); :}
+	expression.e1 TOKEN_PLUS expression.e2 {: return new NodeOp("+", e1, e2); :}
+	| expression.e1 TOKEN_MINUS expression.e2 {: return new NodeOp("-", e1, e2); :}
+	| expression.e1 TOKEN_TIMES expression.e2 {: return new NodeOp("*", e1, e2); :}
+	| expression.e1 TOKEN_DIV expression.e2 {: return new NodeOp("/", e1, e2); :}
+	| TOKEN_MINUS expression.e {: return new NodeOp("-", e); :}
+	| expression.e1 TOKEN_OR expression.e2 {: return new NodeOp("|", e1, e2); :}
+	| expression.e1 TOKEN_AND expression.e2 {: return new NodeOp("&", e1, e2); :}
+	| TOKEN_NOT expression.e {: return new NodeOp("!", e); :}
+	| expression.e1 TOKEN_LT expression.e2 {: return new NodeOp("<", e1, e2); :}
+	| expression.e1 TOKEN_LE expression.e2 {: return new NodeOp("<=", e1, e2); :}
+	| expression.e1 TOKEN_GT expression.e2 {: return new NodeOp(">", e1, e2); :}
+	| expression.e1 TOKEN_GE expression.e2 {: return new NodeOp(">=", e1, e2); :}
+	| expression.e1 TOKEN_EQ expression.e2 {: return new NodeOp("==", e1, e2); :}
+	| expression.e TOKEN_NE {: return new NodeOp("!=", e); :}
 	| TOKEN_LPAR expression TOKEN_RPAR
 	| procedure_expression 
 	| variable_access	
