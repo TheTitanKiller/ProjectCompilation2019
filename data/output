@@ -11,10 +11,6 @@ Environment::procedures
 StackEnvironment::local_variables_stack
 **
 Layer 0 :
-Environment::Main
->
->
-Layer 0 :
 Environment::Global
 >
 a: NodeId#a:TypeInt_null#
@@ -34,10 +30,6 @@ Environment::procedures
 >
 StackEnvironment::local_variables_stack
 **
-Layer 0 :
-Environment::Main
->
->
 Layer 0 :
 Environment::Global
 >
@@ -62,10 +54,6 @@ Environment::procedures
 >
 StackEnvironment::local_variables_stack
 **
-Layer 0 :
-Environment::Main
->
->
 Layer 0 :
 Environment::Global
 >
@@ -94,10 +82,6 @@ Environment::procedures
 StackEnvironment::local_variables_stack
 **
 Layer 0 :
-Environment::Main
->
->
-Layer 0 :
 Environment::Global
 >
 x: NodeId#x:TypeInt_null#
@@ -120,23 +104,6 @@ pgcd: NodeId#pgcd:([i:TypeInt_null], [j:TypeInt_null]) -> TypeInt_null Defined: 
 >
 StackEnvironment::local_variables_stack
 **
-Layer 0 :
-Environment::Main
->
->
-Layer 0 :
-Environment::pgcd
->
-i: NodeId#i:[i:TypeInt_null]#
-j: NodeId#j:[j:TypeInt_null]#
->
-Layer 0 :
-Environment::sum
->
-i: NodeId#i:[i:TypeInt_null]#
-j: NodeId#j:[j:TypeInt_null]#
-k: NodeId#k:TypeInt_null#
->
 Layer 0 :
 Environment::Global
 >

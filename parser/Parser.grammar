@@ -163,7 +163,7 @@ program=
 	TOKEN_BEGIN
 	statement_list.stmn
 	TOKEN_END
-	{: return new NodeList(tydec,vardec,procdec,stmn); :}
+	{: stackEnvironment.popEnvironment(); return new NodeList(tydec,vardec,procdec,stmn); :}
 	;
 
 empty_main = 
@@ -295,7 +295,7 @@ procedure_definition_list=
 	;
 	
 procedure_definition=
-	procedure_definition_head block
+	procedure_definition_head.h block.b				{: stackEnvironment.popEnvironment(); return new NodeList(h,b); :}
 	| procedure_declaration_head TOKEN_SEMIC
 	;
 

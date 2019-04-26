@@ -119,7 +119,7 @@ public class Parser extends beaver.Parser {
 					final NodeList procdec = (NodeList) _symbol_procdec.value;
 					final Symbol _symbol_stmn = _symbols[offset + 6];
 					final Node stmn = (Node) _symbol_stmn.value;
-					 return new NodeList(tydec,vardec,procdec,stmn);
+					 stackEnvironment.popEnvironment(); return new NodeList(tydec,vardec,procdec,stmn);
 				}
 			},
 			new Action() {	// [1] empty_main = 
@@ -294,7 +294,15 @@ public class Parser extends beaver.Parser {
 					 return new NodeList(node);
 				}
 			},
-			RETURN2,	// [44] procedure_definition = procedure_definition_head block; returns 'block' although none is marked
+			new Action() {	// [44] procedure_definition = procedure_definition_head.h block.b
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_h = _symbols[offset + 1];
+					final Node h = (Node) _symbol_h.value;
+					final Symbol _symbol_b = _symbols[offset + 2];
+					final Node b = (Node) _symbol_b.value;
+					 stackEnvironment.popEnvironment(); return new NodeList(h,b);
+				}
+			},
 			RETURN2,	// [45] procedure_definition = procedure_declaration_head TOKEN_SEMIC; returns 'TOKEN_SEMIC' although none is marked
 			Action.RETURN,	// [46] procedure_definition_head = procedure_head
 			Action.RETURN,	// [47] procedure_declaration_head = procedure_head
