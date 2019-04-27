@@ -12,6 +12,7 @@
 %import "environment.*";
 %import "java.util.ArrayList";
 %import "java.util.Iterator";
+%import "java.util.Scanner";
 
 %embed {: 
 	static class Events extends beaver.Parser.Events {
@@ -48,7 +49,35 @@
 
 %init {: 
 	report = new Events();
-	stackEnvironment.pushEnvironment("Global"); 
+	stackEnvironment.pushEnvironment("Global");
+
+	Scanner s = new Scanner(System.in);
+
+	public void println(String var)
+	{
+		System.out.println(var);
+	}
+	public void println(int var)
+	{
+		System.out.println(var);
+	}
+	public void println(boolean var)
+	{
+		System.out.println(var);
+	}
+
+	public String readln(String var)
+	{
+		return s.next();
+	}
+	public int readln(int var)
+	{
+		return s.nextInt();
+	}
+	public boolean readln(boolean var)
+	{
+		return s.nextBoolean();
+	}
 :};
 
 // KEYWORDS
@@ -254,7 +283,7 @@ feature_type=
 	
 variable_declaration_part= 
 	/* empty */ 
-	| TOKEN_VAR variable_declaration_list. list 				{: return list; :}
+	| TOKEN_VAR variable_declaration_list.list 				{: return list; :}
 	;
 	
 variable_declaration_list=
@@ -265,13 +294,11 @@ variable_declaration_list=
 variable_declaration=
 	identifier_list.list TOKEN_COLON type.ty TOKEN_SEMIC 
 															{: 	
-																NodeList node_list = new NodeList(); 
-																Iterator<String> itr = list.iterator();
-																while(itr.hasNext()) 
+																NodeList node_list = new NodeList();
+																for(String s : list) 
 																{
-															         String name = itr.next();
-															         NodeId node = new NodeId(name, ty);
-															         stackEnvironment.putVariable(name, node);
+															         NodeId node = new NodeId(s, ty);
+															         stackEnvironment.putVariable(s, node);
 															         node_list.add(node);
 														      	} 
 														      	return node_list;
@@ -370,17 +397,17 @@ statement_list=
 	;
 	
 statement=
-	simple_statement
+	simple_statement.s						{: return s; :}
 	| structured_statement.n 				{: return n; :}
 	;
 	
 simple_statement=
-	assignment_statement
+	assignment_statement.a											{: return a; :}
 	| procedure_statement
-	| new_statement
-	| dispose_statement
+	| new_statement.n												{: return n; :}
+	| dispose_statement.d											{: return d; :}
 	| println_statement
-	| readln_statement
+	| readln_statement											
 	| return_statement.r 											{: return new NodeReturn(r); :}
 	;
 	
@@ -416,11 +443,11 @@ dispose_statement=
 	;
 	
 println_statement=
-	TOKEN_PRINTLN expression TOKEN_SEMIC
+	TOKEN_PRINTLN expression.e TOKEN_SEMIC				{: println(e); :}
 	;	
 	
 readln_statement=
-	TOKEN_READLN expression TOKEN_SEMIC	
+	TOKEN_READLN expression TOKEN_SEMIC				
 	;
 	
 return_statement=
@@ -449,19 +476,14 @@ switch_statement=
 	
 case_statement_list=
 	case_statement_list.list case_statement.cstmn case_default.cdef				{: list.add(cstmn); list.add(cdef); return list; :}
-	| case_statement						
+	| case_statement.cstmn														{: return new NodeList(cstmn); :}
 	;
 	
 case_statement=
 	TOKEN_CASE identifier_list.list TOKEN_COLON statement.stm			{: 	
-																			NodeList node_list = new NodeList(); 
-																			Iterator<String> itr = list.iterator();
-																			while(itr.hasNext()) 
-																			{
-																		         String name = itr.next();
-																		         NodeCase newcase = new NodeCase(name, stm);
-																		         node_list.add(newcase);
-																	      	} 
+																			NodeList node_list = new NodeList();
+																			for(String s : list)
+																		         node_list.add(new NodeCase(s, stm));
 																	      	return node_list;
 																	    :}
 	;
@@ -507,7 +529,7 @@ literal=
 	| TOKEN_LIT_STRING.str 						{: return new NodeLiteral(new TypeString(), str); :}
 	| TOKEN_TRUE 								{: return new NodeLiteral(new TypeBoolean(), true); :}
 	| TOKEN_FALSE 								{: return new NodeLiteral(new TypeBoolean(), false); :}
-	| TOKEN_NULL 								{: return new NodeLiteral(null, null); :}
+	| TOKEN_NULL 								{: return new NodeLiteral(new TypePointer(), null); :}
 	;
 	
 	
