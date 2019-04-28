@@ -246,12 +246,12 @@ enumerated_type=
 	init_enumerated_type TOKEN_LPAR identifier_list TOKEN_RPAR 
 	;
 	
-init_enumerated_type=
+init_enumerated_type=	{: return new TypeVoid(); :}
 	;
 
 subrange_type= 
 	TOKEN_LIT_INTEGER.int1 TOKEN_DOTDOT TOKEN_LIT_INTEGER.int2 					{: return new TypeArrayRange(new TypeInt(int1), new TypeInt(int2)); :}
-	| TOKEN_IDENTIFIER.name1 TOKEN_DOTDOT TOKEN_IDENTIFIER.name2	
+	| TOKEN_IDENTIFIER.name1 TOKEN_DOTDOT TOKEN_IDENTIFIER.name2				{: return new TypeArrayRange(new TypeString(name1), new TypeString(name2)); :}
 	;
 	
 array_type=
@@ -273,8 +273,8 @@ structure_type=
 	;
 	
 feature_list_type=
-	feature_list_type feature_type
-	| feature_type
+	feature_list_type.list feature_type.f			{: list.add(f); return list; :}
+	| feature_type.f								{: return new NodeList(f); :}
 	;
 	
 feature_type=
@@ -403,12 +403,12 @@ statement=
 	
 simple_statement=
 	assignment_statement.a											{: return a; :}
-	| procedure_statement
+	| procedure_statement.s											{: return s; :}
 	| new_statement.n												{: return n; :}
 	| dispose_statement.d											{: return d; :}
-	| println_statement
-	| readln_statement											
-	| return_statement.r 											{: return new NodeReturn(r); :}
+	| println_statement.p											{: return p; :}
+	| readln_statement.r											{: return r; :}
+	| return_statement.r 											{: return r; :}
 	;
 	
 assignment_statement=
@@ -416,7 +416,7 @@ assignment_statement=
 	;
 	
 procedure_statement=
-	procedure_expression TOKEN_SEMIC
+	procedure_expression.e TOKEN_SEMIC								{: return e; :}
 	;
 	
 procedure_expression=
@@ -443,11 +443,11 @@ dispose_statement=
 	;
 	
 println_statement=
-	TOKEN_PRINTLN expression.e TOKEN_SEMIC				{: println(e); :}
+	TOKEN_PRINTLN expression.e TOKEN_SEMIC				{: return new NodeOp("println", e); :}
 	;	
 	
 readln_statement=
-	TOKEN_READLN expression TOKEN_SEMIC				
+	TOKEN_READLN expression.e TOKEN_SEMIC				{: return new NodeOp("readln", e); :}
 	;
 	
 return_statement=
