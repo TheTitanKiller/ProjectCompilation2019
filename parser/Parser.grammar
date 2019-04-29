@@ -281,7 +281,7 @@ variable_declaration=
 																for(String s : list) 
 																{
 															         NodeId node = new NodeId(s, ty);
-															         stackEnvironment.putVariable(s, node);
+															         stackEnvironment.putVariable(s, node); /* TODO Verif enum (in typeEnvironment)*/
 															         node_list.add(node);
 														      	} 
 														      	return node_list;
