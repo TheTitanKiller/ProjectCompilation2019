@@ -11,6 +11,8 @@ public class TypeNamed extends TypeAtomic
 	super();
 	this.name = name;
     }
+
+    public String getName() { return this.name; }
     
     @Override public ClonableSymbol clone()
     {

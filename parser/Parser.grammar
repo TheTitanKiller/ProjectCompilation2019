@@ -11,8 +11,6 @@
 %import "type.*";
 %import "environment.*";
 %import "java.util.ArrayList";
-%import "java.util.Iterator";
-%import "java.util.Scanner";
 
 %embed {: 
 	static class Events extends beaver.Parser.Events {
@@ -50,34 +48,6 @@
 %init {: 
 	report = new Events();
 	stackEnvironment.pushEnvironment("Global");
-
-	Scanner s = new Scanner(System.in);
-
-	public void println(String var)
-	{
-		System.out.println(var);
-	}
-	public void println(int var)
-	{
-		System.out.println(var);
-	}
-	public void println(boolean var)
-	{
-		System.out.println(var);
-	}
-
-	public String readln(String var)
-	{
-		return s.next();
-	}
-	public int readln(int var)
-	{
-		return s.nextInt();
-	}
-	public boolean readln(boolean var)
-	{
-		return s.nextBoolean();
-	}
 :};
 
 // KEYWORDS
@@ -121,20 +91,20 @@
 %typeof type_declaration_part      ="NodeList";
 %typeof type_declaration_list      ="Node";
 %typeof type_declaration           ="Node";
-%typeof type_declaration_head      ="String";
+%typeof type_declaration_head      ="IdentifierList";
 %typeof type                       ="Type";
 %typeof simple_type                ="Type";
 %typeof named_type                 ="Type";
 %typeof index_type                 ="Type";
-%typeof enumerated_type            ="Type";
-%typeof init_enumerated_type       ="Type";
-%typeof subrange_type              ="Type";
+%typeof enumerated_type            ="TypeTuple";
+%typeof init_enumerated_type       ="TypeEnumRange";
+%typeof subrange_type              ="TypeArrayRange";
 %typeof array_type                 ="TypeArray";
-%typeof range_type                 ="TypeRange";
-%typeof pointer_type               ="Type";
-%typeof structure_type             ="Type";
-%typeof feature_list_type          ="Type";
-%typeof feature_type               ="Type";
+%typeof range_type                 ="Type";
+%typeof pointer_type               ="TypePointer";
+%typeof structure_type             ="TypeStruct";
+%typeof feature_list_type          ="TypeFeatureList";
+%typeof feature_type               ="TypeFeature";
 %typeof variable_declaration_part  ="NodeList";
 %typeof variable_declaration_list  ="Node";
 %typeof variable_declaration       ="Node";
@@ -176,7 +146,7 @@
 %typeof TOKEN_LIT_STRING  		   = "String";
 %typeof TOKEN_IDENTIFIER 		   = "String";
 
-%typeof procedure_name 		   	   = "NodeId";
+%typeof procedure_name 		   	   = "TypeNamed";
 
 %goal program;
 
@@ -210,21 +180,21 @@ type_declaration_list=
 	;
 	
 type_declaration=
-	type_declaration_head.tname TOKEN_AFF type.ty TOKEN_SEMIC 	{: 	NodeId node = new NodeId(tname, ty); typeEnvironment.putVariable(tname, node); 
+	type_declaration_head.tname TOKEN_AFF type.ty TOKEN_SEMIC 	{: 	NodeId node = new NodeId(tname.first(), ty); typeEnvironment.putVariable(tname.first(), node); 
 																	return node; :}
 	;
 	
 type_declaration_head=
-	TOKEN_IDENTIFIER
+	TOKEN_IDENTIFIER.name			{: return new IdentifierList(name); :}
 	;
 	
 type=
-	simple_type
-	| named_type		
-	| index_type
-	| array_type
+	simple_type.n				{: return n; :}
+	| named_type.n				{: return n; :}		
+	| index_type.n				{: return n; :}
+	| array_type.n				{: return n; :}
 	| pointer_type.n			{: return n; :}
-	| structure_type
+	| structure_type.n			{: return n; :}
 	;
 	
 simple_type=
@@ -238,20 +208,27 @@ named_type=
 	;
 	
 index_type=
-	enumerated_type
-	| subrange_type
+	enumerated_type.t				{: return t; :}
+	| subrange_type.t				{: return t; :}
 	;
 	
 enumerated_type=
-	init_enumerated_type TOKEN_LPAR identifier_list TOKEN_RPAR 
+	init_enumerated_type.t TOKEN_LPAR identifier_list.list TOKEN_RPAR 			
+																		{: 
+																			TypeTuple tuple = new TypeTuple();
+																			int i = 0;
+																			for(String s : list)
+																				tuple.add(new TypeItemEnum(i++, s));
+																			return tuple;
+																		:}
 	;
 	
-init_enumerated_type=	{: return new TypeVoid(); :}
+init_enumerated_type=					{: return new TypeEnumRange(); :}
 	;
 
 subrange_type= 
 	TOKEN_LIT_INTEGER.int1 TOKEN_DOTDOT TOKEN_LIT_INTEGER.int2 					{: return new TypeArrayRange(new TypeInt(int1), new TypeInt(int2)); :}
-	| TOKEN_IDENTIFIER.name1 TOKEN_DOTDOT TOKEN_IDENTIFIER.name2				{: return new TypeArrayRange(new TypeString(name1), new TypeString(name2)); :}
+	| TOKEN_IDENTIFIER.name1 TOKEN_DOTDOT TOKEN_IDENTIFIER.name2				{: return new TypeArrayRange(new TypeNamed(name1), new TypeNamed(name2)); :}
 	;
 	
 array_type=
@@ -259,9 +236,9 @@ array_type=
 	;
 	
 range_type=
-	enumerated_type 	
-	| subrange_type
-	| named_type	
+	enumerated_type.t				{: return t; :} 	
+	| subrange_type.t				{: return t; :}
+	| named_type.t					{: return t; :}	
 	;
 	
 pointer_type=
@@ -274,11 +251,11 @@ structure_type=
 	
 feature_list_type=
 	feature_list_type.list feature_type.f			{: list.add(f); return list; :}
-	| feature_type.f								{: return new NodeList(f); :}
+	| feature_type.f								{: return new TypeFeatureList(f); :}
 	;
 	
 feature_type=
-	TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_SEMIC /*TODO env*/
+	TOKEN_IDENTIFIER.name TOKEN_COLON type.t TOKEN_SEMIC /*TODO env*/ {: return new TypeFeature(name, t); :}
 	;
 	
 variable_declaration_part= 
@@ -354,7 +331,7 @@ procedure_head=
 	;
 
 procedure_name = 
-	TOKEN_IDENTIFIER.namefct 					{: stackEnvironment.pushEnvironment(namefct); return new NodeId(namefct, null); :}
+	TOKEN_IDENTIFIER.namefct 					{: stackEnvironment.pushEnvironment(namefct); return new TypeNamed(namefct); :}
 	;
 
 argt_part=
@@ -362,13 +339,8 @@ argt_part=
 	| argt_list.list
 												{:
 													TypeTuple type_params = new TypeTuple();
-													Iterator<Node> itr = list.iterator();
-													while(itr.hasNext()) 
-													{
-														 NodeExp n =(NodeExp)(itr.next());
-												         Type type = n.getType();
-												         type_params.add(type);
-											      	} 
+													for(Node n : list)
+												         type_params.add(((NodeExp)n).getType());
 											      	return type_params;
 											    :}
 	;
