@@ -89,8 +89,8 @@
 //TODO to change each if needed
 %typeof program	                   ="NodeList";
 %typeof type_declaration_part      ="NodeList";
-%typeof type_declaration_list      ="Node";
-%typeof type_declaration           ="Node";
+%typeof type_declaration_list      ="NodeList";
+%typeof type_declaration           ="NodeId";
 %typeof type_declaration_head      ="IdentifierList";
 %typeof type                       ="Type";
 %typeof simple_type                ="Type";
@@ -204,7 +204,7 @@ simple_type=
 	;
 	
 named_type=
-	TOKEN_IDENTIFIER.name 		{: return typeEnvironment.getVariable(name); :}
+	TOKEN_IDENTIFIER.name 		{: return typeEnvironment.getVariable(name).getType(); :}
 	;
 	
 index_type=
@@ -218,7 +218,11 @@ enumerated_type=
 																			TypeTuple tuple = new TypeTuple();
 																			int i = 0;
 																			for(String s : list)
-																				tuple.add(new TypeItemEnum(i++, s));
+																			{
+																				TypeItemEnum tmp = new TypeItemEnum(i++, s);
+																				stackEnvironment.putVariable(s, new NodeId(s, tmp));
+																				tuple.add(tmp);
+																			}
 																			return tuple;
 																		:}
 	;
@@ -246,7 +250,7 @@ pointer_type=
 	;
 	
 structure_type=
-	TOKEN_STRUCT TOKEN_LBRACE feature_list_type TOKEN_RBRACE /*TODO env*/
+	TOKEN_STRUCT TOKEN_LBRACE feature_list_type.list TOKEN_RBRACE /*TODO env*/ {: return new TypeStruct(list); :}
 	;
 	
 feature_list_type=

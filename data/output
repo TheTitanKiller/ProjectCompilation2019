@@ -159,3 +159,46 @@ year: NodeId#year:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_7], TypeArray(Type
 *** End backtrace
 
 *** Fichier data/progr8.lea
+
+*** Analyse syntaxique ok
+*** Backtrace
+Environment::types
+>
+months: NodeId#months:(TypeItemEnum@JANUARY=0, TypeItemEnum@FEBRUARY=1, TypeItemEnum@MARCH=2, TypeItemEnum@APRIL=3, TypeItemEnum@MAY=4, TypeItemEnum@JUNE=5, TypeItemEnum@JULY=6, TypeItemEnum@AUGUST=7, TypeItemEnum@SEPTEMBER=8, TypeItemEnum@OCTOBER=9, TypeItemEnum@NOVEMBER=10, TypeItemEnum@DECEMBER=11)#
+days: NodeId#days:(TypeItemEnum@SUNDAY=0, TypeItemEnum@MONDAY=1, TypeItemEnum@TUESDAY=2, TypeItemEnum@WEDNESDAY=3, TypeItemEnum@THURSDAY=4, TypeItemEnum@FRIDAY=5, TypeItemEnum@SATURDAY=6)#
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+Layer 0 :
+Environment::Global
+>
+JANUARY: NodeId#JANUARY:TypeItemEnum@JANUARY=0#
+JUNE: NodeId#JUNE:TypeItemEnum@JUNE=5#
+THURSDAY: NodeId#THURSDAY:TypeItemEnum@THURSDAY=4#
+week: NodeId#week:TypeArray(TypeArrayRange[TypeNamed_MONDAY..TypeNamed_FRIDAY], TypeString)#
+SUNDAY: NodeId#SUNDAY:TypeItemEnum@SUNDAY=0#
+MAY: NodeId#MAY:TypeItemEnum@MAY=4#
+d: NodeId#d:TypeArrayRange[TypeNamed_SUNDAY..TypeNamed_SATURDAY]#
+OCTOBER: NodeId#OCTOBER:TypeItemEnum@OCTOBER=9#
+year: NodeId#year:TypeArray(TypeArrayRange[TypeNamed_SUNDAY..TypeNamed_SATURDAY], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeNamed_JANUARY..TypeNamed_DECEMBER], TypeString)))#
+TUESDAY: NodeId#TUESDAY:TypeItemEnum@TUESDAY=2#
+FRIDAY: NodeId#FRIDAY:TypeItemEnum@FRIDAY=5#
+DECEMBER: NodeId#DECEMBER:TypeItemEnum@DECEMBER=11#
+FEBRUARY: NodeId#FEBRUARY:TypeItemEnum@FEBRUARY=1#
+SEPTEMBER: NodeId#SEPTEMBER:TypeItemEnum@SEPTEMBER=8#
+NOVEMBER: NodeId#NOVEMBER:TypeItemEnum@NOVEMBER=10#
+WEDNESDAY: NodeId#WEDNESDAY:TypeItemEnum@WEDNESDAY=3#
+MONDAY: NodeId#MONDAY:TypeItemEnum@MONDAY=1#
+SATURDAY: NodeId#SATURDAY:TypeItemEnum@SATURDAY=6#
+MARCH: NodeId#MARCH:TypeItemEnum@MARCH=2#
+AUGUST: NodeId#AUGUST:TypeItemEnum@AUGUST=7#
+JULY: NodeId#JULY:TypeItemEnum@JULY=6#
+APRIL: NodeId#APRIL:TypeItemEnum@APRIL=3#
+>
+**
+*** End backtrace
+
+*** Fichier data/progr9.lea
