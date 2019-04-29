@@ -265,7 +265,9 @@ public class Parser extends beaver.Parser {
 					final String name1 = (String) _symbol_name1.value;
 					final Symbol _symbol_name2 = _symbols[offset + 3];
 					final String name2 = (String) _symbol_name2.value;
-					 return new TypeArrayRange(new TypeNamed(name1), new TypeNamed(name2));
+					 return new TypeArrayRange(
+																						stackEnvironment.getVariable(name1).getType(),
+																						stackEnvironment.getVariable(name2).getType());
 				}
 			},
 			new Action() {	// [24] array_type = TOKEN_ARRAY TOKEN_LBRACKET range_type.r TOKEN_RBRACKET TOKEN_OF type.ty

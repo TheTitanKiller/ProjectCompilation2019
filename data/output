@@ -178,12 +178,12 @@ Environment::Global
 JANUARY: NodeId#JANUARY:TypeItemEnum@JANUARY=0#
 JUNE: NodeId#JUNE:TypeItemEnum@JUNE=5#
 THURSDAY: NodeId#THURSDAY:TypeItemEnum@THURSDAY=4#
-week: NodeId#week:TypeArray(TypeArrayRange[TypeNamed_MONDAY..TypeNamed_FRIDAY], TypeString)#
+week: NodeId#week:TypeArray(TypeArrayRange[TypeItemEnum@MONDAY=1..TypeItemEnum@FRIDAY=5], TypeString)#
 SUNDAY: NodeId#SUNDAY:TypeItemEnum@SUNDAY=0#
 MAY: NodeId#MAY:TypeItemEnum@MAY=4#
-d: NodeId#d:TypeArrayRange[TypeNamed_SUNDAY..TypeNamed_SATURDAY]#
+d: NodeId#d:TypeArrayRange[TypeItemEnum@SUNDAY=0..TypeItemEnum@SATURDAY=6]#
 OCTOBER: NodeId#OCTOBER:TypeItemEnum@OCTOBER=9#
-year: NodeId#year:TypeArray(TypeArrayRange[TypeNamed_SUNDAY..TypeNamed_SATURDAY], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeNamed_JANUARY..TypeNamed_DECEMBER], TypeString)))#
+year: NodeId#year:TypeArray(TypeArrayRange[TypeItemEnum@SUNDAY=0..TypeItemEnum@SATURDAY=6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeItemEnum@JANUARY=0..TypeItemEnum@DECEMBER=11], TypeString)))#
 TUESDAY: NodeId#TUESDAY:TypeItemEnum@TUESDAY=2#
 FRIDAY: NodeId#FRIDAY:TypeItemEnum@FRIDAY=5#
 DECEMBER: NodeId#DECEMBER:TypeItemEnum@DECEMBER=11#
@@ -202,3 +202,69 @@ APRIL: NodeId#APRIL:TypeItemEnum@APRIL=3#
 *** End backtrace
 
 *** Fichier data/progr9.lea
+
+*** Analyse syntaxique ok
+*** Backtrace
+Environment::types
+>
+DaysOfWeek: NodeId#DaysOfWeek:(TypeItemEnum@Sunday=0, TypeItemEnum@Monday=1, TypeItemEnum@Tuesday=2, TypeItemEnum@Wednesday=3, TypeItemEnum@Thursday=4, TypeItemEnum@Friday=5, TypeItemEnum@Saturday=6)#
+Months: NodeId#Months:(TypeItemEnum@January=0, TypeItemEnum@February=1, TypeItemEnum@March=2, TypeItemEnum@April=3, TypeItemEnum@May=4, TypeItemEnum@June=5, TypeItemEnum@July=6, TypeItemEnum@August=7, TypeItemEnum@September=8, TypeItemEnum@October=9, TypeItemEnum@November=10, TypeItemEnum@December=11)#
+range1: NodeId#range1:TypeArrayRange[TypeInt_64..TypeInt_81]#
+named1: NodeId#named1:TypeString#
+range2: NodeId#range2:TypeArrayRange[TypeItemEnum@Monday=1..TypeItemEnum@Friday=5]#
+ptr2: NodeId#ptr2:TypePointer(TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeArray((TypeItemEnum@Sunday=0, TypeItemEnum@Monday=1, TypeItemEnum@Tuesday=2, TypeItemEnum@Wednesday=3, TypeItemEnum@Thursday=4, TypeItemEnum@Friday=5, TypeItemEnum@Saturday=6), TypeInt_null)))#
+table4: NodeId#table4:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeArray((TypeItemEnum@Sunday=0, TypeItemEnum@Monday=1, TypeItemEnum@Tuesday=2, TypeItemEnum@Wednesday=3, TypeItemEnum@Thursday=4, TypeItemEnum@Friday=5, TypeItemEnum@Saturday=6), TypeInt_null))#
+table3: NodeId#table3:TypeArray(TypeArrayRange[TypeItemEnum@Monday=1..TypeItemEnum@Friday=5], TypeInt_null)#
+chaine: NodeId#chaine:TypeString#
+table2: NodeId#table2:TypeArray(TypeArrayRange[TypeInt_64..TypeInt_81], TypeInt_null)#
+table1: NodeId#table1:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#
+entier: NodeId#entier:TypeInt_null#
+ptr1: NodeId#ptr1:TypePointer(TypeInt_null)#
+booleen: NodeId#booleen:TypeBoolean#
+>
+Environment::procedures
+>
+goo: NodeId#goo:([i:TypeInt_null], [j:TypeInt_null]) -> TypeBoolean Defined: false Name: goo#
+foo: NodeId#foo:([i:TypeInt_null], [j:TypeInt_null]) -> TypePointer(TypeBoolean) Defined: false Name: foo#
+>
+StackEnvironment::local_variables_stack
+**
+Layer 0 :
+Environment::Global
+>
+r2: NodeId#r2:TypeArrayRange[TypeItemEnum@Monday=1..TypeItemEnum@Friday=5]#
+June: NodeId#June:TypeItemEnum@June=5#
+May: NodeId#May:TypeItemEnum@May=4#
+September: NodeId#September:TypeItemEnum@September=8#
+Monday: NodeId#Monday:TypeItemEnum@Monday=1#
+March: NodeId#March:TypeItemEnum@March=2#
+Saturday: NodeId#Saturday:TypeItemEnum@Saturday=6#
+October: NodeId#October:TypeItemEnum@October=9#
+December: NodeId#December:TypeItemEnum@December=11#
+Friday: NodeId#Friday:TypeItemEnum@Friday=5#
+Tuesday: NodeId#Tuesday:TypeItemEnum@Tuesday=2#
+July: NodeId#July:TypeItemEnum@July=6#
+January: NodeId#January:TypeItemEnum@January=0#
+February: NodeId#February:TypeItemEnum@February=1#
+November: NodeId#November:TypeItemEnum@November=10#
+b: NodeId#b:TypeBoolean#
+m2: NodeId#m2:TypeArray(TypeArrayRange[TypeItemEnum@Monday=1..TypeItemEnum@Thursday=4], TypeBoolean)#
+k: NodeId#k:TypeArray(TypeArrayRange[TypeItemEnum@Monday=1..TypeItemEnum@Friday=5], TypeInt_null)#
+l: NodeId#l:TypeArray(TypeArrayRange[TypeItemEnum@Monday=1..TypeItemEnum@Friday=5], TypeBoolean)#
+m: NodeId#m:(TypeItemEnum@January=0, TypeItemEnum@February=1, TypeItemEnum@March=2, TypeItemEnum@April=3, TypeItemEnum@May=4, TypeItemEnum@June=5, TypeItemEnum@July=6, TypeItemEnum@August=7, TypeItemEnum@September=8, TypeItemEnum@October=9, TypeItemEnum@November=10, TypeItemEnum@December=11)#
+April: NodeId#April:TypeItemEnum@April=3#
+August: NodeId#August:TypeItemEnum@August=7#
+p: NodeId#p:TypePointer(TypeInt_null)#
+Thursday: NodeId#Thursday:TypeItemEnum@Thursday=4#
+month: NodeId#month:(TypeItemEnum@January=0, TypeItemEnum@February=1, TypeItemEnum@March=2, TypeItemEnum@April=3, TypeItemEnum@May=4, TypeItemEnum@June=5, TypeItemEnum@July=6, TypeItemEnum@August=7, TypeItemEnum@September=8, TypeItemEnum@October=9, TypeItemEnum@November=10, TypeItemEnum@December=11)#
+Sunday: NodeId#Sunday:TypeItemEnum@Sunday=0#
+Wednesday: NodeId#Wednesday:TypeItemEnum@Wednesday=3#
+x: NodeId#x:TypeInt_null#
+z2: NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#
+y: NodeId#y:TypeInt_null#
+z: NodeId#z:TypeInt_null#
+r1: NodeId#r1:TypeArrayRange[TypeInt_64..TypeInt_81]#
+>
+**
+*** End backtrace
+
