@@ -980,7 +980,7 @@ public class Parser extends beaver.Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_val = _symbols[offset + 1];
 					final Integer val = (Integer) _symbol_val.value;
-					 return new NodeLiteral(new TypeInt(), val);
+					 return new NodeLiteral(new TypeInt(val), val);
 				}
 			},
 			new Action() {	// [115] literal = TOKEN_LIT_STRING.str

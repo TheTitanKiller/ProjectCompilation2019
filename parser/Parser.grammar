@@ -503,7 +503,7 @@ expression=
 	;
 	
 literal=
-	TOKEN_LIT_INTEGER.val 						{: return new NodeLiteral(new TypeInt(), val); :}
+	TOKEN_LIT_INTEGER.val 						{: return new NodeLiteral(new TypeInt(val), val); :}
 	| TOKEN_LIT_STRING.str 						{: return new NodeLiteral(new TypeString(), str); :}
 	| TOKEN_TRUE 								{: return new NodeLiteral(new TypeBoolean(), true); :}
 	| TOKEN_FALSE 								{: return new NodeLiteral(new TypeBoolean(), false); :}

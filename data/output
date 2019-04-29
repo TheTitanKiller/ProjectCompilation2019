@@ -1,6 +1,20 @@
 *** Fichier data/progr1.lea
 
 *** Analyse syntaxique ok
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeWhile
+--- CheckType NodeOp
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeOp
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeOp
+*** Typage correct
 *** Backtrace
 Environment::types
 >
@@ -21,6 +35,48 @@ a: NodeId#a:TypeInt_null#
 *** Fichier data/progr2.lea
 
 *** Analyse syntaxique ok
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeOp
+--- CheckType NodeOp
+--- CheckType NodeOp
+--- CheckType NodeOp
+--- CheckType NodeOp
+*** Typage correct
 *** Backtrace
 Environment::types
 >
@@ -45,6 +101,75 @@ y: NodeId#y:TypeInt_null#
 *** Fichier data/progr3.lea
 
 *** Analyse syntaxique ok
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeOp
+--- CheckType NodeOp
+--- CheckType NodeOp
+--- CheckType NodeOp
+--- CheckType NodeOp
+--- CheckType NodeNew
+--- CheckType NodeAssign
+--- CheckType NodePtrAccess
+--- CheckType NodeLiteral
+--- CheckType NodeOp
+--- CheckType NodeOp
+--- CheckType NodeNew
+--- CheckType NodeOp
+--- CheckType NodeAssign
+--- CheckType NodePtrAccess
+--- CheckType NodeId
+--- CheckType NodeOp
+--- CheckType NodeNew
+--- CheckType NodeAssign
+--- CheckType NodePtrAccess
+--- CheckType NodeLiteral
+--- CheckType NodeOp
+--- CheckType NodeDispose
+--- CheckType NodeOp
+--- CheckType NodeOp
+*** Typage correct
 *** Backtrace
 Environment::types
 >
@@ -72,6 +197,25 @@ y: NodeId#y:TypeInt_null#
 *** Fichier data/progr4.lea
 
 *** Analyse syntaxique ok
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeWhile
+--- CheckType NodeOp
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeOp
+--- CheckType NodeIf
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeOp
+*** Typage correct
 *** Backtrace
 Environment::types
 >
@@ -93,6 +237,39 @@ y: NodeId#y:TypeInt_null#
 *** Fichier data/progr5.lea
 
 *** Analyse syntaxique ok
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeReturn
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeWhile
+--- CheckType NodeOp
+--- CheckType NodeIf
+--- CheckType NodeReturn
+--- CheckType NodeList
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeId
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+--- CheckType NodeOp
+--- CheckType NodeOp
+*** Typage correct
 *** Backtrace
 Environment::types
 >
@@ -115,6 +292,56 @@ x: NodeId#x:TypeInt_null#
 *** Fichier data/progr6.lea
 
 *** Analyse syntaxique ok
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeIf
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeIf
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeIf
+--- CheckType NodeOp
+--- CheckType NodeOp
+--- CheckType NodeOp
+--- CheckType NodeIf
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeIf
+--- CheckType NodeReturn
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeIf
+--- CheckType NodeList
+--- CheckType NodeOp
+--- CheckType NodeOp
+--- CheckType NodeCallFct
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+--- CheckType NodeLiteral
+--- CheckType NodeOp
+--- CheckType NodeOp
+*** Typage correct
 *** Backtrace
 Environment::types
 >
@@ -140,6 +367,32 @@ x: NodeId#x:TypeInt_null#
 *** Fichier data/progr7.lea
 
 *** Analyse syntaxique ok
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeOp
+--- CheckType NodeOp
+--- CheckType NodeOp
+*** Typage correct
 *** Backtrace
 Environment::types
 >
@@ -161,6 +414,25 @@ year: NodeId#year:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_7], TypeArray(Type
 *** Fichier data/progr8.lea
 
 *** Analyse syntaxique ok
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+--- CheckType NodeLiteral
+--- CheckType NodeAssign
+--- CheckType NodeArrayAccess
+type de l'index incorrect
+*** Erreur de typage
 *** Backtrace
 Environment::types
 >
@@ -204,6 +476,63 @@ APRIL: NodeId#APRIL:TypeItemEnum@APRIL=3#
 *** Fichier data/progr9.lea
 
 *** Analyse syntaxique ok
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeList
+--- CheckType NodeId
+--- CheckType NodeList
+--- CheckType NodeNew
+--- CheckType NodeAssign
+--- CheckType NodePtrAccess
+--- CheckType NodeCallFct
+--- CheckType NodeId
+*** Erreur de typage [i:TypeInt_null] != TypeInt_null
+*** Erreur de typage
 *** Backtrace
 Environment::types
 >
