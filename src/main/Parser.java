@@ -400,18 +400,16 @@ public class Parser extends beaver.Parser {
 					 return new NodeDispose(v);
 				}
 			},
-			new Action() {	// [75] println_statement = TOKEN_PRINTLN expression.e TOKEN_SEMIC
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_e = _symbols[offset + 2];
-					final NodeExp e = (NodeExp) _symbol_e.value;
-					 return NodeCallFct("println", void, e);
-				}
-			},
+			RETURN2,	// [75] println_statement = TOKEN_PRINTLN expression.e TOKEN_SEMIC
 			new Action() {	// [76] readln_statement = TOKEN_READLN expression.e TOKEN_SEMIC
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final NodeExp e = (NodeExp) _symbol_e.value;
-					 return NodeCallFct("readln", void, e);
+					
+		String name = new String("readln");
+		NodeId(name, typeFct(name));
+	    procedureEnvironment.putVariable(name, node);
+      	return node_list;
 				}
 			},
 			new Action() {	// [77] return_statement = TOKEN_RETURN expression.e TOKEN_SEMIC
@@ -699,7 +697,8 @@ public class Parser extends beaver.Parser {
 
  
 	report = new Events();
-	stackEnvironment.PushEnvironment("Global");
+	stackEnvironment.PushEnvironment("Global"); 
+	procedureEnvironment.pushEnvironment("Global");
 	}
 
 	protected Symbol invokeReduceAction(int rule_num, int offset) {

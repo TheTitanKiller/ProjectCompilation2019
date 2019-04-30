@@ -374,16 +374,15 @@ dispose_statement=
 	;
 	
 println_statement=
-	TOKEN_PRINTLN expression.e TOKEN_SEMIC {: return NodeCallFct("println", void, e); :}
-	;	
+	TOKEN_PRINTLN expression.e TOKEN_SEMIC
+	;
 	
 readln_statement=
 	TOKEN_READLN expression.e TOKEN_SEMIC
 	{:
-		
-		NodeId(name, type);
-	    procedureEnvironment.putVariable(name, node);
-      	return node_list;
+		String name = new String("readln");
+		NodeId(name, typeFct(name));
+      	return ;
     :}
 	;
 	
