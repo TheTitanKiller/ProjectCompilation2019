@@ -2,21 +2,20 @@ package node;
 
 public final class NodeReturn extends NodeExp
 {
-    
+
     public NodeReturn(Node e)
     {
 	super(e);
     }
-    
-    @Override public boolean checksType()
+
+    @Override public void checksType()
     {
-	super.checksType();
-	return true;
+	return;
     }
-    
+
     @Override public NodeReturn clone()
     {
 	return new NodeReturn((Node) get(0).clone());
     }
-    
+
 }

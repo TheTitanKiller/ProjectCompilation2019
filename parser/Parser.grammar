@@ -1,8 +1,5 @@
 //////////////////////////////////////////////////
-// version 20190403
-// Difference avec version 20190401
-// - Case respecte plus la syntaxe Lea
-// - Quelques typos
+// 
 //////////////////////////////////////////////////
 
 %package "main";
@@ -11,6 +8,7 @@
 %import "type.*";
 %import "environment.*";
 %import "java.util.ArrayList";
+%import "errors.*";
 
 %embed {: 
 	static class Events extends beaver.Parser.Events {
@@ -31,8 +29,8 @@
 	/*
 	 * Environnements disponibles pour la gestion des types complexes, des variables et des fonctions.
 	 */
-	private Environment typeEnvironment = new Environment("types");
-	private Environment procedureEnvironment = new Environment("procedures");
+	private Environment typeEnvironment = new Environment("types", 0, 0);
+	private Environment procedureEnvironment = new Environment("procedures", 0, 0);
 	private StackEnvironment stackEnvironment = new StackEnvironment("local_variables_stack");
 	private String type_declaration_name;
 	
@@ -57,7 +55,7 @@
 %terminals TOKEN_SWITCH, TOKEN_CASE, TOKEN_DEFAULT;
 
 // PONCTS
-%terminals TOKEN_SEMIC, TOKEN_DOTDOT, TOKEN_COLON, TOKEN_COMMA;
+%terminals TOKEN_SEMIC, TOKEN_DOTDOT, TOKEN_COLON, TOKEN_COMMA, TOKEN_DOT;
 %terminals TOKEN_LPAR, TOKEN_RPAR, TOKEN_LBRACKET, TOKEN_RBRACKET, TOKEN_LBRACE, TOKEN_RBRACE;
 
 // OPERATORS
@@ -68,10 +66,6 @@
 
 // LITERALS
 %terminals TOKEN_IDENTIFIER, TOKEN_LIT_INTEGER, TOKEN_LIT_STRING, TOKEN_TRUE, TOKEN_FALSE, TOKEN_NULL; 
-
-/***
-* A completer
-***/
 
 //PRIORITIES
 %left TOKEN_TIMES, TOKEN_DIV;
@@ -147,6 +141,9 @@
 %typeof TOKEN_IDENTIFIER 		   = "String";
 
 %typeof procedure_name 		   	   = "TypeNamed";
+%typeof array_access 		   	   = "NodeArrayAccess";
+%typeof ptr_access 		   	   = "NodePtrAccess";
+%typeof struct_access		   	   = "NodeStructAccess";
 
 %goal program;
 
@@ -252,7 +249,7 @@ pointer_type=
 	;
 	
 structure_type=
-	TOKEN_STRUCT TOKEN_LBRACE feature_list_type.list TOKEN_RBRACE /*TODO env*/ {: return new TypeStruct(list); :}
+	TOKEN_STRUCT TOKEN_LBRACE feature_list_type.list TOKEN_RBRACE {: return new TypeStruct(list); :}
 	;
 	
 feature_list_type=
@@ -312,7 +309,7 @@ procedure_definition_head=
 								{
 									procedureEnvironment.putVariable(node.getName(), node);
 								}
-							 	catch (Error err)
+							 	catch (CustomError err)
 							 	{
 							 		//Deja defini, mais a remplacer
 							 		procedureEnvironment.replaceVariable(node.getName(), node);
@@ -471,11 +468,26 @@ case_default=
 	| TOKEN_DEFAULT TOKEN_COLON statement.stm 							{: return new NodeCase(stm); :}
 	;
 		
+			
+ptr_access =
+	expression.e TOKEN_CIRC 											{: return new NodePtrAccess(e); :}
+	;
+	
+struct_access =
+	variable_access.t TOKEN_DOT TOKEN_IDENTIFIER.field 					{: return new NodeStructAccess(t, field); :}
+	;
+	
+array_access =
+	variable_access.t TOKEN_LBRACKET expression.i TOKEN_RBRACKET 		{: return new NodeArrayAccess(t, i); :}											
+	;
+	
 variable_access=
 	TOKEN_IDENTIFIER.name 												{: return stackEnvironment.getVariable(name); :}
-	| variable_access.t TOKEN_LBRACKET expression.i TOKEN_RBRACKET 		{: return new NodeArrayAccess(t, i); :}
-	| expression.e TOKEN_CIRC 											{: return new NodePtrAccess(e); :}
+	| array_access.n													{: return n; :}
+	| struct_access.n													{: return n; :}
+	| ptr_access.n													{: return n; :}
 	;
+
 	
 expression=
 	expression.e1 TOKEN_PLUS expression.e2 		{: return new NodeOp("+", e1, e2); :}

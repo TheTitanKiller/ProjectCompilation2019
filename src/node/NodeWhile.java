@@ -8,12 +8,10 @@ public final class NodeWhile extends Node
 	super(boolExpr, stm);
     }
     
-    @Override public boolean checksType()
+    @Override public void checksType()
     {
-	super.checksType();
-	if (!get(0).checksType()) { return false; }
-	if (!get(1).checksType()) { return false; }
-	return true;
+	get(0).checksType();
+	get(1).checksType();
     }
     
     @Override public NodeWhile clone()

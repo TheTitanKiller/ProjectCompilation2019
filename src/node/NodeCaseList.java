@@ -6,16 +6,15 @@ public final class NodeCaseList extends NodeExp
     {
 	super();
     }
-    
-    @Override public boolean checksType()
+
+    @Override public void checksType()
     {
-	super.checksType();
-	return true;
+	return;
     }
-    
+
     @Override public NodeCaseList clone()
     {
 	return new NodeCaseList();
     }
-    
+
 }

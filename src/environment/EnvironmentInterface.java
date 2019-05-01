@@ -1,5 +1,6 @@
 package environment;
 
+import errors.CustomError;
 import node.NodeId;
 
 public interface EnvironmentInterface
@@ -9,7 +10,7 @@ public interface EnvironmentInterface
      * instant donné.
      */
     void backtrace();
-
+    
     /**
      * Permet de récupérer le noeud correspondant à une variable enregistre dans
      * l'environnement.
@@ -21,8 +22,8 @@ public interface EnvironmentInterface
      * @throws Exception
      *         Si la variable n'a pas été initialisé.
      */
-    NodeId getVariable(String variable) throws Error;
-
+    NodeId getVariable(String variable) throws CustomError;
+    
     /**
      * Permet de mettre le noeud correspondant à une variable àenregistrer dans
      * l'environnement.
@@ -35,8 +36,8 @@ public interface EnvironmentInterface
      * @throws Exception
      *         Si la variable a déjà été initialisé.
      */
-    void putVariable(String var, NodeId value) throws Error;
-
+    void putVariable(String var, NodeId value) throws CustomError;
+    
     /**
      * Permet de remplacer le noeud correspondant à une variable à enregistrer dans
      * l'environnement.
@@ -49,5 +50,5 @@ public interface EnvironmentInterface
      * @throws Exception
      *         Si la variable n'a pas été initialisé.
      */
-    void replaceVariable(String var, NodeId value) throws Error;
+    void replaceVariable(String var, NodeId value) throws CustomError;
 }

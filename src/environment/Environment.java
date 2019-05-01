@@ -4,6 +4,7 @@ package environment;
 
 import java.util.HashMap;
 
+import errors.CustomError;
 import node.NodeId;
 
 public class Environment implements EnvironmentInterface
@@ -11,6 +12,8 @@ public class Environment implements EnvironmentInterface
     
     String name_environment;
     HashMap<String, NodeId> tableId = new HashMap<>();
+
+    int line, colomn;
     
     /**
      * Créer un environement.
@@ -18,9 +21,12 @@ public class Environment implements EnvironmentInterface
      * @param name_environment
      *        son nom.
      */
-    public Environment(String name_environment)
+    public Environment(String name_environment, int line, int colomn)
     {
 	this.name_environment = name_environment;
+	this.line = line;
+	this.colomn = colomn;
+
     }
     
     /**
@@ -47,34 +53,36 @@ public class Environment implements EnvironmentInterface
     /**
      * @see EnvironmentInterface
      */
-    @Override public NodeId getVariable(String variable) throws Error
+    @Override public NodeId getVariable(String variable) throws CustomError
     {
 	NodeId el = this.tableId.get(variable);
 	if (el != null)
 	{ return el; }
-	throw new Error("Variable \"" + variable + "\" is not initialised in " + this + ".");
+	throw new CustomError(
+		"Variable \"" + variable + "\" is not initialised in " + this + ".", this.line, this.colomn
+	);
     }
     
     /**
      * @see EnvironmentInterface
      */
-    @Override public void putVariable(String var, NodeId value) throws Error
+    @Override public void putVariable(String var, NodeId value) throws CustomError
     {
 	NodeId el = this.tableId.put(var, value);
 	if (el == null)
 	{ return; }
-	throw new Error("Variable \"" + var + "\" already initialised in " + this + ".");
+	throw new CustomError("Variable \"" + var + "\" already initialised in " + this + ".", value);
     }
     
     /**
      * @see EnvironmentInterface
      */
-    @Override public void replaceVariable(String var, NodeId value) throws Error
+    @Override public void replaceVariable(String var, NodeId value) throws CustomError
     {
 	NodeId el = this.tableId.put(var, value);
 	if (el != null)
 	{ return; }
-	throw new Error("Variable \"" + var + "\" can't be replaced in " + this + ".");
+	throw new CustomError("Variable \"" + var + "\" can't be replaced in " + this + ".", value);
 	
     }
 

@@ -6,16 +6,15 @@ public final class NodeDispose extends Node
     {
 	super(e);
     }
-    
-    @Override public boolean checksType()
+
+    @Override public void checksType()
     {
-	super.checksType();
-	return true;
+	return;
     }
-    
+
     @Override public NodeDispose clone()
     {
 	return new NodeDispose((Node) get(0).clone());
     }
-    
+
 }

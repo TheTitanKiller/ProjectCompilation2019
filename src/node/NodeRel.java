@@ -1,5 +1,6 @@
 package node;
 
+import errors.CustomError;
 import type.TypeBoolean;
 import type.TypeInt;
 
@@ -17,11 +18,10 @@ public class NodeRel extends NodeExp
 	this.type = new TypeBoolean();
     }
     
-    @Override public boolean checksType()
+    @Override public void checksType()
     {
-	super.checksType();
-	if (!(getOp1().getType() instanceof TypeInt) || !(getOp2().getType() instanceof TypeInt)) { return false; }
-	return true;
+	if (!(getOp1().getType() instanceof TypeInt) || !(getOp2().getType() instanceof TypeInt))
+	{ throw new CustomError(getClass().getSimpleName() + ": un des paramétres n'est pas un entier.", this); }
     }
     
     @Override public NodeRel clone()

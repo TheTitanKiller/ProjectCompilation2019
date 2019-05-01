@@ -14,8 +14,7 @@ public class TypeFeature extends TypeComplex
     
     @Override public boolean attestWellFormed()
     {
-	// TODO Auto-generated method stub
-	return false;
+	return true;
     }
     
     @Override public ClonableSymbol clone()

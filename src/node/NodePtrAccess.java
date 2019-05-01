@@ -6,7 +6,7 @@ import type.TypePointer;
 
 public final class NodePtrAccess extends NodeExp
 {
-    // e = NodeExp(TypePointer(\tau))
+    // e = NodeExp(TypePointer(tr))
     public NodePtrAccess(NodeExp e)
     {
 	super(e);
@@ -24,10 +24,9 @@ public final class NodePtrAccess extends NodeExp
 	}
     }
     
-    @Override public boolean checksType()
+    @Override public void checksType()
     {
-	super.checksType();
-	return true;
+	return;
     }
     
     @Override public NodePtrAccess clone()

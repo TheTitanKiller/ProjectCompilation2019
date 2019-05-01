@@ -1,0 +1,25 @@
+/* **************************************************
+ ************************************************** */
+
+type
+position = struct 
+{ 
+	x : integer; 
+	y : integer;
+};
+
+var
+pos : position;
+
+function test(pt : ^position) : boolean
+begin
+	pt^.x = 5;
+	pt^.y = 2;
+	return true;
+end
+
+begin
+	pos.x = 1;
+	pos.y = 1;
+	//test(^pos);
+end

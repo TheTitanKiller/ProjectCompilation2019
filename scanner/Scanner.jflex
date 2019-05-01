@@ -6,6 +6,7 @@ import beaver.Scanner;
 
 %class ScannerLEA
 %extends Scanner
+%public
 %function nextToken
 %type Symbol
 %yylexthrow Scanner.Exception
@@ -27,6 +28,16 @@ import beaver.Scanner;
 	private Symbol newToken(short id, Object value)
 	{
 		return new Symbol(id, yyline + 1, yycolumn + 1, yylength(), value);
+	}
+	
+	public int getLine()
+	{
+		return yyline + 1;
+	}
+	
+	public int getColomn()
+	{
+		return  yycolumn + 1;
 	}
 
 %}
@@ -89,6 +100,7 @@ BigComment = "/*"~"*/"
 ":" {return newToken(Terminals.TOKEN_COLON);}
 "^" {return newToken(Terminals.TOKEN_CIRC);}
 ".." {return newToken(Terminals.TOKEN_DOTDOT);}
+"." {return newToken(Terminals.TOKEN_DOT);}
 "=" {return newToken(Terminals.TOKEN_AFF);}
 
 "==" {return newToken(Terminals.TOKEN_EQ);}

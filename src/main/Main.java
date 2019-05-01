@@ -2,13 +2,14 @@ package main;
 
 import java.io.FileReader;
 
-import beaver.Scanner;
 import node.Node;
 
 public class Main
 {
     private static boolean checksType = false;
     private static boolean backtrace = false;
+
+    public static ScannerLEA input;
     
     public static void main(String[] args) throws Exception
     {
@@ -32,7 +33,7 @@ public class Main
 	    }
 	    else
 	    {
-		Scanner input = new ScannerLEA(new FileReader(arg));
+		input = new ScannerLEA(new FileReader(arg));
 		Parser parser = new Parser();
 		try
 		{
@@ -41,14 +42,8 @@ public class Main
 		    System.err.println("*** Analyse syntaxique ok");
 		    if (checksType)
 		    {
-			if (!result.checksType())
-			{
-			    System.err.println("*** Erreur de typage");
-			}
-			else
-			{
-			    System.err.println("*** Typage correct");
-			}
+			result.checksType();
+			System.err.println("*** Typage correct");
 		    }
 		    if (backtrace)
 		    {
@@ -57,14 +52,14 @@ public class Main
 			System.err.println("*** End backtrace");
 			System.err.println();
 		    }
-		    
+
 		}
 		catch (beaver.Parser.Exception e)
 		{
 		    System.err.println("*** Erreur de syntaxe: " + arg + ":" + e.getMessage());
 		}
 	    }
-	    
+
 	}
     }
 }

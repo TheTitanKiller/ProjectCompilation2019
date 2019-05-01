@@ -15,19 +15,15 @@ public final class NodeList extends Node implements Iterable<Node>
 	super(stm);
     }
 
-    @Override public boolean checksType()
+    @Override public void checksType()
     {
-	super.checksType();
-	boolean result = true;
 	for (Node elt : this.elts)
 	{
-	    if (elt != null && !elt.checksType())
+	    if (elt != null)
 	    {
-		result = false;
-		break;
+		elt.checksType();
 	    }
 	}
-	return result;
     }
 
     @Override public NodeList clone()

@@ -2,13 +2,15 @@ package environment;
 
 import java.util.LinkedList;
 
+import errors.CustomError;
+import main.Main;
 import node.NodeId;
 
 public class StackEnvironment implements EnvironmentInterface
 {
     String name_stack;
     LinkedList<Environment> stack = new LinkedList<>();
-    
+
     /**
      * Crée une pile d'environnement.
      *
@@ -19,7 +21,7 @@ public class StackEnvironment implements EnvironmentInterface
     {
 	this.name_stack = name_stack;
     }
-
+    
     /**
      * @see EnvironmentInterface
      */
@@ -35,13 +37,13 @@ public class StackEnvironment implements EnvironmentInterface
 	}
 	System.err.println("**");
     }
-    
+
     /**
      * Recherche dans les environnements au moins une déclaration, la plus récente.
      *
      * @see EnvironmentInterface
      */
-    @Override public NodeId getVariable(String variable) throws Error
+    @Override public NodeId getVariable(String variable) throws CustomError
     {
 	for (Environment e : this.stack)
 	{
@@ -50,13 +52,16 @@ public class StackEnvironment implements EnvironmentInterface
 		NodeId el = e.getVariable(variable);
 		return el;
 	    }
-	    catch (Error err)
+	    catch (CustomError err)
 	    {
 	    }
 	}
-	throw new Error("Variable \"" + variable + "\" is not initialised in " + this + ".");
+	throw new CustomError(
+		"Variable \"" + variable + "\" is not initialised in " + this + ".", this.stack.getFirst().line,
+		this.stack.getFirst().colomn
+	);
     }
-
+    
     /**
      * Dépile l'environnement le plus récent. Les noeuds enregistré ne font ainsi
      * plus partie de la pile.
@@ -67,7 +72,7 @@ public class StackEnvironment implements EnvironmentInterface
     {
 	return this.stack.removeFirst();
     }
-
+    
     //TODO Possibilité d'améliorer avec fichier, ligne et colone du contexte.
     /**
      * Créé et empile un nouveau environnement avec un nom donné.
@@ -78,29 +83,29 @@ public class StackEnvironment implements EnvironmentInterface
      */
     public void pushEnvironment(String name_environment)
     {
-	this.stack.push(new Environment(name_environment));
+	this.stack.push(new Environment(name_environment, Main.input.getLine(), Main.input.getColomn()));
     }
-
+    
     /**
      * Rajoute dans l'environnement actuel la variable.
      *
      * @see EnvironmentInterface
      */
-    @Override public void putVariable(String var, NodeId value) throws Error
+    @Override public void putVariable(String var, NodeId value) throws CustomError
     {
 	this.stack.getFirst().putVariable(var, value);
     }
-
+    
     /**
      * Remplace dans l'environnement actuel la variable.
      *
      * @see EnvironmentInterface
      */
-    @Override public void replaceVariable(String var, NodeId value) throws Error
+    @Override public void replaceVariable(String var, NodeId value) throws CustomError
     {
 	this.stack.getFirst().replaceVariable(var, value);
     }
-
+    
     @Override public String toString()
     {
 	return getClass().getSimpleName() + "::" + this.name_stack;
