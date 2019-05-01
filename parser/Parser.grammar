@@ -285,7 +285,7 @@ variable_declaration=
 	
 identifier_list=
 	identifier_list.list TOKEN_COMMA TOKEN_IDENTIFIER.name 	{: list.add(name); return list; :}
-	| TOKEN_IDENTIFIER.name 								{: return new IdentifierList(name.getStart(), name.getEnd(), name); :}
+	| TOKEN_IDENTIFIER.name 								{: return new IdentifierList(name.getStart(), name.getEnd(), (String)name.value); :}
 	;
 	
 procedure_definition_part=
@@ -321,19 +321,19 @@ procedure_declaration_head=
 	
 procedure_head=
 	TOKEN_PROCEDURE.b procedure_name.nid TOKEN_LPAR argt_part.args TOKEN_RPAR.e 
-						{: 	NodeId node = new NodeId(b.getStart(), e.getEnd(), nid.getName(), new TypeFunct(nid.getName(), args, new TypeVoid())); 
+						{: 	NodeId node = new NodeId(b.getStart(), e.getEnd(), nid.getName(), new TypeFunct(b.getStart(), e.getEnd(), nid.getName(), args, new TypeVoid(b.getStart(), e.getEnd()))); 
 							return node; 
 						:}
 						
 	| TOKEN_FUNCTION.b procedure_name.nid TOKEN_LPAR argt_part.args TOKEN_RPAR TOKEN_COLON type.ty
-						{: 	NodeId node = new NodeId(b.getStart(), ty.getEnd(), nid.getName(), new TypeFunct(nid.getName(), args, ty)); 
+						{: 	NodeId node = new NodeId(b.getStart(), ty.getEnd(), nid.getName(), new TypeFunct(b.getStart(), ty.getEnd(), nid.getName(), args, ty)); 
 							return node; 
 						:}
 	;
 
 procedure_name = 
 	TOKEN_IDENTIFIER.namefct 					{: 	stackEnvironment.pushEnvironment((String)namefct.value, namefct.getStart(), namefct.getEnd()); 
-													return new TypeNamed(namefct.getStart(), namefct.getEnd(), namefct); :}
+													return new TypeNamed(namefct.getStart(), namefct.getEnd(), (String)namefct.value); :}
 	;
 
 argt_part=
@@ -349,11 +349,12 @@ argt_part=
 	
 argt_list=
 	argt_list.list TOKEN_COMMA argt.node   		{: list.add(node); return list; :}
-	| argt.node            						{: return new NodeList(node); :}
+	| argt.node            						{: return new NodeList(node.getStart(), node.getEnd(), node); :}
 	;
 	
 argt=
-	TOKEN_IDENTIFIER.name TOKEN_COLON type.ty	{: 	NodeId node = new NodeId(name.getStart(), ty.getEnd(), (String)name.value, new TypeFeature (name, ty)); stackEnvironment.putVariable(name, node); 
+	TOKEN_IDENTIFIER.name TOKEN_COLON type.ty	{: 	NodeId node = new NodeId(name.getStart(), ty.getEnd(), (String)name.value, new TypeFeature (name.getStart(), ty.getEnd(), (String)name.value, ty)); 
+													stackEnvironment.putVariable((String)name.value, node); 
 													return node; :}
 	;
 	
@@ -394,8 +395,8 @@ procedure_statement=
 	;
 	
 procedure_expression=
-	TOKEN_IDENTIFIER.name TOKEN_LPAR expression_part.ep TOKEN_RPAR.e		{: 	NodeId funct = procedureEnvironment.getVariable(name); 
-																			return new NodeCallFct( name.getStart(), e.getEnd(), name, (TypeFunct)funct.getType(), ep); :}
+	TOKEN_IDENTIFIER.name TOKEN_LPAR expression_part.ep TOKEN_RPAR.e		{: 	NodeId funct = procedureEnvironment.getVariable((String)name.value); 
+																			return new NodeCallFct( name.getStart(), e.getEnd(), (String)name.value, (TypeFunct)funct.getType(), ep); :}
 	;
 	
 expression_part=
@@ -436,12 +437,12 @@ structured_statement=
 	;
 	
 if_statement=
-	TOKEN_IF.b expression.exp TOKEN_THEN statement.stm1 TOKEN_ELSE.e statement.stm2 	{: return new NodeIf(b.getStart(), e.getEnd(), exp, stm1, stm2); :}
-	| TOKEN_IF.b expression.exp TOKEN_THEN.e statement.stm 								{: return new NodeIf(b.getStart(), e.getEnd(), exp, stm); :}
+	TOKEN_IF.b expression.exp TOKEN_THEN statement.stm1 TOKEN_ELSE statement.stm2 	{: return new NodeIf(b.getStart(), stm2.getEnd(), exp, stm1, stm2); :}
+	| TOKEN_IF.b expression.exp TOKEN_THEN statement.stm 								{: return new NodeIf(b.getStart(), stm.getEnd(), exp, stm); :}
 	;
 	
 while_statement=
-	TOKEN_WHILE.b expression.exp TOKEN_DO statement.stm 							{: return new NodeWhile(b.getStart(), stmn.getEnd(), exp, stm); :}
+	TOKEN_WHILE.b expression.exp TOKEN_DO statement.stm 							{: return new NodeWhile(b.getStart(), stm.getEnd(), exp, stm); :}
 	;
 	
 switch_statement=
@@ -454,17 +455,17 @@ case_statement_list=
 	;
 	
 case_statement=
-	TOKEN_CASE.b identifier_list.list TOKEN_COLON.e statement.stm			{: 	
-																			NodeList node_list = new NodeList(b.getStart(), e.getEnd());
-																			for(String s : list)
-																		         node_list.add(new NodeCase(s, stm));
-																	      	return node_list;
-																	    :}
+	TOKEN_CASE.b identifier_list.list TOKEN_COLON.e statement.stm				{: 	
+																					NodeList node_list = new NodeList(b.getStart(), e.getEnd());
+																					for(String s : list)
+																				         node_list.add(new NodeCase(list.getStart(), list.getEnd(), s, stm));
+																			      	return node_list;
+																	    		:}
 	;
 
 case_default=
 	/* empty */
-	| TOKEN_DEFAULT.b TOKEN_COLON statement.stm 						{: return new NodeCase(b.getStart(), stmn.getEnd(), stm); :}
+	| TOKEN_DEFAULT.b TOKEN_COLON statement.stm 						{: return new NodeCase(b.getStart(), stm.getEnd(), stm); :}
 	;
 		
 			
@@ -473,7 +474,7 @@ ptr_access =
 	;
 	
 struct_access =
-	variable_access.t TOKEN_DOT TOKEN_IDENTIFIER.field 					{: return new NodeStructAccess(t.getStart(), field.getEnd(), field); :}
+	variable_access.t TOKEN_DOT TOKEN_IDENTIFIER.field 					{: return new NodeStructAccess(t.getStart(), field.getEnd(), t, (String)(field.value)); :}
 	;
 	
 array_access =
