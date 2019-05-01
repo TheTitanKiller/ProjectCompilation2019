@@ -383,7 +383,7 @@ public class Parser extends beaver.Parser {
 																NodeList node_list = new NodeList();
 																for(String s : list) 
 																{
-															         NodeId node = new NodeId(s, ty);
+															         NodeId node = new NodeId(list.getStart(), list.getEnd(), s, ty);
 															         stackEnvironment.putVariable(s, node); /* TODO Verif enum (in typeEnvironment)*/
 															         node_list.add(node);
 														      	} 
