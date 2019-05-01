@@ -145,14 +145,14 @@ public class Parser extends beaver.Parser {
 					final Symbol _symbol_ty = _symbols[offset + 3];
 					final Type ty = (Type) _symbol_ty.value;
 					final Symbol sem = _symbols[offset + 4];
-					 	NodeId node = new NodeId(tname.getStart, sem.getEnd(), tname.first(), ty); typeEnvironment.putVariable(tname.first(), node); 
+					 	NodeId node = new NodeId(tname.getStart(), sem.getEnd(), tname.first(), ty); typeEnvironment.putVariable(tname.first(), node); 
 																	return node;
 				}
 			},
 			new Action() {	// [7] type_declaration_head = TOKEN_IDENTIFIER.name
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol name = _symbols[offset + 1];
-					 return new IdentifierList(name.getStart, name.getEnd(), name);
+					 return new IdentifierList(name.getStart(), name.getEnd(), name);
 				}
 			},
 			new Action() {	// [8] type = simple_type.n
@@ -200,19 +200,19 @@ public class Parser extends beaver.Parser {
 			new Action() {	// [14] simple_type = TOKEN_STRING.tk
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol tk = _symbols[offset + 1];
-					 return new TypeString(tk.getStart, tk.getEnd());
+					 return new TypeString(tk.getStart(), tk.getEnd());
 				}
 			},
 			new Action() {	// [15] simple_type = TOKEN_INTEGER.tk
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol tk = _symbols[offset + 1];
-					 return new TypeInt(tk.getStart, tk.getEnd());
+					 return new TypeInt(tk.getStart(), tk.getEnd());
 				}
 			},
 			new Action() {	// [16] simple_type = TOKEN_BOOLEAN.tk
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol tk = _symbols[offset + 1];
-					 return new TypeBoolean(tk.getStart, tk.getEnd());
+					 return new TypeBoolean(tk.getStart(), tk.getEnd());
 				}
 			},
 			new Action() {	// [17] named_type = TOKEN_IDENTIFIER.name
@@ -281,7 +281,7 @@ public class Parser extends beaver.Parser {
 					final Type r = (Type) _symbol_r.value;
 					final Symbol _symbol_ty = _symbols[offset + 6];
 					final Type ty = (Type) _symbol_ty.value;
-					 return new TypeArray(tk.getStart, ty.getEnd(), r, ty);
+					 return new TypeArray(tk.getStart(), ty.getEnd(), r, ty);
 				}
 			},
 			new Action() {	// [25] range_type = enumerated_type.t
@@ -310,7 +310,7 @@ public class Parser extends beaver.Parser {
 					final Symbol tk = _symbols[offset + 1];
 					final Symbol _symbol_ty = _symbols[offset + 2];
 					final Type ty = (Type) _symbol_ty.value;
-					 return new TypePointer(tk.getStart, ty.getEnd(), ty);
+					 return new TypePointer(tk.getStart(), ty.getEnd(), ty);
 				}
 			},
 			new Action() {	// [29] structure_type = TOKEN_STRUCT.tks TOKEN_LBRACE feature_list_type.list TOKEN_RBRACE.tkrb
@@ -319,7 +319,7 @@ public class Parser extends beaver.Parser {
 					final Symbol _symbol_list = _symbols[offset + 3];
 					final TypeFeatureList list = (TypeFeatureList) _symbol_list.value;
 					final Symbol tkrb = _symbols[offset + 4];
-					 return new TypeStruct(tks.getStart, tkrb.getEnd(), list);
+					 return new TypeStruct(tks.getStart(), tkrb.getEnd(), list);
 				}
 			},
 			new Action() {	// [30] feature_list_type = feature_list_type.list feature_type.f
@@ -335,7 +335,7 @@ public class Parser extends beaver.Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_f = _symbols[offset + 1];
 					final TypeFeature f = (TypeFeature) _symbol_f.value;
-					 return new TypeFeatureList(f.getStart, f.getEnd(), f);
+					 return new TypeFeatureList(f.getStart(), f.getEnd(), f);
 				}
 			},
 			new Action() {	// [32] feature_type = TOKEN_IDENTIFIER.name TOKEN_COLON type.t TOKEN_SEMIC.tk
@@ -344,7 +344,7 @@ public class Parser extends beaver.Parser {
 					final Symbol _symbol_t = _symbols[offset + 3];
 					final Type t = (Type) _symbol_t.value;
 					final Symbol tk = _symbols[offset + 4];
-					 return new TypeFeature(name.getStart, tk.getEnd(), name, t);
+					 return new TypeFeature(name.getStart(), tk.getEnd(), name, t);
 				}
 			},
 			Action.NONE,  	// [33] variable_declaration_part = 
@@ -368,7 +368,7 @@ public class Parser extends beaver.Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_node = _symbols[offset + 1];
 					final Node node = (Node) _symbol_node.value;
-					 return new NodeList(node.getStart, node.getEnd(), node);
+					 return new NodeList(node.getStart(), node.getEnd(), node);
 				}
 			},
 			new Action() {	// [37] variable_declaration = identifier_list.list TOKEN_COLON type.ty TOKEN_SEMIC

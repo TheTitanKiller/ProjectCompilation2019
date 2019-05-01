@@ -175,12 +175,12 @@ type_declaration_list=
 	;
 	
 type_declaration=
-	type_declaration_head.tname TOKEN_AFF type.ty TOKEN_SEMIC.sem 	{: 	NodeId node = new NodeId(tname.getStart, sem.getEnd(), tname.first(), ty); typeEnvironment.putVariable(tname.first(), node); 
+	type_declaration_head.tname TOKEN_AFF type.ty TOKEN_SEMIC.sem 	{: 	NodeId node = new NodeId(tname.getStart(), sem.getEnd(), tname.first(), ty); typeEnvironment.putVariable(tname.first(), node); 
 																	return node; :}
 	;
 	
 type_declaration_head=
-	TOKEN_IDENTIFIER.name			{: return new IdentifierList(name.getStart, name.getEnd(), name); :}
+	TOKEN_IDENTIFIER.name			{: return new IdentifierList(name.getStart(), name.getEnd(), name); :}
 	;
 	
 type=
@@ -193,9 +193,9 @@ type=
 	;
 	
 simple_type=
-	TOKEN_STRING.tk				{: return new TypeString(tk.getStart, tk.getEnd()); :}
-	| TOKEN_INTEGER.tk				{: return new TypeInt(tk.getStart, tk.getEnd()); :}
-	| TOKEN_BOOLEAN.tk				{: return new TypeBoolean(tk.getStart, tk.getEnd()); :}
+	TOKEN_STRING.tk				{: return new TypeString(tk.getStart(), tk.getEnd()); :}
+	| TOKEN_INTEGER.tk				{: return new TypeInt(tk.getStart(), tk.getEnd()); :}
+	| TOKEN_BOOLEAN.tk				{: return new TypeBoolean(tk.getStart(), tk.getEnd()); :}
 	;
 	
 named_type=
@@ -233,7 +233,7 @@ subrange_type=
 	;
 	
 array_type=
-	TOKEN_ARRAY.tk TOKEN_LBRACKET range_type.r TOKEN_RBRACKET TOKEN_OF type.ty 	{: return new TypeArray(tk.getStart, ty.getEnd(), r, ty); :}
+	TOKEN_ARRAY.tk TOKEN_LBRACKET range_type.r TOKEN_RBRACKET TOKEN_OF type.ty 	{: return new TypeArray(tk.getStart(), ty.getEnd(), r, ty); :}
 	;
 	
 range_type=
@@ -243,20 +243,20 @@ range_type=
 	;
 	
 pointer_type=
-	TOKEN_CIRC.tk type.ty 					{: return new TypePointer(tk.getStart, ty.getEnd(), ty); :}
+	TOKEN_CIRC.tk type.ty 					{: return new TypePointer(tk.getStart(), ty.getEnd(), ty); :}
 	;
 	
 structure_type=
-	TOKEN_STRUCT.tks TOKEN_LBRACE feature_list_type.list TOKEN_RBRACE.tkrb {: return new TypeStruct(tks.getStart, tkrb.getEnd(), list); :}
+	TOKEN_STRUCT.tks TOKEN_LBRACE feature_list_type.list TOKEN_RBRACE.tkrb {: return new TypeStruct(tks.getStart(), tkrb.getEnd(), list); :}
 	;
 	
 feature_list_type=
 	feature_list_type.list feature_type.f			{: list.add(f); return list; :}
-	| feature_type.f								{: return new TypeFeatureList(f.getStart, f.getEnd(), f); :}
+	| feature_type.f								{: return new TypeFeatureList(f.getStart(), f.getEnd(), f); :}
 	;
 	
 feature_type=
-	TOKEN_IDENTIFIER.name TOKEN_COLON type.t TOKEN_SEMIC.tk /*TODO env*/ {: return new TypeFeature(name.getStart, tk.getEnd(), name, t); :}
+	TOKEN_IDENTIFIER.name TOKEN_COLON type.t TOKEN_SEMIC.tk /*TODO env*/ {: return new TypeFeature(name.getStart(), tk.getEnd(), name, t); :}
 	;
 	
 variable_declaration_part= 
@@ -266,7 +266,7 @@ variable_declaration_part=
 	
 variable_declaration_list=
 	variable_declaration_list.list variable_declaration.dec 	{: list.add(dec); return list; :}
-	| variable_declaration.node									{: return new NodeList(node.getStart, node.getEnd(), node); :}
+	| variable_declaration.node									{: return new NodeList(node.getStart(), node.getEnd(), node); :}
 	;
 	
 variable_declaration=
