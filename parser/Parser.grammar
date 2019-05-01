@@ -285,7 +285,7 @@ variable_declaration=
 	
 identifier_list=
 	identifier_list.list TOKEN_COMMA TOKEN_IDENTIFIER.name 	{: list.add(name); return list; :}
-	| TOKEN_IDENTIFIER.name 								{: return new IdentifierList(name.getStart(), name.getEnd(), name); :}
+	| TOKEN_IDENTIFIER.name 								{: return new IdentifierList(name.getStart(), name.getEnd(), (String)name.value); :}
 	;
 	
 procedure_definition_part=

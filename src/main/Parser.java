@@ -399,7 +399,7 @@ public class Parser extends beaver.Parser {
 			new Action() {	// [39] identifier_list = TOKEN_IDENTIFIER.name
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol name = _symbols[offset + 1];
-					 return new IdentifierList(name.getStart(), name.getEnd(), name);
+					 return new IdentifierList(name.getStart(), name.getEnd(), (String)name.value);
 				}
 			},
 			Action.NONE,  	// [40] procedure_definition_part = 
