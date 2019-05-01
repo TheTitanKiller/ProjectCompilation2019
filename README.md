@@ -8,27 +8,36 @@ But : créer un compilateur pour le langage LÉA.
 AMEEUW Vincent :
 > création et complétion du scanner .jflex
 
+> création et enregistrement des types
+
 BARRERE Louis-Gabriel :
-> remplissage du .grammar (partie Node)
+> création des litterals
+
+> création des expressions
 
 CAPDORDY Maxime :
 
 CERUTTI Marc :
 > desembiguiser la grammaire (regle priorité if else)
 
-> vérification des types
-
 > création des environnements
 
+> création et enregistrement des fonctions
+
+> création et enregistrement des variables
+
 Liste de taches restantes:
-
-> associer code aux noeuds de la grammaire
-
 > vérifier les priorités et conflits
 
-> écriture du code intermédiaire
+> vérification des types
 
-> gestion des erreurs (syntaxe, types, warning ambiguïté)
+> gérer les erreurs de type incompatible (dans un contexte)
+
+> gérer les erreurs de redéfinition (noms réutilisé, type enum, fonction, variable)
+
+> gérer les erreurs d'appel invalide
+
+> écriture du code intermédiaire
 
 (> optimisation d'arbre, optionnel)
 
