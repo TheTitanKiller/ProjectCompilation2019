@@ -45,7 +45,7 @@
 
 %init {: 
 	report = new Events();
-	stackEnvironment.pushEnvironment("Global");
+	stackEnvironment.pushEnvironment("Global", 0, 0);
 :};
 
 // KEYWORDS
@@ -151,15 +151,17 @@ program=
 	type_declaration_part.tydec
 	variable_declaration_part.vardec
 	procedure_definition_part.procdec
-	empty_main
-	TOKEN_BEGIN
+	empty_main.empty
+	TOKEN_BEGIN.b
 	statement_list.stmn
-	TOKEN_END
-													{: stackEnvironment.popEnvironment(); return new NodeList(tydec,vardec,procdec,stmn); :}
+	TOKEN_END.e
+													{: 	stackEnvironment.popEnvironment(); 
+														empty.setPosition(b,e); empty.getType().setPosition(b,e);
+														return new NodeList(tydec,vardec,procdec,stmn); :}
 	;
 
 empty_main = 
-													{: stackEnvironment.pushEnvironment("Main"); return new TypeVoid(); :}
+													{: stackEnvironment.pushEnvironment("Main", 0,0); return new TypeVoid(0,0); :}
 	;
 
 type_declaration_part= 
@@ -516,7 +518,7 @@ literal=
 	| TOKEN_LIT_STRING.n						{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeString(), (String) (n.value)); :}
 	| TOKEN_TRUE.n 								{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeBoolean(), true); :}
 	| TOKEN_FALSE.n 							{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeBoolean(), false); :}
-	| TOKEN_NULL.n 								{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypePointer(), null); :}
+	| TOKEN_NULL.n 								{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypePointer(n.getStart(), n.getEnd()), null); :}
 	;
 	
 	
