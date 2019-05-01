@@ -523,7 +523,7 @@ public class Parser extends beaver.Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_node = _symbols[offset + 1];
 					final Node node = (Node) _symbol_node.value;
-					 return new NodeList(node);
+					 return new NodeList(node.getStart(), node.getEnd(), node);
 				}
 			},
 			new Action() {	// [55] argt = TOKEN_IDENTIFIER.name TOKEN_COLON type.ty

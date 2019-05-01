@@ -349,7 +349,7 @@ argt_part=
 	
 argt_list=
 	argt_list.list TOKEN_COMMA argt.node   		{: list.add(node); return list; :}
-	| argt.node            						{: return new NodeList(node); :}
+	| argt.node            						{: return new NodeList(node.getStart(), node.getEnd(), node); :}
 	;
 	
 argt=
