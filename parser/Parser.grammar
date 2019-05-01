@@ -350,7 +350,7 @@ argt_list=
 	;
 	
 argt=
-	TOKEN_IDENTIFIER.name TOKEN_COLON type.ty	{: 	NodeId node = new NodeId(name, new TypeFeature (name, ty)); stackEnvironment.putVariable(name, node); 
+	TOKEN_IDENTIFIER.name TOKEN_COLON type.ty	{: 	NodeId node = new NodeId(name.getStart(), ty.getEnd(), (String)name.value, new TypeFeature (name, ty)); stackEnvironment.putVariable(name, node); 
 													return node; :}
 	;
 	
@@ -358,13 +358,13 @@ block=
 	variable_declaration_part.dec
 	TOKEN_BEGIN
 	statement_list.stmn
-	TOKEN_END 			
-											{: return new NodeList(dec, stmn); :}	
+	TOKEN_END.e 			
+											{: return new NodeList(dec.getStart(), e.getEnd(), dec, stmn); :}	
 	;
 
 statement_list=
 	statement_list.list statement.node		{: list.add(node); return list; :}
-	| statement.node                      	{: return new NodeList(node); :}
+	| statement.node                      	{: return new NodeList(node.getStart(), node.getEnd(), node); :}
 	;
 	
 statement=
@@ -383,16 +383,16 @@ simple_statement=
 	;
 	
 assignment_statement=
-	variable_access.v TOKEN_AFF expression.e TOKEN_SEMIC 			{: return new NodeAssign(v, e); :}
+	variable_access.v TOKEN_AFF expression.exp TOKEN_SEMIC.e				{: return new NodeAssign(v.getStart(), e.getEnd(), v, exp); :}
 	;
 	
 procedure_statement=
-	procedure_expression.e TOKEN_SEMIC								{: return e; :}
+	procedure_expression.exp TOKEN_SEMIC.e									{: exp.setEnd(e); return exp; :}
 	;
 	
 procedure_expression=
-	TOKEN_IDENTIFIER.name TOKEN_LPAR expression_part.ep TOKEN_RPAR		{: 	NodeId funct = procedureEnvironment.getVariable(name); 
-																			return new NodeCallFct( name, (TypeFunct)funct.getType(), ep); :}
+	TOKEN_IDENTIFIER.name TOKEN_LPAR expression_part.ep TOKEN_RPAR.e		{: 	NodeId funct = procedureEnvironment.getVariable(name); 
+																			return new NodeCallFct( name.getStart(), e.getEnd(), name, (TypeFunct)funct.getType(), ep); :}
 	;
 	
 expression_part=
@@ -402,27 +402,27 @@ expression_part=
 	
 expression_list=
 	expression_list.list TOKEN_COMMA expression.node   	{: list.add(node); return list; :}
-	| expression.node                   				{: return new NodeList(node); :}
+	| expression.node                   				{: return new NodeList(node.getStart(), node.getEnd(), node); :}
 	;	
 	
 new_statement=
-	TOKEN_NEW variable_access.v TOKEN_SEMIC 			{: return new NodeNew(v); :}
+	TOKEN_NEW.b variable_access.v TOKEN_SEMIC.e 			{: return new NodeNew(b.getStart(), e.getEnd(), v); :}
 	;
 	
 dispose_statement=
-	TOKEN_DISPOSE variable_access.v TOKEN_SEMIC 		{: return new NodeDispose(v); :}
+	TOKEN_DISPOSE.b variable_access.v TOKEN_SEMIC.e			{: return new NodeDispose(b.getStart(), e.getEnd(), v); :}
 	;
 	
 println_statement=
-	TOKEN_PRINTLN expression.e TOKEN_SEMIC				{: return new NodeOp("println", e); :}
+	TOKEN_PRINTLN.b expression.exp TOKEN_SEMIC.e			{: return new NodeOp(b.getStart(), e.getEnd(), "println", exp); :}
 	;	
 	
 readln_statement=
-	TOKEN_READLN expression.e TOKEN_SEMIC				{: return new NodeOp("readln", e); :}
+	TOKEN_READLN.b expression.exp TOKEN_SEMIC.e				{: return new NodeOp(b.getStart(), e.getEnd(), "readln", exp); :}
 	;
 	
 return_statement=
-	TOKEN_RETURN expression.e TOKEN_SEMIC 				{: return new NodeReturn(e); :}
+	TOKEN_RETURN.b expression.exp TOKEN_SEMIC.e 			{: return new NodeReturn(b.getStart(), e.getEnd(), exp); :}
 	;
 	
 structured_statement=
@@ -433,26 +433,26 @@ structured_statement=
 	;
 	
 if_statement=
-	TOKEN_IF expression.e TOKEN_THEN statement.stm1 TOKEN_ELSE statement.stm2 	{: return new NodeIf(e, stm1, stm2); :}
-	| TOKEN_IF expression.e TOKEN_THEN statement.stm 							{: return new NodeIf(e, stm); :}
+	TOKEN_IF.b expression.exp TOKEN_THEN statement.stm1 TOKEN_ELSE.e statement.stm2 	{: return new NodeIf(b.getStart(), e.getEnd(), exp, stm1, stm2); :}
+	| TOKEN_IF.b expression.exp TOKEN_THEN.e statement.stm 								{: return new NodeIf(b.getStart(), e.getEnd(), exp, stm); :}
 	;
 	
 while_statement=
-	TOKEN_WHILE expression.e TOKEN_DO statement.stm 							{: return new NodeWhile(e, stm); :}
+	TOKEN_WHILE.b expression.exp TOKEN_DO statement.stm 							{: return new NodeWhile(b.getStart(), stmn.getEnd(), exp, stm); :}
 	;
 	
 switch_statement=
-	TOKEN_SWITCH expression.e TOKEN_BEGIN case_statement_list.stm TOKEN_END 	{: return new NodeSwitch(e, stm); :}
+	TOKEN_SWITCH.b expression.exp TOKEN_BEGIN case_statement_list.stm TOKEN_END.e 	{: return new NodeSwitch(b.getStart(), e.getEnd(), exp, stm); :}
 	;
 	
 case_statement_list=
 	case_statement_list.list case_statement.cstmn case_default.cdef				{: list.add(cstmn); list.add(cdef); return list; :}
-	| case_statement.cstmn														{: return new NodeList(cstmn); :}
+	| case_statement.cstmn														{: return new NodeList(cstmn.getStart(), cstmn.getEnd(), cstmn); :}
 	;
 	
 case_statement=
-	TOKEN_CASE identifier_list.list TOKEN_COLON statement.stm			{: 	
-																			NodeList node_list = new NodeList();
+	TOKEN_CASE.b identifier_list.list TOKEN_COLON.e statement.stm			{: 	
+																			NodeList node_list = new NodeList(b.getStart(), e.getEnd());
 																			for(String s : list)
 																		         node_list.add(new NodeCase(s, stm));
 																	      	return node_list;
@@ -461,50 +461,50 @@ case_statement=
 
 case_default=
 	/* empty */
-	| TOKEN_DEFAULT TOKEN_COLON statement.stm 							{: return new NodeCase(stm); :}
+	| TOKEN_DEFAULT.b TOKEN_COLON statement.stm 						{: return new NodeCase(b.getStart(), stmn.getEnd(), stm); :}
 	;
 		
 			
 ptr_access =
-	expression.e TOKEN_CIRC 											{: return new NodePtrAccess(e); :}
+	expression.exp TOKEN_CIRC.e											{: return new NodePtrAccess(exp.getStart(), e.getEnd(), exp); :}
 	;
 	
 struct_access =
-	variable_access.t TOKEN_DOT TOKEN_IDENTIFIER.field 					{: return new NodeStructAccess(t, field); :}
+	variable_access.t TOKEN_DOT TOKEN_IDENTIFIER.field 					{: return new NodeStructAccess(t.getStart(), field.getEnd(), field); :}
 	;
 	
 array_access =
-	variable_access.t TOKEN_LBRACKET expression.i TOKEN_RBRACKET 		{: return new NodeArrayAccess(t, i); :}											
+	variable_access.t TOKEN_LBRACKET expression.i TOKEN_RBRACKET.e 		{: return new NodeArrayAccess(t.getStart(), e.getEnd(), t, i); :}											
 	;
 	
 variable_access=
 	TOKEN_IDENTIFIER.name 												{: return stackEnvironment.getVariable(name); :}
 	| array_access.n													{: return n; :}
 	| struct_access.n													{: return n; :}
-	| ptr_access.n													{: return n; :}
+	| ptr_access.n														{: return n; :}
 	;
 
 	
 expression=
-	expression.e1 TOKEN_PLUS expression.e2 		{: return new NodeOp("+", e1, e2); :}
-	| expression.e1 TOKEN_MINUS expression.e2 	{: return new NodeOp("-", e1, e2); :}
-	| expression.e1 TOKEN_TIMES expression.e2 	{: return new NodeOp("*", e1, e2); :}
-	| expression.e1 TOKEN_DIV expression.e2 	{: return new NodeOp("/", e1, e2); :}
-	| TOKEN_MINUS expression.e 					{: return new NodeOp("-", e); :}
+	expression.e1 TOKEN_PLUS expression.e2 		{: return new NodeOp(e1.getStart(), e2.getEnd(), "+", e1, e2); :}
+	| expression.e1 TOKEN_MINUS expression.e2 	{: return new NodeOp(e1.getStart(), e2.getEnd(), "-", e1, e2); :}
+	| expression.e1 TOKEN_TIMES expression.e2 	{: return new NodeOp(e1.getStart(), e2.getEnd(), "*", e1, e2); :}
+	| expression.e1 TOKEN_DIV expression.e2 	{: return new NodeOp(e1.getStart(), e2.getEnd(), "/", e1, e2); :}
+	| TOKEN_MINUS.b expression.exp 				{: return new NodeOp(b.getStart(), exp.getEnd(), "-", e); :}
 	
-	| expression.e1 TOKEN_OR expression.e2 		{: return new NodeOp("||", e1, e2); :}
-	| expression.e1 TOKEN_AND expression.e2 	{: return new NodeOp("&&", e1, e2); :}
+	| expression.e1 TOKEN_OR expression.e2 		{: return new NodeOp(e1.getStart(), e2.getEnd(), "||", e1, e2); :}
+	| expression.e1 TOKEN_AND expression.e2 	{: return new NodeOp(e1.getStart(), e2.getEnd(), "&&", e1, e2); :}
 
-	| expression.e1 TOKEN_LT expression.e2 		{: return new NodeOp("<", e1, e2); :}
-	| expression.e1 TOKEN_LE expression.e2 		{: return new NodeOp("<=", e1, e2); :}
-	| expression.e1 TOKEN_GT expression.e2 		{: return new NodeOp(">", e1, e2); :}
-	| expression.e1 TOKEN_GE expression.e2 		{: return new NodeOp(">=", e1, e2); :}
-	| expression.e1 TOKEN_EQ expression.e2 		{: return new NodeOp("==", e1, e2); :}
-	| expression.e1 TOKEN_NE expression.e2		{: return new NodeOp("!=", e1, e2); :}
+	| expression.e1 TOKEN_LT expression.e2 		{: return new NodeOp(e1.getStart(), e2.getEnd(), "<", e1, e2); :}
+	| expression.e1 TOKEN_LE expression.e2 		{: return new NodeOp(e1.getStart(), e2.getEnd(), "<=", e1, e2); :}
+	| expression.e1 TOKEN_GT expression.e2 		{: return new NodeOp(e1.getStart(), e2.getEnd(), ">", e1, e2); :}
+	| expression.e1 TOKEN_GE expression.e2 		{: return new NodeOp(e1.getStart(), e2.getEnd(), ">=", e1, e2); :}
+	| expression.e1 TOKEN_EQ expression.e2 		{: return new NodeOp(e1.getStart(), e2.getEnd(), "==", e1, e2); :}
+	| expression.e1 TOKEN_NE expression.e2		{: return new NodeOp(e1.getStart(), e2.getEnd(), "!=", e1, e2); :}
 	
-	| TOKEN_NOT.b expression.e 					{: return new NodeOp(b.getStart(), e.getEnd(), "!", e); :}
+	| TOKEN_NOT.b expression.exp 				{: return new NodeOp(b.getStart(), exp.getEnd(), "!", e); :}
 		
-	| TOKEN_LPAR.b expression.e TOKEN_RPAR.e	{: e.setPosition(b, e); return e; :}
+	| TOKEN_LPAR.b expression.exp TOKEN_RPAR.e	{: exp.setPosition(b, e); return exp; :}
 	| procedure_expression.p 					{: return p; :}
 	| variable_access.v							{: return v; :}		
 	| literal.l 								{: return l; :}
