@@ -155,7 +155,7 @@ program=
 	TOKEN_BEGIN
 	statement_list.stmn
 	TOKEN_END
-													{: stackEnvironment.popEnvironment(); return new NodeList(tydec,vardec,procdec,stmn); :}
+													{: stackEnvironment.popEnvironment(); return new NodeList(tydec.getStart, stmn.getEnd(), tydec,vardec,procdec,stmn); :}
 	;
 
 empty_main = 
@@ -169,16 +169,16 @@ type_declaration_part=
 	
 type_declaration_list=
 	type_declaration_list.list type_declaration.node		{: list.add(node); return list; :}
-	| type_declaration.node									{: return new NodeList(node); :}
+	| type_declaration.node									{: return new NodeList(node.getStart, node.getEnd(), node); :}
 	;
 	
 type_declaration=
-	type_declaration_head.tname TOKEN_AFF type.ty TOKEN_SEMIC 	{: 	NodeId node = new NodeId(tname.first(), ty); typeEnvironment.putVariable(tname.first(), node); 
+	type_declaration_head.tname TOKEN_AFF type.ty TOKEN_SEMIC.sem 	{: 	NodeId node = new NodeId(tname.getStart, sem.getEnd(), tname.first(), ty); typeEnvironment.putVariable(tname.first(), node); 
 																	return node; :}
 	;
 	
 type_declaration_head=
-	TOKEN_IDENTIFIER.name			{: return new IdentifierList(name); :}
+	TOKEN_IDENTIFIER.name			{: return new IdentifierList(name.getStart, name.getEnd(), name); :}
 	;
 	
 type=
@@ -191,9 +191,9 @@ type=
 	;
 	
 simple_type=
-	TOKEN_STRING				{: return new TypeString(); :}
-	| TOKEN_INTEGER				{: return new TypeInt(); :}
-	| TOKEN_BOOLEAN				{: return new TypeBoolean(); :}
+	TOKEN_STRING.tk				{: return new TypeString(tk.getStart, tk.getEnd()); :}
+	| TOKEN_INTEGER.tk				{: return new TypeInt(tk.getStart, tk.getEnd()); :}
+	| TOKEN_BOOLEAN.tk				{: return new TypeBoolean(tk.getStart, tk.getEnd()); :}
 	;
 	
 named_type=
@@ -220,7 +220,7 @@ enumerated_type=
 																		:}
 	;
 	
-init_enumerated_type=					{: return new TypeEnumRange(); :}
+init_enumerated_type=					{: return new TypeEnumRange(0, 0); :}
 	;
 
 subrange_type= 
