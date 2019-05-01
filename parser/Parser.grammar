@@ -321,7 +321,7 @@ procedure_declaration_head=
 	
 procedure_head=
 	TOKEN_PROCEDURE.b procedure_name.nid TOKEN_LPAR argt_part.args TOKEN_RPAR.e 
-						{: 	NodeId node = new NodeId(b.getStart(), e.getEnd(), nid.getName(), new TypeFunct(nid.getName(), args, new TypeVoid())); 
+						{: 	NodeId node = new NodeId(b.getStart(), e.getEnd(), nid.getName(), new TypeFunct(b.getStart(), e.getEnd(), nid.getName(), args, new TypeVoid(b.getStart(), e.getEnd()))); 
 							return node; 
 						:}
 						

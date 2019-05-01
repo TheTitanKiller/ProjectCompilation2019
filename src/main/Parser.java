@@ -474,7 +474,7 @@ public class Parser extends beaver.Parser {
 					final Symbol _symbol_args = _symbols[offset + 4];
 					final TypeTuple args = (TypeTuple) _symbol_args.value;
 					final Symbol e = _symbols[offset + 5];
-					 	NodeId node = new NodeId(b.getStart(), e.getEnd(), nid.getName(), new TypeFunct(nid.getName(), args, new TypeVoid())); 
+					 	NodeId node = new NodeId(b.getStart(), e.getEnd(), nid.getName(), new TypeFunct(b.getStart(), e.getEnd(), nid.getName(), args, new TypeVoid(b.getStart(), e.getEnd()))); 
 							return node;
 				}
 			},
