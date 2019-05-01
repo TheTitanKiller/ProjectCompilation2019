@@ -208,13 +208,13 @@ index_type=
 	;
 	
 enumerated_type=
-	init_enumerated_type.t TOKEN_LPAR identifier_list.list TOKEN_RPAR 			
+	init_enumerated_type.t TOKEN_LPAR.tkl identifier_list.list TOKEN_RPAR.tkr 			
 																		{: 
-																			TypeTuple tuple = new TypeTuple();
+																			TypeTuple tuple = new TypeTuple(tkl.getStart(), tkr.getEnd());
 																			int i = 0;
 																			for(String s : list)
 																			{
-																				TypeItemEnum tmp = new TypeItemEnum(i++, s);
+																				TypeItemEnum tmp = new TypeItemEnum(tkl.getStart(), tkr.getEnd(), i++, s);
 																				stackEnvironment.putVariable(s, new NodeId(s, tmp));
 																				tuple.add(tmp);
 																			}

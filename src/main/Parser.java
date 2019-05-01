@@ -235,18 +235,20 @@ public class Parser extends beaver.Parser {
 					 return t;
 				}
 			},
-			new Action() {	// [20] enumerated_type = init_enumerated_type.t TOKEN_LPAR identifier_list.list TOKEN_RPAR
+			new Action() {	// [20] enumerated_type = init_enumerated_type.t TOKEN_LPAR.tkl identifier_list.list TOKEN_RPAR.tkr
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_t = _symbols[offset + 1];
 					final TypeEnumRange t = (TypeEnumRange) _symbol_t.value;
+					final Symbol tkl = _symbols[offset + 2];
 					final Symbol _symbol_list = _symbols[offset + 3];
 					final IdentifierList list = (IdentifierList) _symbol_list.value;
+					final Symbol tkr = _symbols[offset + 4];
 					 
-																			TypeTuple tuple = new TypeTuple();
+																			TypeTuple tuple = new TypeTuple(tkl.getStart(), tkr.getEnd());
 																			int i = 0;
 																			for(String s : list)
 																			{
-																				TypeItemEnum tmp = new TypeItemEnum(i++, s);
+																				TypeItemEnum tmp = new TypeItemEnum(tkl.getStart(), tkr.getEnd(), i++, s);
 																				stackEnvironment.putVariable(s, new NodeId(s, tmp));
 																				tuple.add(tmp);
 																			}
