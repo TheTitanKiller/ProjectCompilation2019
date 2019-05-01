@@ -495,7 +495,7 @@ public class Parser extends beaver.Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol namefct = _symbols[offset + 1];
 					 	stackEnvironment.pushEnvironment((String)namefct.value, namefct.getStart(), namefct.getEnd()); 
-													return new TypeNamed(namefct.getStart(), namefct.getEnd(), namefct);
+													return new TypeNamed(namefct.getStart(), namefct.getEnd(), (String)namefct.value);
 				}
 			},
 			Action.NONE,  	// [51] argt_part = 

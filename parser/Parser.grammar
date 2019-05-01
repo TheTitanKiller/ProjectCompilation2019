@@ -333,7 +333,7 @@ procedure_head=
 
 procedure_name = 
 	TOKEN_IDENTIFIER.namefct 					{: 	stackEnvironment.pushEnvironment((String)namefct.value, namefct.getStart(), namefct.getEnd()); 
-													return new TypeNamed(namefct.getStart(), namefct.getEnd(), namefct); :}
+													return new TypeNamed(namefct.getStart(), namefct.getEnd(), (String)namefct.value); :}
 	;
 
 argt_part=
