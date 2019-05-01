@@ -436,12 +436,12 @@ structured_statement=
 	;
 	
 if_statement=
-	TOKEN_IF.b expression.exp TOKEN_THEN statement.stm1 TOKEN_ELSE.e statement.stm2 	{: return new NodeIf(b.getStart(), e.getEnd(), exp, stm1, stm2); :}
-	| TOKEN_IF.b expression.exp TOKEN_THEN.e statement.stm 								{: return new NodeIf(b.getStart(), e.getEnd(), exp, stm); :}
+	TOKEN_IF.b expression.exp TOKEN_THEN statement.stm1 TOKEN_ELSE statement.stm2 	{: return new NodeIf(b.getStart(), stm2.getEnd(), exp, stm1, stm2); :}
+	| TOKEN_IF.b expression.exp TOKEN_THEN statement.stm 								{: return new NodeIf(b.getStart(), stm.getEnd(), exp, stm); :}
 	;
 	
 while_statement=
-	TOKEN_WHILE.b expression.exp TOKEN_DO statement.stm 							{: return new NodeWhile(b.getStart(), stmn.getEnd(), exp, stm); :}
+	TOKEN_WHILE.b expression.exp TOKEN_DO statement.stm 							{: return new NodeWhile(b.getStart(), stm.getEnd(), exp, stm); :}
 	;
 	
 switch_statement=
@@ -454,17 +454,17 @@ case_statement_list=
 	;
 	
 case_statement=
-	TOKEN_CASE.b identifier_list.list TOKEN_COLON.e statement.stm			{: 	
-																			NodeList node_list = new NodeList(b.getStart(), e.getEnd());
-																			for(String s : list)
-																		         node_list.add(new NodeCase(list.getStart(), list.getEnd(), s, stm));
-																	      	return node_list;
-																	    :}
+	TOKEN_CASE.b identifier_list.list TOKEN_COLON.e statement.stm				{: 	
+																					NodeList node_list = new NodeList(b.getStart(), e.getEnd());
+																					for(String s : list)
+																				         node_list.add(new NodeCase(list.getStart(), list.getEnd(), s, stm));
+																			      	return node_list;
+																	    		:}
 	;
 
 case_default=
 	/* empty */
-	| TOKEN_DEFAULT.b TOKEN_COLON statement.stm 						{: return new NodeCase(b.getStart(), stmn.getEnd(), stm); :}
+	| TOKEN_DEFAULT.b TOKEN_COLON statement.stm 						{: return new NodeCase(b.getStart(), stm.getEnd(), stm); :}
 	;
 		
 			

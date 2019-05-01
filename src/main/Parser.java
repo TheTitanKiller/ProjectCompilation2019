@@ -748,28 +748,26 @@ public class Parser extends beaver.Parser {
 					 return n;
 				}
 			},
-			new Action() {	// [84] if_statement = TOKEN_IF.b expression.exp TOKEN_THEN statement.stm1 TOKEN_ELSE.e statement.stm2
+			new Action() {	// [84] if_statement = TOKEN_IF.b expression.exp TOKEN_THEN statement.stm1 TOKEN_ELSE statement.stm2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol b = _symbols[offset + 1];
 					final Symbol _symbol_exp = _symbols[offset + 2];
 					final NodeExp exp = (NodeExp) _symbol_exp.value;
 					final Symbol _symbol_stm1 = _symbols[offset + 4];
 					final Node stm1 = (Node) _symbol_stm1.value;
-					final Symbol e = _symbols[offset + 5];
 					final Symbol _symbol_stm2 = _symbols[offset + 6];
 					final Node stm2 = (Node) _symbol_stm2.value;
-					 return new NodeIf(b.getStart(), e.getEnd(), exp, stm1, stm2);
+					 return new NodeIf(b.getStart(), stm2.getEnd(), exp, stm1, stm2);
 				}
 			},
-			new Action() {	// [85] if_statement = TOKEN_IF.b expression.exp TOKEN_THEN.e statement.stm
+			new Action() {	// [85] if_statement = TOKEN_IF.b expression.exp TOKEN_THEN statement.stm
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol b = _symbols[offset + 1];
 					final Symbol _symbol_exp = _symbols[offset + 2];
 					final NodeExp exp = (NodeExp) _symbol_exp.value;
-					final Symbol e = _symbols[offset + 3];
 					final Symbol _symbol_stm = _symbols[offset + 4];
 					final Node stm = (Node) _symbol_stm.value;
-					 return new NodeIf(b.getStart(), e.getEnd(), exp, stm);
+					 return new NodeIf(b.getStart(), stm.getEnd(), exp, stm);
 				}
 			},
 			new Action() {	// [86] while_statement = TOKEN_WHILE.b expression.exp TOKEN_DO statement.stm
@@ -779,7 +777,7 @@ public class Parser extends beaver.Parser {
 					final NodeExp exp = (NodeExp) _symbol_exp.value;
 					final Symbol _symbol_stm = _symbols[offset + 4];
 					final Node stm = (Node) _symbol_stm.value;
-					 return new NodeWhile(b.getStart(), stmn.getEnd(), exp, stm);
+					 return new NodeWhile(b.getStart(), stm.getEnd(), exp, stm);
 				}
 			},
 			new Action() {	// [87] switch_statement = TOKEN_SWITCH.b expression.exp TOKEN_BEGIN case_statement_list.stm TOKEN_END.e
@@ -820,10 +818,10 @@ public class Parser extends beaver.Parser {
 					final Symbol _symbol_stm = _symbols[offset + 4];
 					final Node stm = (Node) _symbol_stm.value;
 					 	
-																			NodeList node_list = new NodeList(b.getStart(), e.getEnd());
-																			for(String s : list)
-																		         node_list.add(new NodeCase(list.getStart(), list.getEnd(), s, stm));
-																	      	return node_list;
+																					NodeList node_list = new NodeList(b.getStart(), e.getEnd());
+																					for(String s : list)
+																				         node_list.add(new NodeCase(list.getStart(), list.getEnd(), s, stm));
+																			      	return node_list;
 				}
 			},
 			Action.NONE,  	// [91] case_default = 
@@ -832,7 +830,7 @@ public class Parser extends beaver.Parser {
 					final Symbol b = _symbols[offset + 1];
 					final Symbol _symbol_stm = _symbols[offset + 3];
 					final Node stm = (Node) _symbol_stm.value;
-					 return new NodeCase(b.getStart(), stmn.getEnd(), stm);
+					 return new NodeCase(b.getStart(), stm.getEnd(), stm);
 				}
 			},
 			new Action() {	// [93] ptr_access = expression.exp TOKEN_CIRC.e
