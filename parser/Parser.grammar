@@ -157,7 +157,7 @@ program=
 	TOKEN_END.e
 													{: 	stackEnvironment.popEnvironment(); 
 														empty.setPosition(b,e); empty.getType().setPosition(b,e);
-														return new NodeList(tydec,vardec,procdec,stmn); :}
+														return new NodeList(tydec.getStart(), e.getEnd(), tydec,vardec,procdec,stmn); :}
 	;
 
 empty_main = 
@@ -171,7 +171,7 @@ type_declaration_part=
 	
 type_declaration_list=
 	type_declaration_list.list type_declaration.node		{: list.add(node); return list; :}
-	| type_declaration.node									{: return new NodeList(node.getStart, node.getEnd(), node); :}
+	| type_declaration.node									{: return new NodeList(node.getStart(), node.getEnd(), node); :}
 	;
 	
 type_declaration=
