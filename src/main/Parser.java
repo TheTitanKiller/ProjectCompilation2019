@@ -103,7 +103,10 @@ public class Parser extends beaver.Parser {
 					final Symbol b = _symbols[offset + 5];
 					final Symbol _symbol_stmn = _symbols[offset + 6];
 					final Node stmn = (Node) _symbol_stmn.value;
-					 stackEnvironment.popEnvironment(); return new NodeList(tydec,vardec,procdec,stmn);
+					final Symbol e = _symbols[offset + 7];
+					 	stackEnvironment.popEnvironment(); 
+														empty.setPosition(b,e); empty.getType().setPosition(b,e);
+														return new NodeList(tydec,vardec,procdec,stmn);
 				}
 			},
 			new Action() {	// [1] empty_main = 
@@ -149,7 +152,7 @@ public class Parser extends beaver.Parser {
 			new Action() {	// [7] type_declaration_head = TOKEN_IDENTIFIER.name
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol name = _symbols[offset + 1];
-					 return new IdentifierList(name);
+					 return new IdentifierList(name.getStart, name.getEnd(), name);
 				}
 			},
 			new Action() {	// [8] type = simple_type.n
@@ -1080,8 +1083,3 @@ public class Parser extends beaver.Parser {
 		return actions[rule_num].reduce(_symbols, offset);
 	}
 }
-
-					final Symbol e = _symbols[offset + 7];
-					 	stackEnvironment.popEnvironment(); 
-														empty.setPosition(b,e); empty.getType().setPosition(b,e);
-														return new NodeList(tydec,vardec,procdec,stmn);
