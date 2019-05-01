@@ -29,10 +29,10 @@ public class TypeArrayRange extends TypeRange
 	}
 	return true;
     }
-    
+
     @Override public ClonableSymbol clone()
     {
 	return new TypeArrayRange(this.start, this.end, (Type) this.first.clone(), (Type) this.last.clone());
     }
-    
+
 }

@@ -168,3 +168,119 @@ year: NodeId#year:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_7], TypeArray(Type
 *** Fichier data/progr8.lea
 
 *** Analyse syntaxique ok
+*** Typage correct
+*** Backtrace
+Environment::types
+>
+java.lang.NullPointerException
+	at type.TypeRange.toString(TypeRange.java:27)
+	at type.TypeEnumRange.toString(TypeEnumRange.java:58)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at node.NodeId.toString(NodeId.java:38)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at environment.Environment.backtrace(Environment.java:43)
+	at main.Parser.backtrace(Unknown Source)
+	at main.Main.main(Main.java:50)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:218)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:155)
+	at org.apache.tools.ant.taskdefs.Java.run(Java.java:861)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:231)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:135)
+	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:108)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:99)
+	at org.apache.tools.ant.Task.perform(Task.java:350)
+	at org.apache.tools.ant.Target.execute(Target.java:449)
+	at org.apache.tools.ant.Target.performTasks(Target.java:470)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1388)
+	at org.apache.tools.ant.Project.executeTarget(Project.java:1361)
+	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1251)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:460)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:142)
+java.lang.NullPointerException
+	at type.TypeRange.toString(TypeRange.java:27)
+	at type.TypeEnumRange.toString(TypeEnumRange.java:58)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at node.NodeId.toString(NodeId.java:38)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at environment.Environment.backtrace(Environment.java:43)
+	at main.Parser.backtrace(Unknown Source)
+	at main.Main.main(Main.java:50)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:218)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:155)
+	at org.apache.tools.ant.taskdefs.Java.run(Java.java:861)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:231)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:135)
+	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:108)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:99)
+	at org.apache.tools.ant.Task.perform(Task.java:350)
+	at org.apache.tools.ant.Target.execute(Target.java:449)
+	at org.apache.tools.ant.Target.performTasks(Target.java:470)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1388)
+	at org.apache.tools.ant.Project.executeTarget(Project.java:1361)
+	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1251)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:460)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:142)
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+Layer 0 :
+Environment::Global
+>
+JANUARY: NodeId#JANUARY:TypeItemEnum@1=null(0)#
+JUNE: NodeId#JUNE:TypeItemEnum@1=null(5)#
+THURSDAY: NodeId#THURSDAY:TypeItemEnum@0=null(4)#
+week: NodeId#week:TypeArray(TypeArrayRange[TypeItemEnum@0=null(1)..TypeItemEnum@0=null(5)], TypeString)#
+SUNDAY: NodeId#SUNDAY:TypeItemEnum@0=null(0)#
+MAY: NodeId#MAY:TypeItemEnum@1=null(4)#
+d: NodeId#d:TypeArrayRange[TypeItemEnum@0=null(0)..TypeItemEnum@0=null(6)]#
+OCTOBER: NodeId#OCTOBER:TypeItemEnum@1=null(9)#
+year: NodeId#year:TypeArray(TypeArrayRange[TypeItemEnum@0=null(0)..TypeItemEnum@0=null(6)], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeItemEnum@1=null(0)..TypeItemEnum@1=null(11)], TypeString)))#
+TUESDAY: NodeId#TUESDAY:TypeItemEnum@0=null(2)#
+FRIDAY: NodeId#FRIDAY:TypeItemEnum@0=null(5)#
+DECEMBER: NodeId#DECEMBER:TypeItemEnum@1=null(11)#
+FEBRUARY: NodeId#FEBRUARY:TypeItemEnum@1=null(1)#
+SEPTEMBER: NodeId#SEPTEMBER:TypeItemEnum@1=null(8)#
+NOVEMBER: NodeId#NOVEMBER:TypeItemEnum@1=null(10)#
+WEDNESDAY: NodeId#WEDNESDAY:TypeItemEnum@0=null(3)#
+MONDAY: NodeId#MONDAY:TypeItemEnum@0=null(1)#
+SATURDAY: NodeId#SATURDAY:TypeItemEnum@0=null(6)#
+MARCH: NodeId#MARCH:TypeItemEnum@1=null(2)#
+AUGUST: NodeId#AUGUST:TypeItemEnum@1=null(7)#
+JULY: NodeId#JULY:TypeItemEnum@1=null(6)#
+APRIL: NodeId#APRIL:TypeItemEnum@1=null(3)#
+>
+**
+*** End backtrace
+
+*** Fichier data/progr9.lea
+
+*** Analyse syntaxique ok

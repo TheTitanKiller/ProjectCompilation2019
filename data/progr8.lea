@@ -13,11 +13,11 @@ var
    
 begin
    week[MONDAY] = "M";
-   week[TUESDAY] = "T";
-   week[WEDNESDAY] = "W";
+   //week[TUESDAY] = "T";
+   //week[WEDNESDAY] = "W";
 
-   year [SATURDAY] [17] [MARCH] = "X";
-   year [SATURDAY] [1] [MARCH] = "V";
+   //year [SATURDAY] [17] [MARCH] = "X";
+   //year [SATURDAY] [1] [MARCH] = "V";
    
 println(year [SATURDAY] [1] [MARCH]);
 println(year [SATURDAY] [17] [MARCH]);

@@ -90,8 +90,7 @@
 %typeof simple_type                ="Type";
 %typeof named_type                 ="Type";
 %typeof index_type                 ="Type";
-%typeof enumerated_type            ="TypeTuple";
-%typeof init_enumerated_type       ="TypeEnumRange";
+%typeof enumerated_type            ="TypeEnumRange";
 %typeof subrange_type              ="TypeArrayRange";
 %typeof array_type                 ="TypeArray";
 %typeof range_type                 ="Type";
@@ -212,21 +211,25 @@ index_type=
 	;
 	
 enumerated_type=
-	init_enumerated_type.t TOKEN_LPAR.tkl identifier_list.list TOKEN_RPAR.tkr 			
-																		{: 
-																			TypeTuple tuple = new TypeTuple(tkl.getStart(), tkr.getEnd());
-																			int i = 0;
-																			for(String s : list)
-																			{
-																				TypeItemEnum tmp = new TypeItemEnum(tkl.getStart(), tkr.getEnd(), i++, s);
-																				stackEnvironment.putVariable(s, new NodeId(tkl.getStart(), tkr.getEnd(), s, tmp));
-																				tuple.add(tmp);
-																			}
-																			return tuple;
-																		:}
-	;
-	
-init_enumerated_type=					{: return new TypeEnumRange(0, 0); :}
+	TOKEN_LPAR.tkl identifier_list.list TOKEN_RPAR.tkr 			
+										{: 
+											TypeEnumRange enumr = new TypeEnumRange(tkl.getStart(), tkr.getEnd());
+											int i = 0;
+											for(String s : list)
+											{
+												TypeItemEnum tmp = new TypeItemEnum(tkl.getStart(), tkr.getEnd(), i++, s, enumr.getName());
+												stackEnvironment.putVariable(s, new NodeId(tkl.getStart(), tkr.getEnd(), s, tmp));
+												if(i==0)
+												{
+													enumr.setFirst(tmp);
+												}
+												if(s==list.last())
+												{
+													enumr.setLast(tmp);
+												}
+											}
+											return enumr;
+										:}
 	;
 
 subrange_type= 
