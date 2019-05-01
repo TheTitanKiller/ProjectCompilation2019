@@ -457,7 +457,7 @@ case_statement=
 	TOKEN_CASE.b identifier_list.list TOKEN_COLON.e statement.stm			{: 	
 																			NodeList node_list = new NodeList(b.getStart(), e.getEnd());
 																			for(String s : list)
-																		         node_list.add(new NodeCase(s, stm));
+																		         node_list.add(new NodeCase(list.getStart(), list.getEnd(), s, stm));
 																	      	return node_list;
 																	    :}
 	;
@@ -473,7 +473,7 @@ ptr_access =
 	;
 	
 struct_access =
-	variable_access.t TOKEN_DOT TOKEN_IDENTIFIER.field 					{: return new NodeStructAccess(t.getStart(), field.getEnd(), field); :}
+	variable_access.t TOKEN_DOT TOKEN_IDENTIFIER.field 					{: return new NodeStructAccess(t.getStart(), field.getEnd(), t, (String)(field.value)); :}
 	;
 	
 array_access =

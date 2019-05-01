@@ -822,7 +822,7 @@ public class Parser extends beaver.Parser {
 					 	
 																			NodeList node_list = new NodeList(b.getStart(), e.getEnd());
 																			for(String s : list)
-																		         node_list.add(new NodeCase(s, stm));
+																		         node_list.add(new NodeCase(list.getStart(), list.getEnd(), s, stm));
 																	      	return node_list;
 				}
 			},
@@ -848,7 +848,7 @@ public class Parser extends beaver.Parser {
 					final Symbol _symbol_t = _symbols[offset + 1];
 					final NodeExp t = (NodeExp) _symbol_t.value;
 					final Symbol field = _symbols[offset + 3];
-					 return new NodeStructAccess(t.getStart(), field.getEnd(), field);
+					 return new NodeStructAccess(t.getStart(), field.getEnd(), t, (String)(field.value));
 				}
 			},
 			new Action() {	// [95] array_access = variable_access.t TOKEN_LBRACKET expression.i TOKEN_RBRACKET.e
