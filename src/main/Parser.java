@@ -264,14 +264,14 @@ public class Parser extends beaver.Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol int1 = _symbols[offset + 1];
 					final Symbol int2 = _symbols[offset + 3];
-					 return new TypeArrayRange(new TypeInt(int1), new TypeInt(int2));
+					 return new TypeArrayRange(int1.getStart(), int2.getEnd(), new TypeInt(int1.getStart(), int1.getEnd(), int1), new TypeInt(int2.getStart(), int2.getEnd(), int2));
 				}
 			},
 			new Action() {	// [23] subrange_type = TOKEN_IDENTIFIER.name1 TOKEN_DOTDOT TOKEN_IDENTIFIER.name2
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol name1 = _symbols[offset + 1];
 					final Symbol name2 = _symbols[offset + 3];
-					 return new TypeArrayRange(
+					 return new TypeArrayRange(name1.getStart(), name2.getEnd(), 
 																						stackEnvironment.getVariable(name1).getType(),
 																						stackEnvironment.getVariable(name2).getType());
 				}

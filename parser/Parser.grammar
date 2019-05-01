@@ -226,8 +226,8 @@ init_enumerated_type=					{: return new TypeEnumRange(0, 0); :}
 	;
 
 subrange_type= 
-	TOKEN_LIT_INTEGER.int1 TOKEN_DOTDOT TOKEN_LIT_INTEGER.int2 					{: return new TypeArrayRange(new TypeInt(int1), new TypeInt(int2)); :}
-	| TOKEN_IDENTIFIER.name1 TOKEN_DOTDOT TOKEN_IDENTIFIER.name2				{: return new TypeArrayRange(
+	TOKEN_LIT_INTEGER.int1 TOKEN_DOTDOT TOKEN_LIT_INTEGER.int2 					{: return new TypeArrayRange(int1.getStart(), int2.getEnd(), new TypeInt(int1.getStart(), int1.getEnd(), int1), new TypeInt(int2.getStart(), int2.getEnd(), int2)); :}
+	| TOKEN_IDENTIFIER.name1 TOKEN_DOTDOT TOKEN_IDENTIFIER.name2				{: return new TypeArrayRange(name1.getStart(), name2.getEnd(), 
 																						stackEnvironment.getVariable(name1).getType(),
 																						stackEnvironment.getVariable(name2).getType()); :}
 	;
