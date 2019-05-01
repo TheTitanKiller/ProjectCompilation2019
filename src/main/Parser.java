@@ -91,7 +91,7 @@ public class Parser extends beaver.Parser {
 	public Parser() {
 		super(PARSING_TABLES);
 		actions = new Action[] {
-			new Action() {	// [0] program = type_declaration_part.tydec variable_declaration_part.vardec procedure_definition_part.procdec empty_main.empty TOKEN_BEGIN.b statement_list.stmn TOKEN_END.e
+			new Action() {	// [0] program = type_declaration_part.tydec variable_declaration_part.vardec procedure_definition_part.procdec empty_main TOKEN_BEGIN.b statement_list.stmn TOKEN_END.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_tydec = _symbols[offset + 1];
 					final NodeList tydec = (NodeList) _symbol_tydec.value;
@@ -99,14 +99,17 @@ public class Parser extends beaver.Parser {
 					final NodeList vardec = (NodeList) _symbol_vardec.value;
 					final Symbol _symbol_procdec = _symbols[offset + 3];
 					final NodeList procdec = (NodeList) _symbol_procdec.value;
-					final Symbol empty = _symbols[offset + 4];
 					final Symbol b = _symbols[offset + 5];
 					final Symbol _symbol_stmn = _symbols[offset + 6];
 					final Node stmn = (Node) _symbol_stmn.value;
 					final Symbol e = _symbols[offset + 7];
 					 	stackEnvironment.popEnvironment(); 
-														empty.setPosition(b,e); empty.getType().setPosition(b,e);
-														return new NodeList(tydec.getStart(), e.getEnd(), tydec,vardec,procdec,stmn);
+														return new NodeList(
+															tydec != null ? tydec.getStart()
+																: vardec != null ? vardec.getStart()
+																	: procdec != null ? procdec.getStart()
+																		: b.getStart(), 
+														e.getEnd(), tydec, vardec, procdec, stmn);
 				}
 			},
 			new Action() {	// [1] empty_main = 
@@ -152,7 +155,7 @@ public class Parser extends beaver.Parser {
 			new Action() {	// [7] type_declaration_head = TOKEN_IDENTIFIER.name
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol name = _symbols[offset + 1];
-					 return new IdentifierList(name.getStart(), name.getEnd(), name);
+					 return new IdentifierList(name.getStart(), name.getEnd(), (String)name.value);
 				}
 			},
 			new Action() {	// [8] type = simple_type.n
@@ -218,7 +221,7 @@ public class Parser extends beaver.Parser {
 			new Action() {	// [17] named_type = TOKEN_IDENTIFIER.name
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol name = _symbols[offset + 1];
-					 return typeEnvironment.getVariable(name).getType();
+					 return typeEnvironment.getVariable((String)name.value).getType();
 				}
 			},
 			new Action() {	// [18] index_type = enumerated_type.t
@@ -264,7 +267,9 @@ public class Parser extends beaver.Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol int1 = _symbols[offset + 1];
 					final Symbol int2 = _symbols[offset + 3];
-					 return new TypeArrayRange(int1.getStart(), int2.getEnd(), new TypeInt(int1.getStart(), int1.getEnd(), int1), new TypeInt(int2.getStart(), int2.getEnd(), int2));
+					 return new TypeArrayRange(int1.getStart(), int2.getEnd(), 
+																						new TypeInt(int1.getStart(), int1.getEnd(),(Integer)int1.value), 
+																						new TypeInt(int2.getStart(), int2.getEnd(), (Integer)int2.value));
 				}
 			},
 			new Action() {	// [23] subrange_type = TOKEN_IDENTIFIER.name1 TOKEN_DOTDOT TOKEN_IDENTIFIER.name2
@@ -272,8 +277,8 @@ public class Parser extends beaver.Parser {
 					final Symbol name1 = _symbols[offset + 1];
 					final Symbol name2 = _symbols[offset + 3];
 					 return new TypeArrayRange(name1.getStart(), name2.getEnd(), 
-																						stackEnvironment.getVariable(name1).getType(),
-																						stackEnvironment.getVariable(name2).getType());
+																						stackEnvironment.getVariable((String)name1.value).getType(),
+																						stackEnvironment.getVariable((String)name2.value).getType());
 				}
 			},
 			new Action() {	// [24] array_type = TOKEN_ARRAY.tk TOKEN_LBRACKET range_type.r TOKEN_RBRACKET TOKEN_OF type.ty
@@ -539,14 +544,15 @@ public class Parser extends beaver.Parser {
 													return node;
 				}
 			},
-			new Action() {	// [56] block = variable_declaration_part.dec TOKEN_BEGIN statement_list.stmn TOKEN_END.e
+			new Action() {	// [56] block = variable_declaration_part.dec TOKEN_BEGIN.b statement_list.stmn TOKEN_END.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_dec = _symbols[offset + 1];
 					final NodeList dec = (NodeList) _symbol_dec.value;
+					final Symbol b = _symbols[offset + 2];
 					final Symbol _symbol_stmn = _symbols[offset + 3];
 					final Node stmn = (Node) _symbol_stmn.value;
 					final Symbol e = _symbols[offset + 4];
-					 return new NodeList(dec.getStart(), e.getEnd(), dec, stmn);
+					 return new NodeList(dec != null ? dec.getStart(): b.getStart() , e.getEnd(), dec, stmn);
 				}
 			},
 			new Action() {	// [57] statement_list = statement_list.list statement.node
