@@ -2,14 +2,13 @@ package main;
 
 import java.io.FileReader;
 
+import beaver.Scanner;
 import node.Node;
 
 public class Main
 {
     private static boolean checksType = false;
     private static boolean backtrace = false;
-
-    public static ScannerLEA input;
     
     public static void main(String[] args) throws Exception
     {
@@ -33,7 +32,7 @@ public class Main
 	    }
 	    else
 	    {
-		input = new ScannerLEA(new FileReader(arg));
+		Scanner input = new ScannerLEA(new FileReader(arg));
 		Parser parser = new Parser();
 		try
 		{

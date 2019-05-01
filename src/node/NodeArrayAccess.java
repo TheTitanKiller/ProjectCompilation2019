@@ -11,9 +11,9 @@ public final class NodeArrayAccess extends NodeExp
 {
 
     // t [i]
-    public NodeArrayAccess(NodeExp t, Node i)
+    public NodeArrayAccess(int start, int end, NodeExp t, Node i)
     {
-	super(t, i);
+	super(start, end, t, i);
 	if (t != null && ((TypeComplex) t.type).size() == 2)
 	{
 	    this.type = ((TypeComplex) t.type).get(1);
@@ -43,7 +43,7 @@ public final class NodeArrayAccess extends NodeExp
 
     @Override public NodeArrayAccess clone()
     {
-	return new NodeArrayAccess((NodeExp) get(0).clone(), (Node) get(1).clone());
+	return new NodeArrayAccess(this.start, this.end, (NodeExp) get(0).clone(), (Node) get(1).clone());
     }
 
 }

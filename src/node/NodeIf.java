@@ -2,14 +2,14 @@ package node;
 
 public final class NodeIf extends Node
 {
-    public NodeIf(Node boolExp, Node stm)
+    public NodeIf(int start, int end, Node boolExp, Node stm)
     {
-	super(boolExp, stm);
+	super(start, end, boolExp, stm);
     }
 
-    public NodeIf(Node e, Node stm1, Node stm2)
+    public NodeIf(int start, int end, Node e, Node stm1, Node stm2)
     {
-	super(e, stm1, stm2);
+	super(start, end, e, stm1, stm2);
     }
 
     @Override public void checksType()
@@ -24,11 +24,11 @@ public final class NodeIf extends Node
 	Node elseNode = getElseNode();
 	if (elseNode == null)
 	{
-	    return new NodeIf((Node) expNode.clone(), (Node) thenNode.clone());
+	    return new NodeIf(this.start, this.end, (Node) expNode.clone(), (Node) thenNode.clone());
 	}
 	else
 	{
-	    return new NodeIf(expNode, (Node) thenNode.clone(), (Node) elseNode.clone());
+	    return new NodeIf(this.start, this.end, expNode, (Node) thenNode.clone(), (Node) elseNode.clone());
 	}
     }
 

@@ -5,14 +5,14 @@ import java.util.Iterator;
 public final class NodeList extends Node implements Iterable<Node>
 {
 
-    public NodeList()
+    public NodeList(int start, int end)
     {
-	super();
+	super(start, end);
     }
 
-    public NodeList(Node... stm)
+    public NodeList(int start, int end, Node... stm)
     {
-	super(stm);
+	super(start, end, stm);
     }
 
     @Override public void checksType()
@@ -28,7 +28,7 @@ public final class NodeList extends Node implements Iterable<Node>
 
     @Override public NodeList clone()
     {
-	NodeList node = new NodeList();
+	NodeList node = new NodeList(this.start, this.end);
 	for (Node elt : this.elts)
 	{
 	    node.add((Node) elt.clone());

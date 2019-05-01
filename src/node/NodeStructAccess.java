@@ -6,11 +6,11 @@ import type.TypeStruct;
 public class NodeStructAccess extends NodeExp
 {
     String feature;
-
+    
     // s.c
-    public NodeStructAccess(NodeExp s, String c)
+    public NodeStructAccess(int start, int end, NodeExp s, String c)
     {
-	super(s);
+	super(start, end, s);
 	if (s.getType() instanceof TypeStruct)
 	{
 	    TypeStruct t = (TypeStruct) s.getType();
@@ -19,20 +19,20 @@ public class NodeStructAccess extends NodeExp
 	}
 	this.feature = c;
     }
-
+    
     @Override public void checksType()
     {
 	return;
     }
-    
+
     @Override public NodeStructAccess clone()
     {
-	return new NodeStructAccess((NodeExp) get(0).clone(), getFeatureName());
+	return new NodeStructAccess(this.start, this.end, (NodeExp) get(0).clone(), getFeatureName());
     }
-    
+
     public String getFeatureName()
     {
 	return this.feature;
     }
-    
+
 }

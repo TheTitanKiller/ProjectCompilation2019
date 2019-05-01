@@ -5,15 +5,13 @@ import main.ClonableSymbol;
 // Expression de type
 public abstract class Type extends ClonableSymbol implements Comparable<Type>, TypeInterface
 {
-    // Atteste que le type est bien form'e
-    @Override public abstract boolean attestWellFormed();
-    
-    @Override public ClonableSymbol clone()
+    protected Type(int start, int end)
     {
-	// TODO Auto-generated method stub
-	System.err.println("TODO: " + this.getClass().getSimpleName() + ".clone()");
-	return null;
+	super(start, end);
     }
+
+    // Atteste que le type est bien forme
+    @Override public abstract boolean attestWellFormed();
     
     @Override public int compareTo(Type o)
     {
@@ -25,14 +23,14 @@ public abstract class Type extends ClonableSymbol implements Comparable<Type>, T
     /*
      * Définition: Une différence Diff(A, B) où A et B sont deux expressions de type
      * est
-     * 
+     *
      * - \emptyset si A = B
-     * 
+     *
      * - Diff (f, f’) U Diff(t1, t1’) U … U Diff(tk, tk’) si A = f(t1, … ,tk) et B=
      * f’(t1', … ,tk’) on simplifie en disant f=f'
-     * 
+     *
      * - {{A,B}} dans les autres cas
-     * 
+     *
      */
     private Subst diff(Type obj)
     {
@@ -92,16 +90,16 @@ public abstract class Type extends ClonableSymbol implements Comparable<Type>, T
      * mgcu de A et B:
      *
      * \theta = \epsilon
-     * 
+     *
      * Tant que \sigma = Diff(\theta(A), \theta(B)) n'est pas vide faire
-     * 
+     *
      * \theta = \sigma \circ \theta
-     * 
+     *
      * Fin faire
-     * 
+     *
      * Si \sigma est vide, alors \theta est le mgcu sinon A et B ne sont pas
      * unifiables
-     * 
+     *
      * Remarque: On ne vérifie pas qu'une différence est acceptable, mais seulement qu'elle est non vide
      *  En cas de boucle (parce que A (resp. B) contiendrait B (resp. A)), on sort de la boucle
      */
@@ -119,7 +117,8 @@ public abstract class Type extends ClonableSymbol implements Comparable<Type>, T
 	    //System.err.println("a: " + a);
 	    //System.err.println("b: " + b);
 	    sigma = a.diff(b);
-	    if (sigma == null) { return false; }
+	    if (sigma == null)
+	    { return false; }
 	    if (sigma.isEmpty())
 	    {
 		break;

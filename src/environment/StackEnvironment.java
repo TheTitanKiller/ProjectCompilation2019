@@ -3,7 +3,6 @@ package environment;
 import java.util.LinkedList;
 
 import errors.CustomError;
-import main.Main;
 import node.NodeId;
 
 public class StackEnvironment implements EnvironmentInterface
@@ -57,8 +56,8 @@ public class StackEnvironment implements EnvironmentInterface
 	    }
 	}
 	throw new CustomError(
-		"Variable \"" + variable + "\" is not initialised in " + this + ".", this.stack.getFirst().line,
-		this.stack.getFirst().colomn
+		"Variable \"" + variable + "\" is not initialised in " + this + ".", this.stack.getLast().line,
+		this.stack.getLast().colomn
 	);
     }
     
@@ -81,9 +80,9 @@ public class StackEnvironment implements EnvironmentInterface
      * @param name_environment
      *        Le nom de l'environnement à créer.
      */
-    public void pushEnvironment(String name_environment)
+    public void pushEnvironment(String name_environment, int line, int colomn)
     {
-	this.stack.push(new Environment(name_environment, Main.input.getLine(), Main.input.getColomn()));
+	this.stack.push(new Environment(name_environment, line, colomn));
     }
     
     /**

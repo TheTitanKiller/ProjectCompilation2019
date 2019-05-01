@@ -3,9 +3,9 @@ package type;
 // Type List(t)
 public class TypeList extends TypeComplex
 {
-    public TypeList(Type t)
+    public TypeList(int start, int end, Type t)
     {
-	super(t);
+	super(start, end, t);
     }
     
     @Override public boolean attestWellFormed()
@@ -15,7 +15,7 @@ public class TypeList extends TypeComplex
     
     @Override public Type clone()
     {
-	return new TypeList((Type) get(0).clone());
+	return new TypeList(this.start, this.end, (Type) get(0).clone());
     }
     
     @Override public String toString()

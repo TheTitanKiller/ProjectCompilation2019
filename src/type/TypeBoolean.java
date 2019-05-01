@@ -4,9 +4,19 @@ import main.ClonableSymbol;
 
 public class TypeBoolean extends TypeAtomic
 {
+    protected TypeBoolean(int start, int end)
+    {
+	super(start, end);
+    }
+
+    @Override public boolean attestWellFormed()
+    {
+	return true;
+    }
+    
     @Override public ClonableSymbol clone()
     {
-	return new TypeBoolean();
+	return new TypeBoolean(this.start, this.end);
     }
     
 }

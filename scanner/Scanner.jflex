@@ -29,17 +29,6 @@ import beaver.Scanner;
 	{
 		return new Symbol(id, yyline + 1, yycolumn + 1, yylength(), value);
 	}
-	
-	public int getLine()
-	{
-		return yyline + 1;
-	}
-	
-	public int getColomn()
-	{
-		return  yycolumn + 1;
-	}
-
 %}
 
 Integer = [0-9]+

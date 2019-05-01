@@ -10,25 +10,25 @@ import type.TypeFunct;
 public final class NodeCallFct extends NodeExp
 {
     protected String name;
-
+    
     // Application
     // (f : E1 x E2 ... x Ek -> F), (arg1, arg2, ..., argk)
-    public NodeCallFct(String name, TypeFunct type)
+    public NodeCallFct(int start, int end, String name, TypeFunct type)
     {
-	super();
+	super(start, end);
 	this.name = name;
 	this.type = type;
     }
-
+    
     // Application
     // (f : E1 x E2 ... x Ek -> F), (arg1, arg2, ..., argk)
-    public NodeCallFct(String name, TypeFunct type, NodeList args)
+    public NodeCallFct(int start, int end, String name, TypeFunct type, NodeList args)
     {
-	super(args);
+	super(start, end, args);
 	this.name = name;
 	this.type = type;
     }
-
+    
     // On parcourt les arguments et on vérifie qu'ils sont bien typés
     // On parcourt aussi les paramètres de la fonction
     // et on regarde que les types sont égaux
@@ -41,7 +41,7 @@ public final class NodeCallFct extends NodeExp
 	{
 	    NodeExp arg = (NodeExp) itArgs.next();
 	    arg.checksType();
-
+	    
 	    Type argType = arg.getType();
 	    // chaque paramètre est une feature nom : type
 	    Type paramType = ((TypeFeature) itParams.next()).getType();
@@ -52,35 +52,35 @@ public final class NodeCallFct extends NodeExp
 	if (result && (itArgs.hasNext() || itParams.hasNext()))
 	{ throw new CustomError(getClass().getSimpleName() + ": pas le même nombre de paramètres ", this); }
     }
-
+    
     @Override public NodeCallFct clone()
     {
-	NodeCallFct node = new NodeCallFct(this.name, (TypeFunct) this.type);
+	NodeCallFct node = new NodeCallFct(this.start, this.end, this.name, (TypeFunct) this.type);
 	for (Node elt : this.elts)
 	{
 	    node.add((Node) elt.clone());
 	}
 	return node;
     }
-
+    
     private NodeList getArgs()
     {
 	return (NodeList) this.elts.get(0);
     }
-
+    
     @Override public Type getType()
     {
 	return ((TypeFunct) this.type).getRet();
     }
-
+    
     @Override protected String toDotNodeName()
     {
 	return "NodeCallFct " + this.name + "()";
     }
-
+    
     @Override public String toString()
     {
 	return this.name + '_' + super.toString();
     }
-
+    
 }

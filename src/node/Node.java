@@ -14,18 +14,19 @@ public abstract class Node extends ClonableSymbol implements NodeInterface
     private static int staticUniqId;
     protected List<Node> elts;
     protected int uniqId;
+    int line, colomn;
     
-    public Node()
+    public Node(int start, int end)
     {
-	super();
+	super(start, end);
 	this.uniqId = Node.staticUniqId++;
 	//System.err.println("Create class " + this.getClass().getSimpleName());
 	this.elts = new ArrayList<Node>();
     }
     
-    public Node(Node... args)
+    public Node(int start, int end, Node... args)
     {
-	this();
+	this(start, end);
 	for (Node elt : args)
 	{
 	    this.elts.add(elt);
@@ -35,6 +36,7 @@ public abstract class Node extends ClonableSymbol implements NodeInterface
     public void add(Node elt)
     {
 	this.elts.add(elt);
+	this.end = elt.getEnd();
     }
     
     @Override public void checksType()

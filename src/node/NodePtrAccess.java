@@ -7,9 +7,9 @@ import type.TypePointer;
 public final class NodePtrAccess extends NodeExp
 {
     // e = NodeExp(TypePointer(tr))
-    public NodePtrAccess(NodeExp e)
+    public NodePtrAccess(int start, int end, NodeExp e)
     {
-	super(e);
+	super(start, end, e);
 	if (e.getType() instanceof TypeComplex)
 	{
 	    Type t = e.getType();
@@ -23,15 +23,15 @@ public final class NodePtrAccess extends NodeExp
 	    }
 	}
     }
-    
+
     @Override public void checksType()
     {
 	return;
     }
-    
+
     @Override public NodePtrAccess clone()
     {
-	return new NodePtrAccess((NodeExp) get(0).clone());
+	return new NodePtrAccess(this.start, this.end, (NodeExp) get(0).clone());
     }
-    
+
 }

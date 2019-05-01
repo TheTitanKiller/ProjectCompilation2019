@@ -136,13 +136,9 @@
 %typeof expression                 ="NodeExp";
 %typeof literal                    ="NodeLiteral";
 
-%typeof TOKEN_LIT_INTEGER 		   = "Integer";
-%typeof TOKEN_LIT_STRING  		   = "String";
-%typeof TOKEN_IDENTIFIER 		   = "String";
-
 %typeof procedure_name 		   	   = "TypeNamed";
 %typeof array_access 		   	   = "NodeArrayAccess";
-%typeof ptr_access 		   	   = "NodePtrAccess";
+%typeof ptr_access 		   	   	   = "NodePtrAccess";
 %typeof struct_access		   	   = "NodeStructAccess";
 
 %goal program;
@@ -506,20 +502,20 @@ expression=
 	| expression.e1 TOKEN_EQ expression.e2 		{: return new NodeOp("==", e1, e2); :}
 	| expression.e1 TOKEN_NE expression.e2		{: return new NodeOp("!=", e1, e2); :}
 	
-	| TOKEN_NOT expression.e 					{: return new NodeOp("!", e); :}
+	| TOKEN_NOT.b expression.e 					{: return new NodeOp(b.getStart(), e.getEnd(), "!", e); :}
 		
-	| TOKEN_LPAR expression.e TOKEN_RPAR		{: return e; :}
+	| TOKEN_LPAR.b expression.e TOKEN_RPAR.e	{: e.setPosition(b, e); return e; :}
 	| procedure_expression.p 					{: return p; :}
 	| variable_access.v							{: return v; :}		
 	| literal.l 								{: return l; :}
 	;
 	
 literal=
-	TOKEN_LIT_INTEGER.val 						{: return new NodeLiteral(new TypeInt(val), val); :}
-	| TOKEN_LIT_STRING.str 						{: return new NodeLiteral(new TypeString(), str); :}
-	| TOKEN_TRUE 								{: return new NodeLiteral(new TypeBoolean(), true); :}
-	| TOKEN_FALSE 								{: return new NodeLiteral(new TypeBoolean(), false); :}
-	| TOKEN_NULL 								{: return new NodeLiteral(new TypePointer(), null); :}
+	TOKEN_LIT_INTEGER.n 						{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeInt((Integer)(n.value)), (Integer)(n.value)); :}
+	| TOKEN_LIT_STRING.n						{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeString(), (String) (n.value)); :}
+	| TOKEN_TRUE.n 								{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeBoolean(), true); :}
+	| TOKEN_FALSE.n 							{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeBoolean(), false); :}
+	| TOKEN_NULL.n 								{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypePointer(), null); :}
 	;
 	
 	
