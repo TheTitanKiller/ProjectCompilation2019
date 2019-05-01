@@ -45,7 +45,7 @@
 
 %init {: 
 	report = new Events();
-	stackEnvironment.pushEnvironment("Global");
+	stackEnvironment.pushEnvironment("Global", 0, 0);
 :};
 
 // KEYWORDS
@@ -151,15 +151,17 @@ program=
 	type_declaration_part.tydec
 	variable_declaration_part.vardec
 	procedure_definition_part.procdec
-	empty_main
-	TOKEN_BEGIN
+	empty_main.empty
+	TOKEN_BEGIN.b
 	statement_list.stmn
-	TOKEN_END
-													{: stackEnvironment.popEnvironment(); return new NodeList(tydec.getStart, stmn.getEnd(), tydec,vardec,procdec,stmn); :}
+	TOKEN_END.e
+													{: 	stackEnvironment.popEnvironment(); 
+														empty.setPosition(b,e); empty.getType().setPosition(b,e);
+														return new NodeList(tydec,vardec,procdec,stmn); :}
 	;
 
 empty_main = 
-													{: stackEnvironment.pushEnvironment("Main"); return new TypeVoid(); :}
+													{: stackEnvironment.pushEnvironment("Main", 0,0); return new TypeVoid(0,0); :}
 	;
 
 type_declaration_part= 
@@ -283,7 +285,7 @@ variable_declaration=
 	
 identifier_list=
 	identifier_list.list TOKEN_COMMA TOKEN_IDENTIFIER.name 	{: list.add(name); return list; :}
-	| TOKEN_IDENTIFIER.name 								{: return new IdentifierList(name); :}
+	| TOKEN_IDENTIFIER.name 								{: return new IdentifierList(name.getStart(), name.getEnd(), name); :}
 	;
 	
 procedure_definition_part=
@@ -292,12 +294,12 @@ procedure_definition_part=
 	
 procedure_definition_list=
 	procedure_definition_list.list procedure_definition.node		{: list.add(node); return list; :}
-	| procedure_definition.node                        				{: return new NodeList(node); :}
+	| procedure_definition.node                        				{: return new NodeList(node.getStart(), node.getEnd(), node); :}
 	;
 	
 procedure_definition=
-	procedure_definition_head.h block.b				{: stackEnvironment.popEnvironment(); return new NodeList(h,b); :}
-	| procedure_declaration_head.h TOKEN_SEMIC		{: stackEnvironment.popEnvironment(); return h; :}
+	procedure_definition_head.h block.b					{: stackEnvironment.popEnvironment(); return new NodeList(h.getStart(), b.getEnd(), h,b); :}
+	| procedure_declaration_head.h TOKEN_SEMIC.e		{: stackEnvironment.popEnvironment(); h.setEnd(e); return h; :}
 	;
 
 procedure_definition_head=
@@ -307,7 +309,7 @@ procedure_definition_head=
 								}
 							 	catch (CustomError err)
 							 	{
-							 		//Deja defini, mais a remplacer
+							 		//Cas deja defini, mais a remplacer
 							 		procedureEnvironment.replaceVariable(node.getName(), node);
 							 	}
 							 	return node; :}
@@ -318,26 +320,27 @@ procedure_declaration_head=
 	;
 	
 procedure_head=
-	TOKEN_PROCEDURE procedure_name.nid TOKEN_LPAR argt_part.args TOKEN_RPAR 
-						{: 	NodeId node = new NodeId(nid.getName(), new TypeFunct(nid.getName(), args, new TypeVoid())); 
+	TOKEN_PROCEDURE.b procedure_name.nid TOKEN_LPAR argt_part.args TOKEN_RPAR.e 
+						{: 	NodeId node = new NodeId(b.getStart(), e.getEnd(), nid.getName(), new TypeFunct(nid.getName(), args, new TypeVoid())); 
 							return node; 
 						:}
 						
-	| TOKEN_FUNCTION procedure_name.nid TOKEN_LPAR argt_part.args TOKEN_RPAR TOKEN_COLON type.ty
-						{: 	NodeId node = new NodeId(nid.getName(), new TypeFunct(nid.getName(), args, ty)); 
+	| TOKEN_FUNCTION.b procedure_name.nid TOKEN_LPAR argt_part.args TOKEN_RPAR TOKEN_COLON type.ty
+						{: 	NodeId node = new NodeId(b.getStart(), ty.getEnd(), nid.getName(), new TypeFunct(nid.getName(), args, ty)); 
 							return node; 
 						:}
 	;
 
 procedure_name = 
-	TOKEN_IDENTIFIER.namefct 					{: stackEnvironment.pushEnvironment(namefct); return new TypeNamed(namefct); :}
+	TOKEN_IDENTIFIER.namefct 					{: 	stackEnvironment.pushEnvironment((String)namefct.value, namefct.getStart(), namefct.getEnd()); 
+													return new TypeNamed(namefct.getStart(), namefct.getEnd(), namefct); :}
 	;
 
 argt_part=
 	/* empty */
 	| argt_list.list
 												{:
-													TypeTuple type_params = new TypeTuple();
+													TypeTuple type_params = new TypeTuple(list.getStart(), list.getEnd());
 													for(Node n : list)
 												         type_params.add(((NodeExp)n).getType());
 											      	return type_params;
@@ -515,7 +518,7 @@ literal=
 	| TOKEN_LIT_STRING.n						{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeString(), (String) (n.value)); :}
 	| TOKEN_TRUE.n 								{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeBoolean(), true); :}
 	| TOKEN_FALSE.n 							{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeBoolean(), false); :}
-	| TOKEN_NULL.n 								{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypePointer(), null); :}
+	| TOKEN_NULL.n 								{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypePointer(n.getStart(), n.getEnd()), null); :}
 	;
 	
 	

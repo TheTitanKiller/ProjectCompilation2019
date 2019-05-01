@@ -147,7 +147,7 @@ public class Parser extends beaver.Parser {
 			new Action() {	// [7] type_declaration_head = TOKEN_IDENTIFIER.name
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol name = _symbols[offset + 1];
-					 return new IdentifierList(name.getStart, name.getEnd(), name);
+					 return new IdentifierList(name);
 				}
 			},
 			new Action() {	// [8] type = simple_type.n
@@ -394,7 +394,7 @@ public class Parser extends beaver.Parser {
 			new Action() {	// [39] identifier_list = TOKEN_IDENTIFIER.name
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol name = _symbols[offset + 1];
-					 return new IdentifierList(name);
+					 return new IdentifierList(name.getStart(), name.getEnd(), name);
 				}
 			},
 			Action.NONE,  	// [40] procedure_definition_part = 
@@ -418,7 +418,7 @@ public class Parser extends beaver.Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_node = _symbols[offset + 1];
 					final Node node = (Node) _symbol_node.value;
-					 return new NodeList(node);
+					 return new NodeList(node.getStart(), node.getEnd(), node);
 				}
 			},
 			new Action() {	// [44] procedure_definition = procedure_definition_head.h block.b
@@ -427,14 +427,15 @@ public class Parser extends beaver.Parser {
 					final NodeId h = (NodeId) _symbol_h.value;
 					final Symbol _symbol_b = _symbols[offset + 2];
 					final Node b = (Node) _symbol_b.value;
-					 stackEnvironment.popEnvironment(); return new NodeList(h,b);
+					 stackEnvironment.popEnvironment(); return new NodeList(h.getStart(), b.getEnd(), h,b);
 				}
 			},
-			new Action() {	// [45] procedure_definition = procedure_declaration_head.h TOKEN_SEMIC
+			new Action() {	// [45] procedure_definition = procedure_declaration_head.h TOKEN_SEMIC.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_h = _symbols[offset + 1];
 					final NodeId h = (NodeId) _symbol_h.value;
-					 stackEnvironment.popEnvironment(); return h;
+					final Symbol e = _symbols[offset + 2];
+					 stackEnvironment.popEnvironment(); h.setEnd(e); return h;
 				}
 			},
 			new Action() {	// [46] procedure_definition_head = procedure_head.node
@@ -447,7 +448,7 @@ public class Parser extends beaver.Parser {
 								}
 							 	catch (CustomError err)
 							 	{
-							 		//Deja defini, mais a remplacer
+							 		//Cas deja defini, mais a remplacer
 							 		procedureEnvironment.replaceVariable(node.getName(), node);
 							 	}
 							 	return node;
@@ -460,32 +461,36 @@ public class Parser extends beaver.Parser {
 					 procedureEnvironment.putVariable(node.getName(),  node); return node;
 				}
 			},
-			new Action() {	// [48] procedure_head = TOKEN_PROCEDURE procedure_name.nid TOKEN_LPAR argt_part.args TOKEN_RPAR
+			new Action() {	// [48] procedure_head = TOKEN_PROCEDURE.b procedure_name.nid TOKEN_LPAR argt_part.args TOKEN_RPAR.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol b = _symbols[offset + 1];
 					final Symbol _symbol_nid = _symbols[offset + 2];
 					final TypeNamed nid = (TypeNamed) _symbol_nid.value;
 					final Symbol _symbol_args = _symbols[offset + 4];
 					final TypeTuple args = (TypeTuple) _symbol_args.value;
-					 	NodeId node = new NodeId(nid.getName(), new TypeFunct(nid.getName(), args, new TypeVoid())); 
+					final Symbol e = _symbols[offset + 5];
+					 	NodeId node = new NodeId(b.getStart(), e.getEnd(), nid.getName(), new TypeFunct(nid.getName(), args, new TypeVoid())); 
 							return node;
 				}
 			},
-			new Action() {	// [49] procedure_head = TOKEN_FUNCTION procedure_name.nid TOKEN_LPAR argt_part.args TOKEN_RPAR TOKEN_COLON type.ty
+			new Action() {	// [49] procedure_head = TOKEN_FUNCTION.b procedure_name.nid TOKEN_LPAR argt_part.args TOKEN_RPAR TOKEN_COLON type.ty
 				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol b = _symbols[offset + 1];
 					final Symbol _symbol_nid = _symbols[offset + 2];
 					final TypeNamed nid = (TypeNamed) _symbol_nid.value;
 					final Symbol _symbol_args = _symbols[offset + 4];
 					final TypeTuple args = (TypeTuple) _symbol_args.value;
 					final Symbol _symbol_ty = _symbols[offset + 7];
 					final Type ty = (Type) _symbol_ty.value;
-					 	NodeId node = new NodeId(nid.getName(), new TypeFunct(nid.getName(), args, ty)); 
+					 	NodeId node = new NodeId(b.getStart(), ty.getEnd(), nid.getName(), new TypeFunct(nid.getName(), args, ty)); 
 							return node;
 				}
 			},
 			new Action() {	// [50] procedure_name = TOKEN_IDENTIFIER.namefct
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol namefct = _symbols[offset + 1];
-					 stackEnvironment.pushEnvironment(namefct); return new TypeNamed(namefct);
+					 	stackEnvironment.pushEnvironment((String)namefct.value, namefct.getStart(), namefct.getEnd()); 
+													return new TypeNamed(namefct.getStart(), namefct.getEnd(), namefct);
 				}
 			},
 			Action.NONE,  	// [51] argt_part = 
@@ -494,7 +499,7 @@ public class Parser extends beaver.Parser {
 					final Symbol _symbol_list = _symbols[offset + 1];
 					final NodeList list = (NodeList) _symbol_list.value;
 					
-													TypeTuple type_params = new TypeTuple();
+													TypeTuple type_params = new TypeTuple(list.getStart(), list.getEnd());
 													for(Node n : list)
 												         type_params.add(((NodeExp)n).getType());
 											      	return type_params;
@@ -1059,7 +1064,7 @@ public class Parser extends beaver.Parser {
 			new Action() {	// [122] literal = TOKEN_NULL.n
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol n = _symbols[offset + 1];
-					 return new NodeLiteral(n.getStart(), n.getEnd(), new TypePointer(), null);
+					 return new NodeLiteral(n.getStart(), n.getEnd(), new TypePointer(n.getStart(), n.getEnd()), null);
 				}
 			}
 		};
