@@ -515,9 +515,9 @@ expression=
 	
 literal=
 	TOKEN_LIT_INTEGER.n 						{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeInt((Integer)(n.value)), (Integer)(n.value)); :}
-	| TOKEN_LIT_STRING.n						{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeString(), (String) (n.value)); :}
-	| TOKEN_TRUE.n 								{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeBoolean(), true); :}
-	| TOKEN_FALSE.n 							{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeBoolean(), false); :}
+	| TOKEN_LIT_STRING.n						{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeString(n.getStart(), n.getEnd()), (String) (n.value)); :}
+	| TOKEN_TRUE.n 								{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeBoolean(n.getStart(), n.getEnd()), true); :}
+	| TOKEN_FALSE.n 							{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeBoolean(n.getStart(), n.getEnd()), false); :}
 	| TOKEN_NULL.n 								{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypePointer(n.getStart(), n.getEnd()), null); :}
 	;
 	
