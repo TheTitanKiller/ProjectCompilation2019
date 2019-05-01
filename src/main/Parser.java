@@ -648,8 +648,8 @@ public class Parser extends beaver.Parser {
 					final Symbol _symbol_ep = _symbols[offset + 3];
 					final NodeList ep = (NodeList) _symbol_ep.value;
 					final Symbol e = _symbols[offset + 4];
-					 	NodeId funct = procedureEnvironment.getVariable(name); 
-																			return new NodeCallFct( name.getStart(), e.getEnd(), name, (TypeFunct)funct.getType(), ep);
+					 	NodeId funct = procedureEnvironment.getVariable((String)name.value); 
+																			return new NodeCallFct( name.getStart(), e.getEnd(), (String)name.value, (TypeFunct)funct.getType(), ep);
 				}
 			},
 			Action.NONE,  	// [71] expression_part = 

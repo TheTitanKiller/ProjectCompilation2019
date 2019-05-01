@@ -394,8 +394,8 @@ procedure_statement=
 	;
 	
 procedure_expression=
-	TOKEN_IDENTIFIER.name TOKEN_LPAR expression_part.ep TOKEN_RPAR.e		{: 	NodeId funct = procedureEnvironment.getVariable(name); 
-																			return new NodeCallFct( name.getStart(), e.getEnd(), name, (TypeFunct)funct.getType(), ep); :}
+	TOKEN_IDENTIFIER.name TOKEN_LPAR expression_part.ep TOKEN_RPAR.e		{: 	NodeId funct = procedureEnvironment.getVariable((String)name.value); 
+																			return new NodeCallFct( name.getStart(), e.getEnd(), (String)name.value, (TypeFunct)funct.getType(), ep); :}
 	;
 	
 expression_part=
