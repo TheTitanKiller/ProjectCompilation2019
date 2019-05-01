@@ -249,7 +249,7 @@ public class Parser extends beaver.Parser {
 																			for(String s : list)
 																			{
 																				TypeItemEnum tmp = new TypeItemEnum(tkl.getStart(), tkr.getEnd(), i++, s);
-																				stackEnvironment.putVariable(s, new NodeId(s, tmp));
+																				stackEnvironment.putVariable(s, new NodeId(tkl.getStart(), tkr.getEnd(), s, tmp));
 																				tuple.add(tmp);
 																			}
 																			return tuple;
@@ -340,13 +340,13 @@ public class Parser extends beaver.Parser {
 					 return new TypeFeatureList(f.getStart(), f.getEnd(), f);
 				}
 			},
-			new Action() {	// [32] feature_type = TOKEN_IDENTIFIER.name TOKEN_COLON type.t TOKEN_SEMIC.tk
+			new Action() {	// [32] feature_type = TOKEN_IDENTIFIER.name TOKEN_COLON type.t TOKEN_SEMIC.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol name = _symbols[offset + 1];
 					final Symbol _symbol_t = _symbols[offset + 3];
 					final Type t = (Type) _symbol_t.value;
-					final Symbol tk = _symbols[offset + 4];
-					 return new TypeFeature(name.getStart(), tk.getEnd(), name, t);
+					final Symbol e = _symbols[offset + 4];
+					 return new TypeFeature(name.getStart(), e.getEnd(), (String)name.value, t);
 				}
 			},
 			Action.NONE,  	// [33] variable_declaration_part = 
@@ -373,14 +373,15 @@ public class Parser extends beaver.Parser {
 					 return new NodeList(node.getStart(), node.getEnd(), node);
 				}
 			},
-			new Action() {	// [37] variable_declaration = identifier_list.list TOKEN_COLON type.ty TOKEN_SEMIC
+			new Action() {	// [37] variable_declaration = identifier_list.list TOKEN_COLON type.ty TOKEN_SEMIC.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_list = _symbols[offset + 1];
 					final IdentifierList list = (IdentifierList) _symbol_list.value;
 					final Symbol _symbol_ty = _symbols[offset + 3];
 					final Type ty = (Type) _symbol_ty.value;
+					final Symbol e = _symbols[offset + 4];
 					 	
-																NodeList node_list = new NodeList();
+																NodeList node_list = new NodeList(list.getStart(), e.getEnd());
 																for(String s : list) 
 																{
 															         NodeId node = new NodeId(list.getStart(), list.getEnd(), s, ty);
@@ -395,7 +396,7 @@ public class Parser extends beaver.Parser {
 					final Symbol _symbol_list = _symbols[offset + 1];
 					final IdentifierList list = (IdentifierList) _symbol_list.value;
 					final Symbol name = _symbols[offset + 3];
-					 list.add(name); return list;
+					 list.add((String)name.value); return list;
 				}
 			},
 			new Action() {	// [39] identifier_list = TOKEN_IDENTIFIER.name
