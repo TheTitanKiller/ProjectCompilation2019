@@ -353,7 +353,8 @@ argt_list=
 	;
 	
 argt=
-	TOKEN_IDENTIFIER.name TOKEN_COLON type.ty	{: 	NodeId node = new NodeId(name.getStart(), ty.getEnd(), (String)name.value, new TypeFeature (name, ty)); stackEnvironment.putVariable(name, node); 
+	TOKEN_IDENTIFIER.name TOKEN_COLON type.ty	{: 	NodeId node = new NodeId(name.getStart(), ty.getEnd(), (String)name.value, new TypeFeature (name.getStart(), ty.getEnd(), (String)name.value, ty)); 
+													stackEnvironment.putVariable((String)name.value, node); 
 													return node; :}
 	;
 	

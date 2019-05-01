@@ -531,7 +531,8 @@ public class Parser extends beaver.Parser {
 					final Symbol name = _symbols[offset + 1];
 					final Symbol _symbol_ty = _symbols[offset + 3];
 					final Type ty = (Type) _symbol_ty.value;
-					 	NodeId node = new NodeId(name.getStart(), ty.getEnd(), (String)name.value, new TypeFeature (name, ty)); stackEnvironment.putVariable(name, node); 
+					 	NodeId node = new NodeId(name.getStart(), ty.getEnd(), (String)name.value, new TypeFeature (name.getStart(), ty.getEnd(), (String)name.value, ty)); 
+													stackEnvironment.putVariable((String)name.value, node); 
 													return node;
 				}
 			},
