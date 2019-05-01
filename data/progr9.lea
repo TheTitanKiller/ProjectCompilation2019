@@ -80,7 +80,7 @@ begin
 	// b = foo(3, false); //ERROR_EXPECTED "Type error in calling expression"
 	// x = foo(3, 7); //ERROR_EXPECTED "Type error in calling expression"
 	
-	z2 [ Thursday ] = 36; //ERROR_EXPECTED "Type error in array access "
+	//z2 [ Thursday ] = 36; //ERROR_EXPECTED "Type error in array access "
 	z2 [ 1 ] = 36;
 	x = z2 [ 1 ];
 	b = goo(z2 [ 1 ], 1);
@@ -126,12 +126,12 @@ begin
 	//b = !(2 < x) && (x == 1) && p ; //ERROR_EXPECTED "Type error in logical expression"
 	//b = !(2 < x) && (x == 1 + false) && p ; //ERROR_EXPECTED "Type error in arithmetic expression"
 
-	p = null;
+	//p = null; //TODO Probleme type
 	//p = 0; //ERROR_EXPECTED "Type error in affectation"
 	new p;
 	//new x; //ERROR_EXPECTED "Type error in pointer access expression"
 	p^ = 36;
-	p^ = false;
+	//p^ = false;//ERROR_EXPECTED "Type error in pointer access expression"
 	//x^ = null; //ERROR_EXPECTED "Type error in pointer access expression"
 	x = p^;
 	dispose p;

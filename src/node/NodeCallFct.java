@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 import errors.CustomError;
 import type.Type;
-import type.TypeFeature;
 import type.TypeFunct;
 
 public final class NodeCallFct extends NodeExp
@@ -44,7 +43,7 @@ public final class NodeCallFct extends NodeExp
 	    
 	    Type argType = arg.getType();
 	    // chaque paramètre est une feature nom : type
-	    Type paramType = ((TypeFeature) itParams.next()).getType();
+	    Type paramType = itParams.next();
 	    if (!paramType.equals(argType))
 	    { throw new CustomError(getClass().getSimpleName() + ": " + argType + " != " + paramType, this); }
 	}
