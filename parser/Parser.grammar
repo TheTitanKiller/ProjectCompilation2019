@@ -326,7 +326,7 @@ procedure_head=
 						:}
 						
 	| TOKEN_FUNCTION.b procedure_name.nid TOKEN_LPAR argt_part.args TOKEN_RPAR TOKEN_COLON type.ty
-						{: 	NodeId node = new NodeId(b.getStart(), ty.getEnd(), nid.getName(), new TypeFunct(nid.getName(), args, ty)); 
+						{: 	NodeId node = new NodeId(b.getStart(), ty.getEnd(), nid.getName(), new TypeFunct(b.getStart(), ty.getEnd(), nid.getName(), args, ty)); 
 							return node; 
 						:}
 	;
