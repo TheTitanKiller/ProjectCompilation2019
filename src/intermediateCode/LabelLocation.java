@@ -10,7 +10,7 @@ public class LabelLocation {
 	private String name;
 	private static int count;
 
-	private LabelLocation(String name) {
+	public LabelLocation(String name) {
 		super();
 		this.name = name;
 	}

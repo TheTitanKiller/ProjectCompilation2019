@@ -1,5 +1,7 @@
 package node;
 
+import intermediateCode.*;
+
 public final class NodeReturn extends NodeExp
 {
     
@@ -16,6 +18,13 @@ public final class NodeReturn extends NodeExp
     @Override public NodeReturn clone()
     {
 	return new NodeReturn(this.start, this.end, (Node) get(0).clone());
+    }
+
+    //temporaire
+    @Override public void generateIntermediateCode()
+    {
+        new Temp(new TempValue());
+        new Jump();
     }
     
 }
