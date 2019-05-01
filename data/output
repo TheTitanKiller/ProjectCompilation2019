@@ -1,1 +1,170 @@
 *** Fichier data/progr1.lea
+
+*** Analyse syntaxique ok
+*** Typage correct
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+Layer 0 :
+Environment::Global
+>
+a: NodeId#a:TypeInt_null#
+>
+**
+*** End backtrace
+
+*** Fichier data/progr2.lea
+
+*** Analyse syntaxique ok
+*** Typage correct
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+Layer 0 :
+Environment::Global
+>
+b: NodeId#b:TypeBoolean#
+c: NodeId#c:TypeString#
+d: NodeId#d:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)#
+x: NodeId#x:TypeInt_null#
+y: NodeId#y:TypeInt_null#
+>
+**
+*** End backtrace
+
+*** Fichier data/progr3.lea
+
+*** Analyse syntaxique ok
+*** Typage correct
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+Layer 0 :
+Environment::Global
+>
+p: NodeId#p:TypePointer(TypeInt_null)#
+q: NodeId#q:TypePointer(TypeString)#
+b: NodeId#b:TypeBoolean#
+r: NodeId#r:TypePointer(TypeInt_null)#
+c: NodeId#c:TypeString#
+d: NodeId#d:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_10], TypeString)#
+x: NodeId#x:TypeInt_null#
+y: NodeId#y:TypeInt_null#
+>
+**
+*** End backtrace
+
+*** Fichier data/progr4.lea
+
+*** Analyse syntaxique ok
+*** Typage correct
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+Layer 0 :
+Environment::Global
+>
+x: NodeId#x:TypeInt_null#
+y: NodeId#y:TypeInt_null#
+>
+**
+*** End backtrace
+
+*** Fichier data/progr5.lea
+
+*** Analyse syntaxique ok
+*** Typage correct
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+sum: NodeId#sum:([i:TypeInt_null], [j:TypeInt_null]) -> TypeInt_null Defined: false Name: sum#
+pgcd: NodeId#pgcd:([i:TypeInt_null], [j:TypeInt_null]) -> TypeInt_null Defined: false Name: pgcd#
+>
+StackEnvironment::local_variables_stack
+**
+Layer 0 :
+Environment::Global
+>
+x: NodeId#x:TypeInt_null#
+>
+**
+*** End backtrace
+
+*** Fichier data/progr6.lea
+
+*** Analyse syntaxique ok
+*** Typage correct
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+hanoi: NodeId#hanoi:([a:TypeString], [b:TypeString], [c:TypeString], [k:TypeInt_null]) -> TypeVoid Defined: false Name: hanoi#
+fact2: NodeId#fact2:([k:TypeInt_null]) -> TypeInt_null Defined: false Name: fact2#
+pair: NodeId#pair:([i:TypeInt_null]) -> TypeBoolean Defined: false Name: pair#
+fact1: NodeId#fact1:([k:TypeInt_null]) -> TypeInt_null Defined: false Name: fact1#
+impair: NodeId#impair:([i:TypeInt_null]) -> TypeBoolean Defined: false Name: impair#
+>
+StackEnvironment::local_variables_stack
+**
+Layer 0 :
+Environment::Global
+>
+x: NodeId#x:TypeInt_null#
+>
+**
+*** End backtrace
+
+*** Fichier data/progr7.lea
+
+*** Analyse syntaxique ok
+*** Typage correct
+*** Backtrace
+Environment::types
+>
+>
+Environment::procedures
+>
+>
+StackEnvironment::local_variables_stack
+**
+Layer 0 :
+Environment::Global
+>
+week: NodeId#week:TypeArray(TypeArrayRange[TypeInt_0..TypeInt_6], TypeString)#
+year: NodeId#year:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_7], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_12], TypeString)))#
+>
+**
+*** End backtrace
+
+*** Fichier data/progr8.lea
+
+*** Analyse syntaxique ok
