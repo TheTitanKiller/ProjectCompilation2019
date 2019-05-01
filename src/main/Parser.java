@@ -91,7 +91,7 @@ public class Parser extends beaver.Parser {
 	public Parser() {
 		super(PARSING_TABLES);
 		actions = new Action[] {
-			new Action() {	// [0] program = type_declaration_part.tydec variable_declaration_part.vardec procedure_definition_part.procdec empty_main TOKEN_BEGIN statement_list.stmn TOKEN_END
+			new Action() {	// [0] program = type_declaration_part.tydec variable_declaration_part.vardec procedure_definition_part.procdec empty_main.empty TOKEN_BEGIN.b statement_list.stmn TOKEN_END.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_tydec = _symbols[offset + 1];
 					final NodeList tydec = (NodeList) _symbol_tydec.value;
@@ -99,14 +99,19 @@ public class Parser extends beaver.Parser {
 					final NodeList vardec = (NodeList) _symbol_vardec.value;
 					final Symbol _symbol_procdec = _symbols[offset + 3];
 					final NodeList procdec = (NodeList) _symbol_procdec.value;
+					final Symbol empty = _symbols[offset + 4];
+					final Symbol b = _symbols[offset + 5];
 					final Symbol _symbol_stmn = _symbols[offset + 6];
 					final Node stmn = (Node) _symbol_stmn.value;
-					 stackEnvironment.popEnvironment(); return new NodeList(tydec.getStart, stmn.getEnd(), tydec,vardec,procdec,stmn);
+					final Symbol e = _symbols[offset + 7];
+					 	stackEnvironment.popEnvironment(); 
+														empty.setPosition(b,e); empty.getType().setPosition(b,e);
+														return new NodeList(tydec,vardec,procdec,stmn);
 				}
 			},
 			new Action() {	// [1] empty_main = 
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					 stackEnvironment.pushEnvironment("Main"); return new TypeVoid();
+					 stackEnvironment.pushEnvironment("Main", 0,0); return new TypeVoid(0,0);
 				}
 			},
 			Action.NONE,  	// [2] type_declaration_part = 
@@ -147,7 +152,7 @@ public class Parser extends beaver.Parser {
 			new Action() {	// [7] type_declaration_head = TOKEN_IDENTIFIER.name
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol name = _symbols[offset + 1];
-					 return new IdentifierList(name);
+					 return new IdentifierList(name.getStart, name.getEnd(), name);
 				}
 			},
 			new Action() {	// [8] type = simple_type.n
@@ -1071,7 +1076,7 @@ public class Parser extends beaver.Parser {
 
  
 	report = new Events();
-	stackEnvironment.pushEnvironment("Global");
+	stackEnvironment.pushEnvironment("Global", 0, 0);
 	}
 
 	protected Symbol invokeReduceAction(int rule_num, int offset) {
