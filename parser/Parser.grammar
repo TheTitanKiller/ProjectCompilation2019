@@ -481,7 +481,7 @@ array_access =
 	;
 	
 variable_access=
-	TOKEN_IDENTIFIER.name 												{: return stackEnvironment.getVariable(name); :}
+	TOKEN_IDENTIFIER.name 												{: return stackEnvironment.getVariable((String)name.value); :}
 	| array_access.n													{: return n; :}
 	| struct_access.n													{: return n; :}
 	| ptr_access.n														{: return n; :}

@@ -864,7 +864,7 @@ public class Parser extends beaver.Parser {
 			new Action() {	// [96] variable_access = TOKEN_IDENTIFIER.name
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol name = _symbols[offset + 1];
-					 return stackEnvironment.getVariable(name);
+					 return stackEnvironment.getVariable((String)name.value);
 				}
 			},
 			new Action() {	// [97] variable_access = array_access.n
