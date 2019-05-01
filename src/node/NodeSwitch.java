@@ -3,22 +3,20 @@ package node;
 public final class NodeSwitch extends Node
 {
     
-    public NodeSwitch(Node e, Node stm)
+    public NodeSwitch(int start, int end, Node e, Node stm)
     {
-	super(e, stm);
+	super(start, end, e, stm);
     }
     
-    @Override public boolean checksType()
+    @Override public void checksType()
     {
-	super.checksType();
-	if (!get(0).checksType()) { return false; }
-	if (!get(1).checksType()) { return false; }
-	return true;
+	get(0).checksType();
+	get(1).checksType();
     }
     
     @Override public NodeSwitch clone()
     {
-	return new NodeSwitch((Node) getExp().clone(), (Node) getStm().clone());
+	return new NodeSwitch(this.start, this.end, (Node) getExp().clone(), (Node) getStm().clone());
     }
     
     private Node getExp()

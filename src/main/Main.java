@@ -41,14 +41,8 @@ public class Main
 		    System.err.println("*** Analyse syntaxique ok");
 		    if (checksType)
 		    {
-			if (!result.checksType())
-			{
-			    System.err.println("*** Erreur de typage");
-			}
-			else
-			{
-			    System.err.println("*** Typage correct");
-			}
+			result.checksType();
+			System.err.println("*** Typage correct");
 		    }
 		    if (backtrace)
 		    {
@@ -57,14 +51,14 @@ public class Main
 			System.err.println("*** End backtrace");
 			System.err.println();
 		    }
-		    
+
 		}
 		catch (beaver.Parser.Exception e)
 		{
 		    System.err.println("*** Erreur de syntaxe: " + arg + ":" + e.getMessage());
 		}
 	    }
-	    
+
 	}
     }
 }

@@ -6,22 +6,21 @@ public final class NodeLiteral extends NodeExp
 {
     private Object value;
 
-    public NodeLiteral(Type type, Object value)
+    public NodeLiteral(int start, int end, Type type, Object value)
     {
-	super();
+	super(start, end);
 	this.type = type;
 	this.value = value;
     }
 
-    @Override public boolean checksType()
+    @Override public void checksType()
     {
-	super.checksType();
-	return true;
+	return;
     }
 
     @Override public NodeLiteral clone()
     {
-	return new NodeLiteral(this.type, this.value);
+	return new NodeLiteral(this.start, this.end, this.type, this.value);
     }
 
     @Override public String toDotNodeName()

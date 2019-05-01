@@ -4,9 +4,19 @@ import main.ClonableSymbol;
 
 public class TypeVoid extends TypeAtomic
 {
-    @Override public ClonableSymbol clone()
+    public TypeVoid(int start, int end)
     {
-	return new TypeVoid();
+	super(start, end);
     }
     
+    @Override public boolean attestWellFormed()
+    {
+	return true;
+    }
+
+    @Override public ClonableSymbol clone()
+    {
+	return new TypeVoid(this.start, this.end);
+    }
+
 }

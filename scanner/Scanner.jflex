@@ -6,6 +6,7 @@ import beaver.Scanner;
 
 %class ScannerLEA
 %extends Scanner
+%public
 %function nextToken
 %type Symbol
 %yylexthrow Scanner.Exception
@@ -28,7 +29,6 @@ import beaver.Scanner;
 	{
 		return new Symbol(id, yyline + 1, yycolumn + 1, yylength(), value);
 	}
-
 %}
 
 Integer = [0-9]+
@@ -89,6 +89,7 @@ BigComment = "/*"~"*/"
 ":" {return newToken(Terminals.TOKEN_COLON);}
 "^" {return newToken(Terminals.TOKEN_CIRC);}
 ".." {return newToken(Terminals.TOKEN_DOTDOT);}
+"." {return newToken(Terminals.TOKEN_DOT);}
 "=" {return newToken(Terminals.TOKEN_AFF);}
 
 "==" {return newToken(Terminals.TOKEN_EQ);}

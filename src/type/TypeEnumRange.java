@@ -8,34 +8,34 @@ public class TypeEnumRange extends TypeRange
     private static int uniqName;
     private String name;
     
-    public TypeEnumRange()
+    public TypeEnumRange(int start, int end)
     {
-	super(null, null);
+	super(start, end, null, null);
 	this.name = Integer.toString(uniqName++);
     }
     
-    public TypeEnumRange(String name, TypeItemEnum first, TypeItemEnum max)
+    public TypeEnumRange(int start, int end, String name, TypeItemEnum first, TypeItemEnum max)
     {
-	super(first, max);
+	super(start, end, first, max);
 	this.name = name;
     }
     
-    public TypeEnumRange(TypeItemEnum min, TypeItemEnum max)
+    public TypeEnumRange(int start, int end, TypeItemEnum min, TypeItemEnum max)
     {
-	super(min, max);
+	super(start, end, min, max);
 	this.name = Integer.toString(uniqName++);
     }
     
     @Override public boolean attestWellFormed()
     {
-	if (((TypeItemEnum) getFirst()).getConst_value() >= ((TypeItemEnum) getLast())
-		.getConst_value()) { return false; }
+	if (((TypeItemEnum) getFirst()).getConst_value() >= ((TypeItemEnum) getLast()).getConst_value())
+	{ return false; }
 	return true;
     }
     
     @Override public ClonableSymbol clone()
     {
-	return new TypeEnumRange(this.name, (TypeItemEnum) this.first, (TypeItemEnum) this.last);
+	return new TypeEnumRange(this.start, this.end, this.name, (TypeItemEnum) this.first, (TypeItemEnum) this.last);
     }
     
     public String getName()

@@ -3,20 +3,19 @@ package node;
 public final class NodeReturn extends NodeExp
 {
     
-    public NodeReturn(Node e)
+    public NodeReturn(int start, int end, Node e)
     {
-	super(e);
+	super(start, end, e);
     }
     
-    @Override public boolean checksType()
+    @Override public void checksType()
     {
-	super.checksType();
-	return true;
+	return;
     }
     
     @Override public NodeReturn clone()
     {
-	return new NodeReturn((Node) get(0).clone());
+	return new NodeReturn(this.start, this.end, (Node) get(0).clone());
     }
     
 }

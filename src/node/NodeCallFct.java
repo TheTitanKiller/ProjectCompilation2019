@@ -2,8 +2,8 @@ package node;
 
 import java.util.Iterator;
 
+import errors.CustomError;
 import type.Type;
-import type.TypeFeature;
 import type.TypeFunct;
 
 public final class NodeCallFct extends NodeExp
@@ -12,18 +12,18 @@ public final class NodeCallFct extends NodeExp
     
     // Application
     // (f : E1 x E2 ... x Ek -> F), (arg1, arg2, ..., argk)
-    public NodeCallFct(String name, TypeFunct type)
+    public NodeCallFct(int start, int end, String name, TypeFunct type)
     {
-	super();
+	super(start, end);
 	this.name = name;
 	this.type = type;
     }
     
     // Application
     // (f : E1 x E2 ... x Ek -> F), (arg1, arg2, ..., argk)
-    public NodeCallFct(String name, TypeFunct type, NodeList args)
+    public NodeCallFct(int start, int end, String name, TypeFunct type, NodeList args)
     {
-	super(args);
+	super(start, end, args);
 	this.name = name;
 	this.type = type;
     }
@@ -31,42 +31,30 @@ public final class NodeCallFct extends NodeExp
     // On parcourt les arguments et on vérifie qu'ils sont bien typés
     // On parcourt aussi les paramètres de la fonction
     // et on regarde que les types sont égaux
-    @Override public boolean checksType()
+    @Override public void checksType()
     {
-	super.checksType();
 	boolean result = true;
 	Iterator<Node> itArgs = getArgs().iterator();
 	Iterator<Type> itParams = ((TypeFunct) this.type).getParams().iterator();
 	while (itArgs.hasNext() && itParams.hasNext())
 	{
 	    NodeExp arg = (NodeExp) itArgs.next();
-	    if (!arg.checksType())
-	    {
-		result = false;
-		break;
-	    }
+	    arg.checksType();
+	    
 	    Type argType = arg.getType();
 	    // chaque paramètre est une feature nom : type
-	    Type paramType = ((TypeFeature) itParams.next()).getType();
+	    Type paramType = itParams.next();
 	    if (!paramType.equals(argType))
-	    {
-		System.err.println("*** Erreur de typage " + argType + " != " + paramType);
-		result = false;
-		break;
-	    }
+	    { throw new CustomError(getClass().getSimpleName() + ": " + argType + " != " + paramType, this); }
 	}
 	// Plus ou moins d'arguments que de paramètres
 	if (result && (itArgs.hasNext() || itParams.hasNext()))
-	{
-	    System.err.println("*** Erreur de typage: pas le même nombre de paramètres ");
-	    return false;
-	}
-	return result;
+	{ throw new CustomError(getClass().getSimpleName() + ": pas le même nombre de paramètres ", this); }
     }
     
     @Override public NodeCallFct clone()
     {
-	NodeCallFct node = new NodeCallFct(this.name, (TypeFunct) this.type);
+	NodeCallFct node = new NodeCallFct(this.start, this.end, this.name, (TypeFunct) this.type);
 	for (Node elt : this.elts)
 	{
 	    node.add((Node) elt.clone());

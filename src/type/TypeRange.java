@@ -5,9 +5,9 @@ public abstract class TypeRange extends TypeAtomic
     protected Type first;
     protected Type last;
     
-    public TypeRange(Type min, Type max)
+    public TypeRange(int start, int end, Type min, Type max)
     {
-	super();
+	super(start, end);
 	this.first = min;
 	this.last = max;
     }

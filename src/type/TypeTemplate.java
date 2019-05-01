@@ -5,8 +5,9 @@ public class TypeTemplate extends TypeAtomic
 {
     private String name;
     
-    public TypeTemplate(String name)
+    public TypeTemplate(int start, int end, String name)
     {
+	super(start, end);
 	this.name = name;
     }
     
@@ -17,15 +18,18 @@ public class TypeTemplate extends TypeAtomic
     
     @Override public Type clone()
     {
-	return new TypeTemplate(this.name);
+	return new TypeTemplate(this.start, this.end, this.name);
     }
     
     @Override public boolean equals(Type obj)
     {
-	if (obj.getClass() != this.getClass()) { return false; }
-	if (!(obj instanceof TypeTemplate)) { return false; }
+	if (obj.getClass() != this.getClass())
+	{ return false; }
+	if (!(obj instanceof TypeTemplate))
+	{ return false; }
 	TypeTemplate real_t = (TypeTemplate) obj;
-	if (this.name != real_t.name) { return false; }
+	if (this.name != real_t.name)
+	{ return false; }
 	return true;
     }
     
