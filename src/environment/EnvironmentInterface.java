@@ -9,7 +9,7 @@ public interface EnvironmentInterface
      * instant donné.
      */
     void backtrace();
-    
+
     /**
      * Permet de récupérer le noeud correspondant à une variable enregistre dans
      * l'environnement.
@@ -22,7 +22,7 @@ public interface EnvironmentInterface
      *         Si la variable n'a pas été initialisé.
      */
     NodeId getVariable(String variable) throws Error;
-    
+
     /**
      * Permet de mettre le noeud correspondant à une variable àenregistrer dans
      * l'environnement.
@@ -36,4 +36,18 @@ public interface EnvironmentInterface
      *         Si la variable a déjà été initialisé.
      */
     void putVariable(String var, NodeId value) throws Error;
+
+    /**
+     * Permet de remplacer le noeud correspondant à une variable à enregistrer dans
+     * l'environnement.
+     * putVariable doit d'abord étre utilisé.
+     *
+     * @param var
+     *        Le nom de la variable à mettre.
+     * @param value
+     *        Le noeud correspondant.
+     * @throws Exception
+     *         Si la variable n'a pas été initialisé.
+     */
+    void replaceVariable(String var, NodeId value) throws Error;
 }

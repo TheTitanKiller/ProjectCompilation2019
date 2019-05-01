@@ -69,6 +69,18 @@ public class Environment implements EnvironmentInterface
     /**
      * @see EnvironmentInterface
      */
+    @Override public void replaceVariable(String var, NodeId value) throws Error
+    {
+	NodeId el = this.tableId.put(var, value);
+	if (el != null)
+	{ return; }
+	throw new Error("Variable \"" + var + "\" can't be replaced in " + this + ".");
+	
+    }
+
+    /**
+     * @see EnvironmentInterface
+     */
     @Override public String toString()
     {
 	return getClass().getSimpleName() + "::" + this.name_environment;

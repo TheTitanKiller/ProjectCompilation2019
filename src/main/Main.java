@@ -9,7 +9,7 @@ public class Main
 {
     private static boolean checksType = false;
     private static boolean backtrace = false;
-
+    
     public static void main(String[] args) throws Exception
     {
 	for (String arg : args)
@@ -55,15 +55,16 @@ public class Main
 			System.err.println("*** Backtrace");
 			parser.backtrace();
 			System.err.println("*** End backtrace");
+			System.err.println();
 		    }
-
+		    
 		}
 		catch (beaver.Parser.Exception e)
 		{
 		    System.err.println("*** Erreur de syntaxe: " + arg + ":" + e.getMessage());
 		}
 	    }
-
+	    
 	}
     }
 }

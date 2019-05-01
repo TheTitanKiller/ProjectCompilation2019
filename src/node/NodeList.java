@@ -2,7 +2,7 @@ package node;
 
 import java.util.Iterator;
 
-public final class NodeList extends Node
+public final class NodeList extends Node implements Iterable<Node>
 {
 
     public NodeList()
@@ -40,7 +40,7 @@ public final class NodeList extends Node
 	return node;
     }
 
-    public Iterator<Node> iterator()
+    @Override public Iterator<Node> iterator()
     {
 	return this.elts.iterator();
     }

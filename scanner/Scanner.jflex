@@ -102,11 +102,7 @@ BigComment = "/*"~"*/"
 "!" {return newToken(Terminals.TOKEN_NOT);}
 
 {Integer} {return newToken(Terminals.TOKEN_LIT_INTEGER, Integer.parseInt(yytext()));}
-{HexInteger} { 
-	String s = yytext();
-	s = s.replaceAll("0x", ""); 
-	return newToken(Terminals.TOKEN_LIT_INTEGER, Integer.parseInt( s, 16));
-}
+{HexInteger} {return newToken(Terminals.TOKEN_LIT_INTEGER, Integer.parseInt(yytext().replaceAll("0x", ""), 16));}
 {String} {return newToken(Terminals.TOKEN_LIT_STRING, yytext());}
 {Identifier} {return newToken(Terminals.TOKEN_IDENTIFIER, yytext());}
 

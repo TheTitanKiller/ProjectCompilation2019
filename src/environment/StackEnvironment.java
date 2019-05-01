@@ -50,7 +50,7 @@ public class StackEnvironment implements EnvironmentInterface
 		NodeId el = e.getVariable(variable);
 		return el;
 	    }
-	    catch (Exception err)
+	    catch (Error err)
 	    {
 	    }
 	}
@@ -63,7 +63,7 @@ public class StackEnvironment implements EnvironmentInterface
      *
      * @return L'environnement le plus récent, FIFO.
      */
-    public Environment PopEnvironment()
+    public Environment popEnvironment()
     {
 	return this.stack.removeFirst();
     }
@@ -76,7 +76,7 @@ public class StackEnvironment implements EnvironmentInterface
      * @param name_environment
      *        Le nom de l'environnement à créer.
      */
-    public void PushEnvironment(String name_environment)
+    public void pushEnvironment(String name_environment)
     {
 	this.stack.push(new Environment(name_environment));
     }
@@ -89,6 +89,16 @@ public class StackEnvironment implements EnvironmentInterface
     @Override public void putVariable(String var, NodeId value) throws Error
     {
 	this.stack.getFirst().putVariable(var, value);
+    }
+
+    /**
+     * Remplace dans l'environnement actuel la variable.
+     *
+     * @see EnvironmentInterface
+     */
+    @Override public void replaceVariable(String var, NodeId value) throws Error
+    {
+	this.stack.getFirst().replaceVariable(var, value);
     }
 
     @Override public String toString()

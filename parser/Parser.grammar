@@ -11,7 +11,6 @@
 %import "type.*";
 %import "environment.*";
 %import "java.util.ArrayList";
-%import "java.util.Iterator";
 
 %embed {: 
 	static class Events extends beaver.Parser.Events {
@@ -48,8 +47,12 @@
 
 %init {: 
 	report = new Events();
+<<<<<<< HEAD
 	stackEnvironment.PushEnvironment("Global"); 
 	procedureEnvironment.pushEnvironment("Global");
+=======
+	stackEnvironment.pushEnvironment("Global");
+>>>>>>> ff73d00b81ff4a3329e17c1c4a99afa597dc3658
 :};
 
 // KEYWORDS
@@ -76,8 +79,9 @@
 ***/
 
 //PRIORITIES
-%right TOKEN_TIMES, TOKEN_DIV;
-%right TOKEN_PLUS, TOKEN_MINUS;
+%left TOKEN_TIMES, TOKEN_DIV;
+%left TOKEN_PLUS; 
+%right TOKEN_MINUS;
 
 %left TOKEN_AND, TOKEN_OR;
 %right TOKEN_NOT;
@@ -89,35 +93,35 @@
 
 //TODO to change each if needed
 %typeof program	                   ="NodeList";
-%typeof type_declaration_part      ="Node";
-%typeof type_declaration_list      ="Node";
-%typeof type_declaration           ="Node";
-%typeof type_declaration_head      ="String";
+%typeof type_declaration_part      ="NodeList";
+%typeof type_declaration_list      ="NodeList";
+%typeof type_declaration           ="NodeId";
+%typeof type_declaration_head      ="IdentifierList";
 %typeof type                       ="Type";
 %typeof simple_type                ="Type";
 %typeof named_type                 ="Type";
 %typeof index_type                 ="Type";
-%typeof enumerated_type            ="Type";
-%typeof init_enumerated_type       ="Type";
-%typeof subrange_type              ="Type";
+%typeof enumerated_type            ="TypeTuple";
+%typeof init_enumerated_type       ="TypeEnumRange";
+%typeof subrange_type              ="TypeArrayRange";
 %typeof array_type                 ="TypeArray";
-%typeof range_type                 ="TypeRange";
-%typeof pointer_type               ="Type";
-%typeof structure_type             ="Type";
-%typeof feature_list_type          ="Type";
-%typeof feature_type               ="Type";
-%typeof variable_declaration_part  ="Node";
+%typeof range_type                 ="Type";
+%typeof pointer_type               ="TypePointer";
+%typeof structure_type             ="TypeStruct";
+%typeof feature_list_type          ="TypeFeatureList";
+%typeof feature_type               ="TypeFeature";
+%typeof variable_declaration_part  ="NodeList";
 %typeof variable_declaration_list  ="Node";
 %typeof variable_declaration       ="Node";
 %typeof identifier_list            ="IdentifierList";
-%typeof procedure_definition_part  ="Node";
+%typeof procedure_definition_part  ="NodeList";
 %typeof procedure_definition_list  ="Node";
 %typeof procedure_definition       ="Node";
-%typeof procedure_definition_head  ="Node";
-%typeof procedure_declaration_head ="Node";
-%typeof procedure_head             ="Node";
-%typeof argt_part                  ="Node";
-%typeof argt_list                  ="Node";
+%typeof procedure_definition_head  ="NodeId";
+%typeof procedure_declaration_head ="NodeId";
+%typeof procedure_head             ="NodeId";
+%typeof argt_part                  ="TypeTuple";
+%typeof argt_list                  ="NodeList";
 %typeof argt                       ="Node";
 %typeof block                      ="Node";
 %typeof statement_list             ="Node";
@@ -143,129 +147,150 @@
 %typeof expression                 ="NodeExp";
 %typeof literal                    ="NodeLiteral";
 
-%typeof TOKEN_LIT_INTEGER 		  = "Integer";
-%typeof TOKEN_LIT_STRING  		  = "String";
-%typeof TOKEN_IDENTIFIER 		  = "String";
+%typeof TOKEN_LIT_INTEGER 		   = "Integer";
+%typeof TOKEN_LIT_STRING  		   = "String";
+%typeof TOKEN_IDENTIFIER 		   = "String";
+
+%typeof procedure_name 		   	   = "TypeNamed";
 
 %goal program;
 
+
+/*Regles pour code*/
+
+
 program=
-	type_declaration_part
-	variable_declaration_part
-	procedure_definition_part
+	type_declaration_part.tydec
+	variable_declaration_part.vardec
+	procedure_definition_part.procdec
+	empty_main
 	TOKEN_BEGIN
-	statement_list
+	statement_list.stmn
 	TOKEN_END
+													{: stackEnvironment.popEnvironment(); return new NodeList(tydec,vardec,procdec,stmn); :}
 	;
-	
+
+empty_main = 
+													{: stackEnvironment.pushEnvironment("Main"); return new TypeVoid(); :}
+	;
+
 type_declaration_part= 
 	/* empty */	
-	| TOKEN_TYPE type_declaration_list
+	| TOKEN_TYPE type_declaration_list.n			{: return n; :}
 	;
 	
 type_declaration_list=
-	type_declaration_list type_declaration
-	| type_declaration
+	type_declaration_list.list type_declaration.node		{: list.add(node); return list; :}
+	| type_declaration.node									{: return new NodeList(node); :}
 	;
 	
 type_declaration=
-	type_declaration_head.tname TOKEN_AFF type.ty TOKEN_SEMIC 	{: 	NodeId node = new NodeId(tname, ty); stackEnvironment.putVariable(tname, node); 
+	type_declaration_head.tname TOKEN_AFF type.ty TOKEN_SEMIC 	{: 	NodeId node = new NodeId(tname.first(), ty); typeEnvironment.putVariable(tname.first(), node); 
 																	return node; :}
 	;
 	
 type_declaration_head=
-	TOKEN_IDENTIFIER
+	TOKEN_IDENTIFIER.name			{: return new IdentifierList(name); :}
 	;
 	
 type=
-	simple_type
-	| named_type		
-	| index_type
-	| array_type
-	| pointer_type
-	| structure_type
+	simple_type.n				{: return n; :}
+	| named_type.n				{: return n; :}		
+	| index_type.n				{: return n; :}
+	| array_type.n				{: return n; :}
+	| pointer_type.n			{: return n; :}
+	| structure_type.n			{: return n; :}
 	;
 	
 simple_type=
-	TOKEN_STRING		{: return new TypeString(); :}
-	| TOKEN_INTEGER		{: return new TypeInt(); :}
-	| TOKEN_BOOLEAN		{: return new TypeBoolean(); :}
+	TOKEN_STRING				{: return new TypeString(); :}
+	| TOKEN_INTEGER				{: return new TypeInt(); :}
+	| TOKEN_BOOLEAN				{: return new TypeBoolean(); :}
 	;
 	
 named_type=
-	TOKEN_IDENTIFIER.name {: return typeEnvironment.getVariable(name); :}/*TODO env*/
+	TOKEN_IDENTIFIER.name 		{: return typeEnvironment.getVariable(name).getType(); :}
 	;
 	
 index_type=
-	enumerated_type
-	| subrange_type
+	enumerated_type.t				{: return t; :}
+	| subrange_type.t				{: return t; :}
 	;
 	
 enumerated_type=
-	init_enumerated_type TOKEN_LPAR identifier_list TOKEN_RPAR 
+	init_enumerated_type.t TOKEN_LPAR identifier_list.list TOKEN_RPAR 			
+																		{: 
+																			TypeTuple tuple = new TypeTuple();
+																			int i = 0;
+																			for(String s : list)
+																			{
+																				TypeItemEnum tmp = new TypeItemEnum(i++, s);
+																				stackEnvironment.putVariable(s, new NodeId(s, tmp));
+																				tuple.add(tmp);
+																			}
+																			return tuple;
+																		:}
 	;
 	
-init_enumerated_type=
+init_enumerated_type=					{: return new TypeEnumRange(); :}
 	;
 
 subrange_type= 
-	TOKEN_LIT_INTEGER.int1 TOKEN_DOTDOT TOKEN_LIT_INTEGER.int2 		{: return new TypeArrayRange(new TypeInt(int1), new TypeInt(int2)); :}
-	| TOKEN_IDENTIFIER.name1 TOKEN_DOTDOT TOKEN_IDENTIFIER.name2	/*{: int1 = typeEnvironment.getVariable(name1); 
-																		int2 = typeEnvironment.getVariable(name2); 
-																		return new TypeEnumRange(int1, int2); :}*/
+	TOKEN_LIT_INTEGER.int1 TOKEN_DOTDOT TOKEN_LIT_INTEGER.int2 					{: return new TypeArrayRange(new TypeInt(int1), new TypeInt(int2)); :}
+	| TOKEN_IDENTIFIER.name1 TOKEN_DOTDOT TOKEN_IDENTIFIER.name2				{: return new TypeArrayRange(
+																						stackEnvironment.getVariable(name1).getType(),
+																						stackEnvironment.getVariable(name2).getType()); :}
 	;
 	
 array_type=
-	TOKEN_ARRAY TOKEN_LBRACKET range_type.r TOKEN_RBRACKET TOKEN_OF type.ty {: return new TypeArray(r, ty); :}
+	TOKEN_ARRAY TOKEN_LBRACKET range_type.r TOKEN_RBRACKET TOKEN_OF type.ty 	{: return new TypeArray(r, ty); :}
 	;
 	
 range_type=
-	enumerated_type 	
-	| subrange_type
-	| named_type	
+	enumerated_type.t				{: return t; :} 	
+	| subrange_type.t				{: return t; :}
+	| named_type.t					{: return t; :}	
 	;
 	
 pointer_type=
-	TOKEN_CIRC type.ty 	{: return new TypePointer(ty); :}
+	TOKEN_CIRC type.ty 					{: return new TypePointer(ty); :}
 	;
 	
 structure_type=
-	TOKEN_STRUCT TOKEN_LBRACE feature_list_type TOKEN_RBRACE /*TODO env*/
+	TOKEN_STRUCT TOKEN_LBRACE feature_list_type.list TOKEN_RBRACE /*TODO env*/ {: return new TypeStruct(list); :}
 	;
 	
 feature_list_type=
-	feature_list_type feature_type
-	| feature_type
+	feature_list_type.list feature_type.f			{: list.add(f); return list; :}
+	| feature_type.f								{: return new TypeFeatureList(f); :}
 	;
 	
 feature_type=
-	TOKEN_IDENTIFIER TOKEN_COLON type TOKEN_SEMIC /*TODO env*/
+	TOKEN_IDENTIFIER.name TOKEN_COLON type.t TOKEN_SEMIC /*TODO env*/ {: return new TypeFeature(name, t); :}
 	;
 	
 variable_declaration_part= 
 	/* empty */ 
-	| TOKEN_VAR variable_declaration_list. list 			{: return list; :}
+	| TOKEN_VAR variable_declaration_list.list 				{: return list; :}
 	;
 	
 variable_declaration_list=
-	variable_declaration_list.list variable_declaration.dec {: list.add(dec); return list; :}
-	| variable_declaration
+	variable_declaration_list.list variable_declaration.dec 	{: list.add(dec); return list; :}
+	| variable_declaration.node									{: return new NodeList(node); :}
 	;
 	
 variable_declaration=
 	identifier_list.list TOKEN_COLON type.ty TOKEN_SEMIC 
-	{: 	
-		NodeList node_list = new NodeList(); 
-		Iterator<String> itr = list.iterator();
-		while(itr.hasNext()) 
-		{
-	         String name = itr.next();
-	         NodeId node = new NodeId(name, ty);
-	         stackEnvironment.putVariable(name, node);
-	         node_list.add(node);
-      	} 
-      	return node_list;
-    :}
+															{: 	
+																NodeList node_list = new NodeList();
+																for(String s : list) 
+																{
+															         NodeId node = new NodeId(s, ty);
+															         stackEnvironment.putVariable(s, node); /* TODO Verif enum (in typeEnvironment)*/
+															         node_list.add(node);
+														      	} 
+														      	return node_list;
+														    :}
 	;
 	
 identifier_list=
@@ -274,35 +299,61 @@ identifier_list=
 	;
 	
 procedure_definition_part=
-	| procedure_definition_list
+	| procedure_definition_list.n							{: return n; :}
 	;
 	
 procedure_definition_list=
-	procedure_definition_list procedure_definition
-	| procedure_definition
+	procedure_definition_list.list procedure_definition.node		{: list.add(node); return list; :}
+	| procedure_definition.node                        				{: return new NodeList(node); :}
 	;
 	
 procedure_definition=
-	procedure_definition_head block
-	| procedure_declaration_head TOKEN_SEMIC
+	procedure_definition_head.h block.b				{: stackEnvironment.popEnvironment(); return new NodeList(h,b); :}
+	| procedure_declaration_head.h TOKEN_SEMIC		{: stackEnvironment.popEnvironment(); return h; :}
 	;
 
 procedure_definition_head=
-	procedure_head 
+	procedure_head.node 	{: 	try 
+								{
+									procedureEnvironment.putVariable(node.getName(), node);
+								}
+							 	catch (Error err)
+							 	{
+							 		//Deja defini, mais a remplacer
+							 		procedureEnvironment.replaceVariable(node.getName(), node);
+							 	}
+							 	return node; :}
 	;
 	
 procedure_declaration_head=
-	procedure_head /*TODO env*/
+	procedure_head.node 	{: procedureEnvironment.putVariable(node.getName(),  node); return node; :}
 	;
 	
 procedure_head=
-	TOKEN_PROCEDURE TOKEN_IDENTIFIER TOKEN_LPAR argt_part TOKEN_RPAR 
-	| TOKEN_FUNCTION TOKEN_IDENTIFIER TOKEN_LPAR argt_part TOKEN_RPAR TOKEN_COLON type
+	TOKEN_PROCEDURE procedure_name.nid TOKEN_LPAR argt_part.args TOKEN_RPAR 
+						{: 	NodeId node = new NodeId(nid.getName(), new TypeFunct(nid.getName(), args, new TypeVoid())); 
+							return node; 
+						:}
+						
+	| TOKEN_FUNCTION procedure_name.nid TOKEN_LPAR argt_part.args TOKEN_RPAR TOKEN_COLON type.ty
+						{: 	NodeId node = new NodeId(nid.getName(), new TypeFunct(nid.getName(), args, ty)); 
+							return node; 
+						:}
 	;
-	
+
+procedure_name = 
+	TOKEN_IDENTIFIER.namefct 					{: stackEnvironment.pushEnvironment(namefct); return new TypeNamed(namefct); :}
+	;
+
 argt_part=
 	/* empty */
-	| argt_list
+	| argt_list.list
+												{:
+													TypeTuple type_params = new TypeTuple();
+													for(Node n : list)
+												         type_params.add(((NodeExp)n).getType());
+											      	return type_params;
+											    :}
 	;
 	
 argt_list=
@@ -311,35 +362,36 @@ argt_list=
 	;
 	
 argt=
-	TOKEN_IDENTIFIER.name TOKEN_COLON type.ty	{: 	NodeId node = new NodeId(name, ty); stackEnvironment.putVariable(name, node); 
+	TOKEN_IDENTIFIER.name TOKEN_COLON type.ty	{: 	NodeId node = new NodeId(name, new TypeFeature (name, ty)); stackEnvironment.putVariable(name, node); 
 													return node; :}
 	;
 	
 block=
-	variable_declaration_part
+	variable_declaration_part.dec
 	TOKEN_BEGIN
-	statement_list
-	TOKEN_END 				
+	statement_list.stmn
+	TOKEN_END 			
+											{: return new NodeList(dec, stmn); :}	
 	;
 
 statement_list=
-	statement_list statement
-	| statement
+	statement_list.list statement.node		{: list.add(node); return list; :}
+	| statement.node                      	{: return new NodeList(node); :}
 	;
 	
 statement=
-	simple_statement
-	| structured_statement
+	simple_statement.s						{: return s; :}
+	| structured_statement.n 				{: return n; :}
 	;
 	
 simple_statement=
-	assignment_statement
-	| procedure_statement
-	| new_statement
-	| dispose_statement
-	| println_statement
-	| readln_statement
-	| return_statement.r 											{: return new NodeReturn(r); :}
+	assignment_statement.a											{: return a; :}
+	| procedure_statement.s											{: return s; :}
+	| new_statement.n												{: return n; :}
+	| dispose_statement.d											{: return d; :}
+	| println_statement.p											{: return p; :}
+	| readln_statement.r											{: return r; :}
+	| return_statement.r 											{: return r; :}
 	;
 	
 assignment_statement=
@@ -347,7 +399,7 @@ assignment_statement=
 	;
 	
 procedure_statement=
-	procedure_expression TOKEN_SEMIC
+	procedure_expression.e TOKEN_SEMIC								{: return e; :}
 	;
 	
 procedure_expression=
@@ -357,7 +409,7 @@ procedure_expression=
 	
 expression_part=
 	/* empty */
-	| expression_list
+	| expression_list.n									{: return n; :}
 	;
 	
 expression_list=
@@ -374,16 +426,11 @@ dispose_statement=
 	;
 	
 println_statement=
-	TOKEN_PRINTLN expression.e TOKEN_SEMIC
-	;
+	TOKEN_PRINTLN expression.e TOKEN_SEMIC				{: return new NodeOp("println", e); :}
+	;	
 	
 readln_statement=
-	TOKEN_READLN expression.e TOKEN_SEMIC
-	{:
-		String name = new String("readln");
-		NodeId(name, typeFct(name));
-      	return ;
-    :}
+	TOKEN_READLN expression.e TOKEN_SEMIC				{: return new NodeOp("readln", e); :}
 	;
 	
 return_statement=
@@ -391,10 +438,10 @@ return_statement=
 	;
 	
 structured_statement=
-	block
-	| if_statement
-	| while_statement
-	| switch_statement
+	block.n 				{: return n; :}
+	| if_statement.n 		{: return n; :}
+	| while_statement.n		{: return n; :}
+	| switch_statement.n	{: return n; :}
 	;
 	
 if_statement=
@@ -412,22 +459,16 @@ switch_statement=
 	
 case_statement_list=
 	case_statement_list.list case_statement.cstmn case_default.cdef				{: list.add(cstmn); list.add(cdef); return list; :}
-	| case_statement						
+	| case_statement.cstmn														{: return new NodeList(cstmn); :}
 	;
 	
 case_statement=
-	TOKEN_CASE identifier_list.list TOKEN_COLON statement.stm
-	{: 	
-		NodeList node_list = new NodeList(); 
-		Iterator<String> itr = list.iterator();
-		while(itr.hasNext()) 
-		{
-	         String name = itr.next();
-	         NodeCase newcase = new NodeCase(name, stm);
-	         node_list.add(newcase);
-      	} 
-      	return node_list;
-    :}
+	TOKEN_CASE identifier_list.list TOKEN_COLON statement.stm			{: 	
+																			NodeList node_list = new NodeList();
+																			for(String s : list)
+																		         node_list.add(new NodeCase(s, stm));
+																	      	return node_list;
+																	    :}
 	;
 
 case_default=
@@ -447,26 +488,31 @@ expression=
 	| expression.e1 TOKEN_TIMES expression.e2 	{: return new NodeOp("*", e1, e2); :}
 	| expression.e1 TOKEN_DIV expression.e2 	{: return new NodeOp("/", e1, e2); :}
 	| TOKEN_MINUS expression.e 					{: return new NodeOp("-", e); :}
+	
 	| expression.e1 TOKEN_OR expression.e2 		{: return new NodeOp("||", e1, e2); :}
 	| expression.e1 TOKEN_AND expression.e2 	{: return new NodeOp("&&", e1, e2); :}
-	| TOKEN_NOT expression.e 					{: return new NodeOp("!", e); :}
+
 	| expression.e1 TOKEN_LT expression.e2 		{: return new NodeOp("<", e1, e2); :}
 	| expression.e1 TOKEN_LE expression.e2 		{: return new NodeOp("<=", e1, e2); :}
 	| expression.e1 TOKEN_GT expression.e2 		{: return new NodeOp(">", e1, e2); :}
 	| expression.e1 TOKEN_GE expression.e2 		{: return new NodeOp(">=", e1, e2); :}
 	| expression.e1 TOKEN_EQ expression.e2 		{: return new NodeOp("==", e1, e2); :}
-	| expression.e TOKEN_NE 					{: return new NodeOp("!=", e); :}
+	| expression.e1 TOKEN_NE expression.e2		{: return new NodeOp("!=", e1, e2); :}
+	
+	| TOKEN_NOT expression.e 					{: return new NodeOp("!", e); :}
+		
 	| TOKEN_LPAR expression.e TOKEN_RPAR		{: return e; :}
-	| procedure_expression 
+	| procedure_expression.p 					{: return p; :}
 	| variable_access.v							{: return v; :}		
 	| literal.l 								{: return l; :}
 	;
 	
 literal=
-	TOKEN_LIT_INTEGER.val 						{: return new NodeLiteral(new TypeInt(), val); :}
+	TOKEN_LIT_INTEGER.val 						{: return new NodeLiteral(new TypeInt(val), val); :}
 	| TOKEN_LIT_STRING.str 						{: return new NodeLiteral(new TypeString(), str); :}
 	| TOKEN_TRUE 								{: return new NodeLiteral(new TypeBoolean(), true); :}
 	| TOKEN_FALSE 								{: return new NodeLiteral(new TypeBoolean(), false); :}
-	| TOKEN_NULL 								{: return new NodeLiteral(null, null); :}
+	| TOKEN_NULL 								{: return new NodeLiteral(new TypePointer(), null); :}
 	;
+	
 	
