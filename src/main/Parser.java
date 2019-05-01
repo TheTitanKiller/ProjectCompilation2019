@@ -77,7 +77,7 @@ public class Parser extends beaver.Parser {
 	private Environment typeEnvironment = new Environment("types", 0, 0);
 	private Environment procedureEnvironment = new Environment("procedures", 0, 0);
 	private StackEnvironment stackEnvironment = new StackEnvironment("local_variables_stack");
-	private String type_declaration_name;
+
 	
 	public void backtrace() 
 	{
@@ -114,7 +114,7 @@ public class Parser extends beaver.Parser {
 			},
 			new Action() {	// [1] empty_main = 
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					 stackEnvironment.pushEnvironment("Main", 0,0); return new TypeVoid(0,0);
+					 stackEnvironment.pushEnvironment("Main", 0, 0); return new TypeVoid(0,0);
 				}
 			},
 			Action.NONE,  	// [2] type_declaration_part = 

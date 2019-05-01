@@ -7,4 +7,6 @@ begin
 		println (a);
 		a = a - 1;
 	end
+
+	b = 1;
 end

@@ -56,8 +56,7 @@ public class StackEnvironment implements EnvironmentInterface
 	    }
 	}
 	throw new CustomError(
-		"Variable \"" + variable + "\" is not initialised in " + this + ".", this.stack.getFirst().line,
-		this.stack.getFirst().colomn
+		"Variable \"" + variable + "\" is not initialised in " + this.stack.get(0) + ".", this.stack.get(0).line, this.stack.get(0).colomn
 	);
     }
     
