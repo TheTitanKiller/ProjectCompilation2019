@@ -47,12 +47,7 @@
 
 %init {: 
 	report = new Events();
-<<<<<<< HEAD
-	stackEnvironment.PushEnvironment("Global"); 
-	procedureEnvironment.pushEnvironment("Global");
-=======
 	stackEnvironment.pushEnvironment("Global");
->>>>>>> ff73d00b81ff4a3329e17c1c4a99afa597dc3658
 :};
 
 // KEYWORDS

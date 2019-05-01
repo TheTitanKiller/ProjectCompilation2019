@@ -374,7 +374,7 @@ public class Parser extends beaver.Parser {
 																for(String s : list) 
 																{
 															         NodeId node = new NodeId(s, ty);
-															         stackEnvironment.putVariable(s, node);
+															         stackEnvironment.putVariable(s, node); /* TODO Verif enum (in typeEnvironment)*/
 															         node_list.add(node);
 														      	} 
 														      	return node_list;
@@ -1009,12 +1009,7 @@ public class Parser extends beaver.Parser {
 
  
 	report = new Events();
-<<<<<<< HEAD
-	stackEnvironment.PushEnvironment("Global"); 
-	procedureEnvironment.pushEnvironment("Global");
-=======
 	stackEnvironment.pushEnvironment("Global");
->>>>>>> ff73d00b81ff4a3329e17c1c4a99afa597dc3658
 	}
 
 	protected Symbol invokeReduceAction(int rule_num, int offset) {
