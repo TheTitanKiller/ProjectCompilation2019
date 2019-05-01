@@ -864,7 +864,7 @@ public class Parser extends beaver.Parser {
 			new Action() {	// [96] variable_access = TOKEN_IDENTIFIER.name
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol name = _symbols[offset + 1];
-					 return stackEnvironment.getVariable(name);
+					 return stackEnvironment.getVariable((String)name.value);
 				}
 			},
 			new Action() {	// [97] variable_access = array_access.n
@@ -929,7 +929,7 @@ public class Parser extends beaver.Parser {
 					final Symbol b = _symbols[offset + 1];
 					final Symbol _symbol_exp = _symbols[offset + 2];
 					final NodeExp exp = (NodeExp) _symbol_exp.value;
-					 return new NodeOp(b.getStart(), exp.getEnd(), "-", e);
+					 return new NodeOp(b.getStart(), exp.getEnd(), "-", exp);
 				}
 			},
 			new Action() {	// [105] expression = expression.e1 TOKEN_OR expression.e2
@@ -1009,7 +1009,7 @@ public class Parser extends beaver.Parser {
 					final Symbol b = _symbols[offset + 1];
 					final Symbol _symbol_exp = _symbols[offset + 2];
 					final NodeExp exp = (NodeExp) _symbol_exp.value;
-					 return new NodeOp(b.getStart(), exp.getEnd(), "!", e);
+					 return new NodeOp(b.getStart(), exp.getEnd(), "!", exp);
 				}
 			},
 			new Action() {	// [114] expression = TOKEN_LPAR.b expression.exp TOKEN_RPAR.e
@@ -1045,25 +1045,25 @@ public class Parser extends beaver.Parser {
 			new Action() {	// [118] literal = TOKEN_LIT_INTEGER.n
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol n = _symbols[offset + 1];
-					 return new NodeLiteral(n.getStart(), n.getEnd(), new TypeInt((Integer)(n.value)), (Integer)(n.value));
+					 return new NodeLiteral(n.getStart(), n.getEnd(), new TypeInt(n.getStart(), n.getEnd(), (Integer)(n.value)), (Integer)(n.value));
 				}
 			},
 			new Action() {	// [119] literal = TOKEN_LIT_STRING.n
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol n = _symbols[offset + 1];
-					 return new NodeLiteral(n.getStart(), n.getEnd(), new TypeString(), (String) (n.value));
+					 return new NodeLiteral(n.getStart(), n.getEnd(), new TypeString(n.getStart(), n.getEnd()), (String) (n.value));
 				}
 			},
 			new Action() {	// [120] literal = TOKEN_TRUE.n
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol n = _symbols[offset + 1];
-					 return new NodeLiteral(n.getStart(), n.getEnd(), new TypeBoolean(), true);
+					 return new NodeLiteral(n.getStart(), n.getEnd(), new TypeBoolean(n.getStart(), n.getEnd()), true);
 				}
 			},
 			new Action() {	// [121] literal = TOKEN_FALSE.n
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol n = _symbols[offset + 1];
-					 return new NodeLiteral(n.getStart(), n.getEnd(), new TypeBoolean(), false);
+					 return new NodeLiteral(n.getStart(), n.getEnd(), new TypeBoolean(n.getStart(), n.getEnd()), false);
 				}
 			},
 			new Action() {	// [122] literal = TOKEN_NULL.n

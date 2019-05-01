@@ -481,7 +481,7 @@ array_access =
 	;
 	
 variable_access=
-	TOKEN_IDENTIFIER.name 												{: return stackEnvironment.getVariable(name); :}
+	TOKEN_IDENTIFIER.name 												{: return stackEnvironment.getVariable((String)name.value); :}
 	| array_access.n													{: return n; :}
 	| struct_access.n													{: return n; :}
 	| ptr_access.n														{: return n; :}
@@ -493,7 +493,7 @@ expression=
 	| expression.e1 TOKEN_MINUS expression.e2 	{: return new NodeOp(e1.getStart(), e2.getEnd(), "-", e1, e2); :}
 	| expression.e1 TOKEN_TIMES expression.e2 	{: return new NodeOp(e1.getStart(), e2.getEnd(), "*", e1, e2); :}
 	| expression.e1 TOKEN_DIV expression.e2 	{: return new NodeOp(e1.getStart(), e2.getEnd(), "/", e1, e2); :}
-	| TOKEN_MINUS.b expression.exp 				{: return new NodeOp(b.getStart(), exp.getEnd(), "-", e); :}
+	| TOKEN_MINUS.b expression.exp 				{: return new NodeOp(b.getStart(), exp.getEnd(), "-", exp); :}
 	
 	| expression.e1 TOKEN_OR expression.e2 		{: return new NodeOp(e1.getStart(), e2.getEnd(), "||", e1, e2); :}
 	| expression.e1 TOKEN_AND expression.e2 	{: return new NodeOp(e1.getStart(), e2.getEnd(), "&&", e1, e2); :}
@@ -505,7 +505,7 @@ expression=
 	| expression.e1 TOKEN_EQ expression.e2 		{: return new NodeOp(e1.getStart(), e2.getEnd(), "==", e1, e2); :}
 	| expression.e1 TOKEN_NE expression.e2		{: return new NodeOp(e1.getStart(), e2.getEnd(), "!=", e1, e2); :}
 	
-	| TOKEN_NOT.b expression.exp 				{: return new NodeOp(b.getStart(), exp.getEnd(), "!", e); :}
+	| TOKEN_NOT.b expression.exp 				{: return new NodeOp(b.getStart(), exp.getEnd(), "!", exp); :}
 		
 	| TOKEN_LPAR.b expression.exp TOKEN_RPAR.e	{: exp.setPosition(b, e); return exp; :}
 	| procedure_expression.p 					{: return p; :}
@@ -514,10 +514,10 @@ expression=
 	;
 	
 literal=
-	TOKEN_LIT_INTEGER.n 						{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeInt((Integer)(n.value)), (Integer)(n.value)); :}
-	| TOKEN_LIT_STRING.n						{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeString(), (String) (n.value)); :}
-	| TOKEN_TRUE.n 								{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeBoolean(), true); :}
-	| TOKEN_FALSE.n 							{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeBoolean(), false); :}
+	TOKEN_LIT_INTEGER.n 						{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeInt(n.getStart(), n.getEnd(), (Integer)(n.value)), (Integer)(n.value)); :}
+	| TOKEN_LIT_STRING.n						{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeString(n.getStart(), n.getEnd()), (String) (n.value)); :}
+	| TOKEN_TRUE.n 								{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeBoolean(n.getStart(), n.getEnd()), true); :}
+	| TOKEN_FALSE.n 							{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypeBoolean(n.getStart(), n.getEnd()), false); :}
 	| TOKEN_NULL.n 								{: return new NodeLiteral(n.getStart(), n.getEnd(), new TypePointer(n.getStart(), n.getEnd()), null); :}
 	;
 	
