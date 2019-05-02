@@ -1,7 +1,6 @@
 package node;
 
 import type.Type;
-import intermediateCode.*;
 
 public final class NodeLiteral extends NodeExp
 {
@@ -32,12 +31,6 @@ public final class NodeLiteral extends NodeExp
     @Override public String toString()
     {
 	return this.getClass().getSimpleName() + '#' + this.value + ':' + this.type + '#';
-    }
-
-    @Override public void generateIntermediateCode()
-    {
-        if(this.type instanceof TypeInt)
-            new Const((Integer)this.value);
     }
 
 }
