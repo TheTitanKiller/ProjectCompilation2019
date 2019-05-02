@@ -122,12 +122,12 @@ begin
 		end
 
 	x = -(36 + 45 / 7);
-	//b = !(2 < false) && (x == 1) && (p == null); //ERROR_EXPECTED "Type error in comparison"
-	//b = !(2 < x) && (x == 1) && p ; //ERROR_EXPECTED "Type error in logical expression"
-	//b = !(2 < x) && (x == 1 + false) && p ; //ERROR_EXPECTED "Type error in arithmetic expression"
+	//DONE b = !(2 < false) && (x == 1) && (p == null); //ERROR_EXPECTED "Type error in comparison"
+	//DONE b = !(2 < x) && (x == 1) && p ; //ERROR_EXPECTED "Type error in logical expression"
+	//DONE b = !(2 < x) && (x == 1 + false) && p ; //ERROR_EXPECTED "Type error in arithmetic expression"
 
 	p = null;
-	//p = 0; //ERROR_EXPECTED "Type error in affectation"
+	//DONE p = 0; //ERROR_EXPECTED "Type error in affectation"
 	new p;
 	//new x; //ERROR_EXPECTED "Type error in pointer access expression"
 	p^ = 36;
