@@ -89,7 +89,7 @@ begin
 	//DONE b = z [ 4 ]; //ERROR_EXPECTED "Type error in affectation"
 	//DONE z = k [ 4 ]; //ERROR_EXPECTED "Type error in affectation"
 	//DONE b = z2 [ Thursday ]; //ERROR_EXPECTED "Type error in affectation"
-	// z2 = 36; //ERROR_EXPECTED ? Accessible variable expected
+	//DONE z2 = 36; //ERROR_EXPECTED
 	
 
 	if (l [ Monday ]) then x = 1;
