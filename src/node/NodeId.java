@@ -38,4 +38,9 @@ public final class NodeId extends NodeExp
 	return this.getClass().getSimpleName() + "#" + this.name + ':' + this.type + '#';
     }
     
+    @Override public String generateIntermediateCode()
+	{
+    	get(0).generateIntermediateCode();
+    	String inst = "";
+	}
 }
