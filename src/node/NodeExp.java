@@ -16,4 +16,9 @@ public abstract class NodeExp extends Node
 	return this.type;
     }
     
+    @Override public String generateIntermediateCode()
+	{
+    	get(0).generateIntermediateCode();
+		String inst = "";
+	}
 }
