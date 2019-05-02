@@ -6,30 +6,30 @@ import java.util.Vector;
 public abstract class TypeComplex extends Type
 {
     protected Vector<Type> componant;
-
+    
     public TypeComplex(int start, int end)
     {
 	super(start, end);
 	this.componant = new Vector<Type>();
     }
-
+    
     public TypeComplex(int start, int end, Type... ts)
     {
 	this(start, end);
 	addAll(ts);
     }
-
+    
     public TypeComplex(int start, int end, Vector<Type> componant)
     {
 	super(start, end);
 	this.componant = componant;
     }
-
+    
     public void add(Type t)
     {
 	this.componant.add(t);
     }
-
+    
     public void addAll(Type... ts)
     {
 	for (Type t : ts)
@@ -37,8 +37,8 @@ public abstract class TypeComplex extends Type
 	    this.componant.add(t);
 	}
     }
-
-    @Override public boolean equals(Type obj)
+    
+    @Override public boolean equals(Object obj)
     {
 	// System.out.println("EQ" + this + " = " + obj);
 	if (this.getClass() != obj.getClass())
@@ -55,12 +55,12 @@ public abstract class TypeComplex extends Type
 	}
 	return true;
     }
-
+    
     public Type get(int n)
     {
 	return this.componant.get(n);
     }
-
+    
     @Override public Type mapping(Subst subst)
     {
 	Vector<Type> clone = new Vector<Type>();
@@ -71,17 +71,17 @@ public abstract class TypeComplex extends Type
 	this.componant = clone;
 	return this;
     }
-
+    
     public void set(int i, Type type)
     {
 	this.componant.set(i, type);
     }
-
+    
     public int size()
     {
 	return this.componant.size();
     }
-
+    
     @Override public String toString()
     {
 	String ret = this.getClass().getSimpleName();
@@ -108,5 +108,5 @@ public abstract class TypeComplex extends Type
 	}
 	return ret;
     }
-
+    
 }

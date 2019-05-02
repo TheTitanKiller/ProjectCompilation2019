@@ -6,6 +6,7 @@ import type.TypePointer;
 
 public final class NodePtrAccess extends NodeExp
 {
+
     // e = NodeExp(TypePointer(tr))
     public NodePtrAccess(int start, int end, NodeExp e)
     {
@@ -23,15 +24,15 @@ public final class NodePtrAccess extends NodeExp
 	    }
 	}
     }
-
+    
     @Override public void checksType()
     {
 	return;
     }
-
+    
     @Override public NodePtrAccess clone()
     {
 	return new NodePtrAccess(this.start, this.end, (NodeExp) get(0).clone());
     }
-
+    
 }

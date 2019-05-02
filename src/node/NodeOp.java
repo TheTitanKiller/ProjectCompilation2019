@@ -29,8 +29,17 @@ public class NodeOp extends NodeExp
     
     @Override public void checksType()
     {
-	if (super.size() > 1 && getOp2() != null && !getOp1().getType().equals(getOp2().getType()))
-	{ throw new CustomError(getClass().getSimpleName() + ": pas le même type entre left-right.", this); }
+	getOp1().checksType();
+	if (super.size() > 1 && getOp2() != null)
+	{
+	    getOp2().checksType();
+	    if (!getOp1().getType().equals(getOp2().getType()))
+	    {
+		throw new CustomError(
+			getClass().getSimpleName() + ": pas le même type entre left" + getNameOp() + "right.", this
+		);
+	    }
+	}
     }
     
     @Override public NodeOp clone()

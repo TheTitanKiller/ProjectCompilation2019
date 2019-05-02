@@ -15,10 +15,10 @@ DaysOfWeek = (Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday);
 //DONE xxx = (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, aa, ab, ac, ad, ae, af, ag, ah); //ERROR_EXPECTED
 range1 = 64 .. 81;
 range2 = Monday .. Friday;
-//range3 = 81 .. 64; //error
+//range3 = 81 .. 64; //ERROR_EXPECTED
 //DONE range4 = Friday .. Unknown; //ERROR_EXPECTED
 //range5 = Friday .. Monday; //ERROR_EXPECTED
-//range6 = Monday .. December; //error
+//range6 = Monday .. December; //ERROR_EXPECTED
 //range7 = Friday .. Tuesday; //ERROR_EXPECTED "range not valid"
 //range8 = Monday .. April; //ERROR_EXPECTED "incoherent range"
 
@@ -49,14 +49,14 @@ r2: range2;
 month : Months;
 
 function goo(i : integer, j : integer) : boolean;
-//DONE function goo(i : integer, j : integer) : boolean; //error "procedure or function declared twice"
+//DONE function goo(i : integer, j : integer) : boolean; //ERROR_EXPECTED "procedure or function declared twice"
 
 function foo(i : integer, j : integer) : ^boolean
 var
 	result : ^boolean;
 begin
 	new result;
-	//result^ = hoo(i, j); //ERROR_EXPECTED "function not declared"
+	//DONE result^ = hoo(i, j); //ERROR_EXPECTED "function not declared"
 	result^ = goo(i, j);
 	return result;
 end
@@ -70,26 +70,26 @@ end
 
 begin
 	b = false;
-	// b = 2; //ERROR_EXPECTED "Type error in affectation"
-	// l = m2; //ERROR_EXPECTED "Type error in affectation"
-	l = l;
+	//DONE b = 2; //ERROR_EXPECTED "Type error in affectation"
+	//DONE l = m2; //ERROR_EXPECTED "Type error in affectation" size enum range
+	//DONE l = k; //ERROR_EXPECTED "Type error in affectation"
 	
 	b = foo(3, 7)^;
 	b = goo(3, 7);
-	// b = foo(3); //ERROR_EXPECTED "Type error in calling expression"
-	// b = foo(3, false); //ERROR_EXPECTED "Type error in calling expression"
-	// x = foo(3, 7); //ERROR_EXPECTED "Type error in calling expression"
+	//DONE b = foo(3); //ERROR_EXPECTED "Type error in calling expression"
+	//DONE b = foo(3, false); //ERROR_EXPECTED "Type error in calling expression"
+	//DONE x = foo(3, 7); //ERROR_EXPECTED "Type error in calling expression"
 	
-	//z2 [ Thursday ] = 36; //ERROR_EXPECTED "Type error in array access "
+	//DONE z2 [ Thursday ] = 36; //ERROR_EXPECTED "Type error in array access "
 	z2 [ 1 ] = 36;
 	x = z2 [ 1 ];
 	b = goo(z2 [ 1 ], 1);
-	//y = z [ false ]; //ERROR_EXPECTED "Type error in array access"
-	//y = z [ 4 ]; //ERROR_EXPECTED "Type error in affectation"
-	//b = z [ 4 ]; //ERROR_EXPECTED "Type error in affectation"
-	//z = k [ 4 ]; //ERROR_EXPECTED "Type error in affectation"
-	//b = z2 [ Thursday ]; //ERROR_EXPECTED "Type error in affectation"
-	//z2 = 36; // Accessible variable expected
+	//DONE y = z [ false ]; //ERROR_EXPECTED "Type error in array access"
+	//DONE y = z [ 4 ]; //ERROR_EXPECTED "Type error in affectation"
+	//DONE b = z [ 4 ]; //ERROR_EXPECTED "Type error in affectation"
+	//DONE z = k [ 4 ]; //ERROR_EXPECTED "Type error in affectation"
+	//DONE b = z2 [ Thursday ]; //ERROR_EXPECTED "Type error in affectation"
+	// z2 = 36; //ERROR_EXPECTED ? Accessible variable expected
 	
 
 	if (l [ Monday ]) then x = 1;
@@ -122,12 +122,12 @@ begin
 		end
 
 	x = -(36 + 45 / 7);
-	//b = !(2 < false) && (x == 1) && (p == null); //ERROR_EXPECTED "Type error in comparison"
-	//b = !(2 < x) && (x == 1) && p ; //ERROR_EXPECTED "Type error in logical expression"
-	//b = !(2 < x) && (x == 1 + false) && p ; //ERROR_EXPECTED "Type error in arithmetic expression"
+	//DONE b = !(2 < false) && (x == 1) && (p == null); //ERROR_EXPECTED "Type error in comparison"
+	//DONE b = !(2 < x) && (x == 1) && p ; //ERROR_EXPECTED "Type error in logical expression"
+	//DONE b = !(2 < x) && (x == 1 + false) && p ; //ERROR_EXPECTED "Type error in arithmetic expression"
 
 	p = null;
-	//p = 0; //ERROR_EXPECTED "Type error in affectation"
+	//DONE p = 0; //ERROR_EXPECTED "Type error in affectation"
 	new p;
 	//new x; //ERROR_EXPECTED "Type error in pointer access expression"
 	p^ = 36;

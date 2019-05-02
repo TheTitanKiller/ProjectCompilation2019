@@ -234,7 +234,7 @@ public class Parser extends beaver.Parser {
 			new Action() {	// [19] index_type = subrange_type.t
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_t = _symbols[offset + 1];
-					final TypeArrayRange t = (TypeArrayRange) _symbol_t.value;
+					final TypeRange t = (TypeRange) _symbol_t.value;
 					 return t;
 				}
 			},
@@ -276,9 +276,9 @@ public class Parser extends beaver.Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol name1 = _symbols[offset + 1];
 					final Symbol name2 = _symbols[offset + 3];
-					 return new TypeArrayRange(name1.getStart(), name2.getEnd(), 
-																						stackEnvironment.getVariable((String)name1.value).getType(),
-																						stackEnvironment.getVariable((String)name2.value).getType());
+					 return new TypeEnumRange(name1.getStart(), name2.getEnd(), 
+																						(TypeItemEnum)stackEnvironment.getVariable((String)name1.value).getType(),
+																						(TypeItemEnum)stackEnvironment.getVariable((String)name2.value).getType());
 				}
 			},
 			new Action() {	// [23] array_type = TOKEN_ARRAY.tk TOKEN_LBRACKET range_type.r TOKEN_RBRACKET TOKEN_OF type.ty
@@ -301,7 +301,7 @@ public class Parser extends beaver.Parser {
 			new Action() {	// [25] range_type = subrange_type.t
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_t = _symbols[offset + 1];
-					final TypeArrayRange t = (TypeArrayRange) _symbol_t.value;
+					final TypeRange t = (TypeRange) _symbol_t.value;
 					 return t;
 				}
 			},
