@@ -53,5 +53,12 @@ public final class NodeIf extends Node
     {
 	return get(1);
     }
+
+	@Override public String generateIntermediateCode()
+	{
+		return "IF(" + getExpNode().generateIntermediateCode() +")\n"
+			 + "THEN(" + getThenNode().generateIntermediateCode() + ")\n"
+			 + (getElseNode() == null) ? "" : "ELSE(" + getElseNode().generateIntermediateCode() + ")\n";
+	}
     
 }
