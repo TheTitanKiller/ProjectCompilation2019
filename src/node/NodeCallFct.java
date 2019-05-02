@@ -64,16 +64,7 @@ public final class NodeCallFct extends NodeExp
 
     @Override public String generateIntermediateCode()
     {
-	String inst = "";
-	inst += get(0).generateIntermediateCode(); //register e1 adress fct
-	inst += "CALL(e1,";
-	for (Node n : get(1).elts)
-	{
-	    NodeExp arg = (NodeExp) n;
-	    //inst += (String)arg.getType() arg.value;
-	}
-	inst += ");\n";
-	return inst;
+        return "CALL(" + name + ((getArgs().size() != 0) ? ", " + getArgs().size() : "") + ")\n";
     }
 
     private NodeList getArgs()
