@@ -4,17 +4,18 @@ package environment;
 
 import java.util.HashMap;
 
+import beaver.Symbol;
 import errors.CustomError;
 import node.NodeId;
 
 public class Environment implements EnvironmentInterface
 {
-
+    
     String name_environment;
     HashMap<String, NodeId> tableId = new HashMap<>();
-    
-    int line, colomn;
 
+    int line, colomn;
+    
     /**
      * Créer un environement.
      *
@@ -26,9 +27,9 @@ public class Environment implements EnvironmentInterface
 	this.name_environment = name_environment;
 	this.line = line;
 	this.colomn = colomn;
-	
-    }
 
+    }
+    
     /**
      * @see EnvironmentInterface
      */
@@ -49,7 +50,7 @@ public class Environment implements EnvironmentInterface
 	}
 	System.err.println(">");
     }
-
+    
     /**
      * @see EnvironmentInterface
      */
@@ -62,7 +63,7 @@ public class Environment implements EnvironmentInterface
 		"Variable \"" + variable + "\" is not initialised in " + this + ".", this.line, this.colomn
 	);
     }
-
+    
     /**
      * @see EnvironmentInterface
      */
@@ -71,9 +72,13 @@ public class Environment implements EnvironmentInterface
 	NodeId el = this.tableId.put(var, value);
 	if (el == null)
 	{ return; }
-	throw new CustomError("Variable \"" + var + "\" already initialised in " + this + ".", value);
+	throw new CustomError(
+		"Variable \"" + var + "\" already initialised in " + this + ".\n" + "Previous definition in ("
+			+ Symbol.getLine(el.getStart()) + "," + Symbol.getColumn(el.getStart()) + ")",
+		value
+	);
     }
-    
+
     /**
      * @see EnvironmentInterface
      */
@@ -83,9 +88,9 @@ public class Environment implements EnvironmentInterface
 	if (el != null)
 	{ return; }
 	throw new CustomError("Variable \"" + var + "\" can't be replaced in " + this + ".", value);
-
+	
     }
-    
+
     /**
      * @see EnvironmentInterface
      */
@@ -93,5 +98,5 @@ public class Environment implements EnvironmentInterface
     {
 	return getClass().getSimpleName() + "::" + this.name_environment;
     }
-    
+
 }

@@ -12,7 +12,7 @@ named1 = chaine;
 
 Months = (January, February, March, April, May, June, July, August, September, October, November, December);
 DaysOfWeek = (Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday);
-// xxx = (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, aa, ab, ac, ad, ae, af, ag, ah); //ERROR_EXPECTED
+//xxx = (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, aa, ab, ac, ad, ae, af, ag, ah); //ERROR_EXPECTED
 range1 = 64 .. 81;
 range2 = Monday .. Friday;
 //range3 = 81 .. 64; //error
