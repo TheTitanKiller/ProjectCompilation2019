@@ -6,15 +6,15 @@ public final class NodeReturn extends NodeExp
     {
 	super(start, end, e);
     }
-
+    
     @Override public void checksType()
     {
 	return;
     }
-
+    
     @Override public NodeReturn clone()
     {
 	return new NodeReturn(this.start, this.end, (Node) get(0).clone());
     }
-
+    
 }

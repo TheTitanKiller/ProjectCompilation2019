@@ -9,7 +9,7 @@ position = struct
 };
 
 var
-pos : position;
+pos : ^position;
 
 function test(pt : ^position) : boolean
 begin
@@ -19,7 +19,7 @@ begin
 end
 
 begin
-	pos.x = 1;
-	pos.y = 1;
-	//test(^pos);
+	new pos;
+	test(pos);
+	dispose pos;
 end

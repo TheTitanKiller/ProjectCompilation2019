@@ -182,7 +182,7 @@ java.lang.NullPointerException
 	at java.lang.StringBuilder.append(StringBuilder.java:131)
 	at environment.Environment.backtrace(Unknown Source)
 	at main.Parser.backtrace(Unknown Source)
-	at main.Main.main(Main.java:50)
+	at main.Main.main(Main.java:54)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -219,7 +219,7 @@ java.lang.NullPointerException
 	at java.lang.StringBuilder.append(StringBuilder.java:131)
 	at environment.Environment.backtrace(Unknown Source)
 	at main.Parser.backtrace(Unknown Source)
-	at main.Main.main(Main.java:50)
+	at main.Main.main(Main.java:54)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -298,7 +298,7 @@ java.lang.NullPointerException
 	at java.lang.StringBuilder.append(StringBuilder.java:131)
 	at environment.Environment.backtrace(Unknown Source)
 	at main.Parser.backtrace(Unknown Source)
-	at main.Main.main(Main.java:50)
+	at main.Main.main(Main.java:54)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -335,7 +335,7 @@ java.lang.NullPointerException
 	at java.lang.StringBuilder.append(StringBuilder.java:131)
 	at environment.Environment.backtrace(Unknown Source)
 	at main.Parser.backtrace(Unknown Source)
-	at main.Main.main(Main.java:50)
+	at main.Main.main(Main.java:54)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -378,7 +378,7 @@ java.lang.NullPointerException
 	at java.lang.StringBuilder.append(StringBuilder.java:131)
 	at environment.Environment.backtrace(Unknown Source)
 	at main.Parser.backtrace(Unknown Source)
-	at main.Main.main(Main.java:50)
+	at main.Main.main(Main.java:54)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -417,7 +417,7 @@ java.lang.NullPointerException
 	at java.lang.StringBuilder.append(StringBuilder.java:131)
 	at environment.Environment.backtrace(Unknown Source)
 	at main.Parser.backtrace(Unknown Source)
-	at main.Main.main(Main.java:50)
+	at main.Main.main(Main.java:54)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -493,7 +493,7 @@ java.lang.NullPointerException
 	at environment.Environment.backtrace(Unknown Source)
 	at environment.StackEnvironment.backtrace(Unknown Source)
 	at main.Parser.backtrace(Unknown Source)
-	at main.Main.main(Main.java:50)
+	at main.Main.main(Main.java:54)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -535,7 +535,7 @@ java.lang.NullPointerException
 	at environment.Environment.backtrace(Unknown Source)
 	at environment.StackEnvironment.backtrace(Unknown Source)
 	at main.Parser.backtrace(Unknown Source)
-	at main.Main.main(Main.java:50)
+	at main.Main.main(Main.java:54)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -591,7 +591,7 @@ StackEnvironment::local_variables_stack
 Layer 0 :
 Environment::Global
 >
-pos: NodeId#pos:TypeStruct(TypeFeatureList([x:TypeInt_null], [y:TypeInt_null]))#
+pos: NodeId#pos:TypePointer(TypeStruct(TypeFeatureList([x:TypeInt_null], [y:TypeInt_null])))#
 >
 **
 *** End backtrace

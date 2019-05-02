@@ -4,9 +4,9 @@ import errors.CustomError;
 
 public class NodeOp extends NodeExp
 {
-    
+
     protected String name;
-    
+
     public NodeOp(int start, int end, String name, NodeExp op)
     {
 	super(start, end, op);
@@ -15,7 +15,7 @@ public class NodeOp extends NodeExp
 	NodeExp exprFct = (NodeExp) get(0);
 	this.type = exprFct.type;
     }
-    
+
     // Opération binaire
     // f : E X F -> F
     public NodeOp(int start, int end, String name, NodeExp op1, NodeExp op2)
@@ -26,7 +26,7 @@ public class NodeOp extends NodeExp
 	NodeExp exprFct = (NodeExp) get(1);
 	this.type = exprFct.type;
     }
-    
+
     @Override public void checksType()
     {
 	getOp1().checksType();
@@ -41,7 +41,7 @@ public class NodeOp extends NodeExp
 	    }
 	}
     }
-    
+
     @Override public NodeOp clone()
     {
 	if (size() == 1)
@@ -57,7 +57,7 @@ public class NodeOp extends NodeExp
     {
 	return this.name;
     }
-    
+
     private NodeExp getOp1()
     {
 	return (NodeExp) get(0);
