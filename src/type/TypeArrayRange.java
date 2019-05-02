@@ -8,7 +8,7 @@ public class TypeArrayRange extends TypeRange
     {
 	super(start, end, min, max);
     }
-    
+
     @Override public boolean attestWellFormed()
     {
 	if (getLast() instanceof TypeInt)
@@ -29,10 +29,9 @@ public class TypeArrayRange extends TypeRange
 	}
 	return true;
     }
-
+    
     @Override public ClonableSymbol clone()
     {
 	return new TypeArrayRange(this.start, this.end, (Type) this.first.clone(), (Type) this.last.clone());
     }
-
 }

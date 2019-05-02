@@ -91,7 +91,7 @@
 %typeof named_type                 ="Type";
 %typeof index_type                 ="Type";
 %typeof enumerated_type            ="TypeEnumRange";
-%typeof subrange_type              ="TypeArrayRange";
+%typeof subrange_type              ="TypeRange";
 %typeof array_type                 ="TypeArray";
 %typeof range_type                 ="Type";
 %typeof pointer_type               ="TypePointer";
@@ -236,9 +236,9 @@ subrange_type=
 	TOKEN_LIT_INTEGER.int1 TOKEN_DOTDOT TOKEN_LIT_INTEGER.int2 					{: return new TypeArrayRange(int1.getStart(), int2.getEnd(), 
 																						new TypeInt(int1.getStart(), int1.getEnd(),(Integer)int1.value), 
 																						new TypeInt(int2.getStart(), int2.getEnd(), (Integer)int2.value)); :}
-	| TOKEN_IDENTIFIER.name1 TOKEN_DOTDOT TOKEN_IDENTIFIER.name2				{: return new TypeArrayRange(name1.getStart(), name2.getEnd(), 
-																						stackEnvironment.getVariable((String)name1.value).getType(),
-																						stackEnvironment.getVariable((String)name2.value).getType()); :}
+	| TOKEN_IDENTIFIER.name1 TOKEN_DOTDOT TOKEN_IDENTIFIER.name2				{: return new TypeEnumRange(name1.getStart(), name2.getEnd(), 
+																						(TypeItemEnum)stackEnvironment.getVariable((String)name1.value).getType(),
+																						(TypeItemEnum)stackEnvironment.getVariable((String)name2.value).getType()); :}
 	;
 	
 array_type=
@@ -314,18 +314,20 @@ procedure_definition=
 procedure_definition_head=
 	procedure_head.node 	{: 	try 
 								{
+									((TypeFunct)node.getType()).setDefined(true);
 									procedureEnvironment.putVariable(node.getName(), node);
 								}
 							 	catch (CustomError err)
 							 	{
-							 		//Cas deja defini, mais a remplacer
+							 		//Cas deja declarer, mais verifier definition
+							 		((TypeFunct)node.getType()).setDefined(true);
 							 		procedureEnvironment.replaceVariable(node.getName(), node);
 							 	}
 							 	return node; :}
 	;
 	
 procedure_declaration_head=
-	procedure_head.node 	{: procedureEnvironment.putVariable(node.getName(),  node); return node; :}
+	procedure_head.node 	{: 	procedureEnvironment.putVariable(node.getName(),  node); return node; :}
 	;
 	
 procedure_head=

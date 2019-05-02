@@ -7,6 +7,8 @@ import java.util.HashMap;
 import beaver.Symbol;
 import errors.CustomError;
 import node.NodeId;
+import type.Type;
+import type.TypeFunct;
 
 public class Environment implements EnvironmentInterface
 {
@@ -72,6 +74,8 @@ public class Environment implements EnvironmentInterface
 	NodeId el = this.tableId.put(var, value);
 	if (el == null)
 	{ return; }
+	//erreur remise
+	this.tableId.put(var, el);
 	throw new CustomError(
 		"Variable \"" + var + "\" already initialised in " + this + ".\n" + "Previous definition in ("
 			+ Symbol.getLine(el.getStart()) + "," + Symbol.getColumn(el.getStart()) + ")",
@@ -84,13 +88,29 @@ public class Environment implements EnvironmentInterface
      */
     @Override public void replaceVariable(String var, NodeId value) throws CustomError
     {
+	Type t = value.getType();
+	if (!(t instanceof TypeFunct))
+	{ throw new CustomError("Only function can be replaced.", value); }
+	
 	NodeId el = this.tableId.put(var, value);
 	if (el != null)
-	{ return; }
-	throw new CustomError("Variable \"" + var + "\" can't be replaced in " + this + ".", value);
-	
+	{
+	    if (((TypeFunct) el.getType()).getDefined() == true)
+	    {
+		throw new CustomError(
+			"Function \"" + value + "\" already defined in " + this + ".\n" + "Previous definition in ("
+				+ Symbol.getLine(el.getStart()) + "," + Symbol.getColumn(el.getStart()) + ")",
+			value
+		);
+	    }
+	    return;
+	}
+	else
+	{
+	    throw new CustomError("Variable \"" + var + "\" can't be replaced in " + this + ".", value);
+	}
     }
-
+    
     /**
      * @see EnvironmentInterface
      */

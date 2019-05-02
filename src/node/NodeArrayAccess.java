@@ -14,7 +14,7 @@ public final class NodeArrayAccess extends NodeExp
     public NodeArrayAccess(int start, int end, NodeExp t, Node i)
     {
 	super(start, end, t, i);
-	if (t != null && ((TypeComplex) t.type).size() == 2)
+	if (t != null && t.type instanceof TypeComplex && ((TypeComplex) t.type).size() == 2)
 	{
 	    this.type = ((TypeComplex) t.type).get(1);
 	}
@@ -22,6 +22,12 @@ public final class NodeArrayAccess extends NodeExp
 
     @Override public void checksType()
     {
+	if (!(((NodeExp) get(0)).getType() instanceof TypeArray))
+	{
+	    {
+		throw new CustomError(getClass().getSimpleName() + ": don't acces to an array.", this);
+	    }
+	}
 	TypeArray typeArray = (TypeArray) ((NodeExp) get(0)).getType();
 	TypeRange typeRangeOREnum = typeArray.getRangeOREnum();
 	Type typeArg = ((NodeExp) get(1)).getType();

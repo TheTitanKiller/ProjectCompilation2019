@@ -3,7 +3,7 @@ package type;
 // Type fonction arg -> ret
 public class TypeFunct extends TypeComplex
 {
-    private boolean defined;
+    private boolean defined = false;
     private String name;
 
     public TypeFunct(int start, int end, String name, TypeTuple params, Type ret)
@@ -24,7 +24,7 @@ public class TypeFunct extends TypeComplex
 	return result;
     }
 
-    @Override public boolean equals(Type obj)
+    @Override public boolean equals(Object obj)
     {
 	if (!(obj instanceof TypeFunct))
 	{ return false; }
