@@ -15,18 +15,18 @@ DaysOfWeek = (Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday);
 //DONE xxx = (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, aa, ab, ac, ad, ae, af, ag, ah); //ERROR_EXPECTED
 range1 = 64 .. 81;
 range2 = Monday .. Friday;
-//range3 = 81 .. 64; //ERROR_EXPECTED
+// range3 = 81 .. 64; //ERROR_EXPECTED
 //DONE range4 = Friday .. Unknown; //ERROR_EXPECTED
-//range5 = Friday .. Monday; //ERROR_EXPECTED
-//range6 = Monday .. December; //ERROR_EXPECTED
-//range7 = Friday .. Tuesday; //ERROR_EXPECTED "range not valid"
-//range8 = Monday .. April; //ERROR_EXPECTED "incoherent range"
+// range5 = Friday .. Monday; //ERROR_EXPECTED
+// range6 = Monday .. December; //ERROR_EXPECTED
+// range7 = Friday .. Tuesday; //ERROR_EXPECTED "range not valid"
+// range8 = Monday .. April; //ERROR_EXPECTED "incoherent range"
 
 table1 = array [ 1 .. 32 ] of integer;
 table2 = array [ range1 ] of integer;
 table3 = array [ range2 ] of integer;
 table4 = array [ 1 .. 32 ] of array [ DaysOfWeek ] of integer;
-//table5 = array [ 1 .. 32 ] of array [ range3 ] of integer; //ERROR_EXPECTED "Range type expected"
+// table5 = array [ 1 .. 32 ] of array [ range3 ] of integer; //ERROR_EXPECTED "Range type expected"
 table6 = array [ 1 .. 32 ] of array [ Wednesday..Saturday ] of integer;
 
 ptr1 = ^integer;

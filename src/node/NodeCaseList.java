@@ -6,15 +6,15 @@ public final class NodeCaseList extends NodeExp
     {
 	super(start, end);
     }
-    
+
     @Override public void checksType()
     {
 	return;
     }
-    
+
     @Override public NodeCaseList clone()
     {
 	return new NodeCaseList(this.start, this.end);
     }
-    
+
 }

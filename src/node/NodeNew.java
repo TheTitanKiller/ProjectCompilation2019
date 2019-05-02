@@ -9,13 +9,13 @@ public final class NodeNew extends Node
     {
 	super(start, end, stm);
     }
-
+    
     @Override public void checksType()
     {
 	if (!(((NodeExp) get(0)).getType() instanceof TypePointer))
 	{ throw new CustomError(getClass().getSimpleName() + ": not a pointer type.", this); }
     }
-
+    
     @Override public NodeNew clone()
     {
 	return new NodeNew(this.start, this.end, (Node) get(0).clone());
