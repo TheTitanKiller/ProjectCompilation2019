@@ -8,7 +8,7 @@ public interface NodeInterface
     void checksType();
     
     // Cette méthode, non encore implémentée produit le code intermédiaire Exp ou Stm
-    void generateIntermediateCode();
+    String generateIntermediateCode();
     
     // Crée un fichier <file>.dot
     // usage: dot -Tpng -o <file>.png <file>.dot

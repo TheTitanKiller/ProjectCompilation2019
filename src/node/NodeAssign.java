@@ -2,6 +2,8 @@ package node;
 
 import errors.CustomError;
 import type.Type;
+import main.Main;
+import intermediateCode.*;
 
 public final class NodeAssign extends Node
 {
@@ -23,7 +25,7 @@ public final class NodeAssign extends Node
     @Override public NodeAssign clone()
     {
 	return new NodeAssign(this.start, this.end, (NodeExp) getLhs().clone(), (NodeExp) getRhs().clone());
-    };
+    }
 
     private NodeExp getLhs()
     {
@@ -33,6 +35,11 @@ public final class NodeAssign extends Node
     private NodeExp getRhs()
     {
 	return (NodeExp) get(1);
-    };
+    }
+
+    @Override public String generateIntermediateCode()
+    {
+        Main.temps = new TempValueList(new Temp(new TempValue()), Main.temps);
+    }
 
 }

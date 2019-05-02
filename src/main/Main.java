@@ -4,11 +4,15 @@ import java.io.FileReader;
 
 import beaver.Scanner;
 import node.Node;
+import intermediateCode.*;
 
 public class Main
 {
     private static boolean checksType = false;
     private static boolean backtrace = false;
+
+	public static LabelLocationList labels = new LabelLocationList(null, null);
+	public static TempValueList temps = new TempValueList(null, null);
     
     public static void main(String[] args) throws Exception
     {
