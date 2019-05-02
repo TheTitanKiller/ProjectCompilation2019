@@ -4,6 +4,7 @@ import errors.CustomError;
 import type.Type;
 import main.Main;
 import intermediateCode.*;
+import type.TypePointer;
 
 public final class NodeAssign extends Node
 {
@@ -18,8 +19,15 @@ public final class NodeAssign extends Node
 	get(1).checksType();
 	Type lhsType = getLhs().getType();
 	Type rhsType = getRhs().getType();
-	if (lhsType == null || rhsType == null || !lhsType.equals(rhsType))
-	{ throw new CustomError(getClass().getSimpleName() + ": assignment not of the same type.", this); }
+	if (lhsType == null || rhsType == null)
+	{ throw new CustomError(getClass().getSimpleName() + ": assignment on null type.", this); }
+	if (!lhsType.equals(rhsType))
+	{
+	    if (lhsType instanceof TypePointer && rhsType instanceof TypePointer && ((TypePointer) rhsType).size() == 0)
+	    { return; }
+	    throw new CustomError(getClass().getSimpleName() + ": assignment not on same type.", this);
+	}
+	
     }
 
     @Override public NodeAssign clone()

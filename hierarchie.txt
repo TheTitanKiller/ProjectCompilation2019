@@ -1,32 +1,119 @@
-BeaverProject
+ProjectCompilation2019
 .
+|-- 5-LR.pdf
 |-- build.xml
 |-- cmdHierachie
 |-- data
-|   |-- input
-|   `-- output
+|   |-- output
+|   |-- progr10.lea
+|   |-- progr1.lea
+|   |-- progr2.lea
+|   |-- progr3.lea
+|   |-- progr4.lea
+|   |-- progr5.lea
+|   |-- progr6.lea
+|   |-- progr7.lea
+|   |-- progr8.lea
+|   `-- progr9.lea
+|-- documentation.pdf
 |-- hierarchie.txt
+|-- lib
+|   |-- beaver-ant-0.9.11.jar
+|   |-- beaver-ant.jar -> beaver-ant-0.9.11.jar
+|   |-- beaver-cc-0.9.11.jar
+|   |-- beaver-cc.jar -> beaver-cc-0.9.11.jar
+|   |-- beaver-rt-0.9.11.jar
+|   |-- beaver-rt.jar -> beaver-rt-0.9.11.jar
+|   `-- jflex-full-1.7.0.jar
 |-- LICENSE
 |-- parser
-|   `-- ParserExpr.grammar
-|-- README
+|   `-- Parser.grammar
+|-- README.md
 |-- scanner
-|   `-- ScannerExpr.jflex
+|   `-- Scanner.jflex
 `-- src
-    |-- abstractTree
-    |   |-- AbstTree.java
+    |-- environment
+    |   |-- EnvironmentInterface.java
     |   |-- Environment.java
-    |   |-- IAbstTree.java
-    |   |-- IEnvironment.java
-    |   |-- Keywords.java
-    |   |-- TreeFloat.java
-    |   |-- TreeIdentifier.java
-    |   |-- TreeInteger.java
-    |   |-- TreeMap.java
-    |   `-- TreeOperator.java
-    |-- Main.java
-    |-- ParserExpr.java
-    |-- ScannerExpr.java
-    `-- Terminals.java
+    |   `-- StackEnvironment.java
+    |-- errors
+    |   `-- CustomError.java
+    |-- intermediateCode
+    |   |-- Binop.java
+    |   |-- Call.java
+    |   |-- Cjump.java
+    |   |-- Const.java
+    |   |-- Eseq.java
+    |   |-- Exp.java
+    |   |-- ExpList.java
+    |   |-- IntermediateCode.java
+    |   |-- Jump.java
+    |   |-- Label.java
+    |   |-- LabelLocation.java
+    |   |-- LabelLocationList.java
+    |   |-- Mem.java
+    |   |-- Move.java
+    |   |-- Name.java
+    |   |-- Seq.java
+    |   |-- Stm.java
+    |   |-- StmList.java
+    |   |-- Temp.java
+    |   |-- TempValue.java
+    |   `-- TempValueList.java
+    |-- main
+    |   |-- ClonableSymbol.java
+    |   |-- Main.java
+    |   |-- Parser.java
+    |   |-- ScannerLEA.java
+    |   `-- Terminals.java
+    |-- node
+    |   |-- NodeArrayAccess.java
+    |   |-- NodeAssign.java
+    |   |-- NodeCallFct.java
+    |   |-- NodeCase.java
+    |   |-- NodeCaseList.java
+    |   |-- NodeDispose.java
+    |   |-- NodeExp.java
+    |   |-- NodeId.java
+    |   |-- NodeIf.java
+    |   |-- NodeInterface.java
+    |   |-- Node.java
+    |   |-- NodeList.java
+    |   |-- NodeLiteral.java
+    |   |-- NodeNew.java
+    |   |-- NodeOp.java
+    |   |-- NodePtrAccess.java
+    |   |-- NodeRel.java
+    |   |-- NodeReturn.java
+    |   |-- NodeStructAccess.java
+    |   |-- NodeSwitch.java
+    |   |-- NodeWhile.java
+    |   `-- README
+    `-- type
+        |-- IdentifierList.java
+        |-- README
+        |-- Subst.java
+        |-- TypeArray.java
+        |-- TypeArrayRange.java
+        |-- TypeAtomic.java
+        |-- TypeBoolean.java
+        |-- TypeComplex.java
+        |-- TypeEnumRange.java
+        |-- TypeFeature.java
+        |-- TypeFeatureList.java
+        |-- TypeFunct.java
+        |-- TypeInterface.java
+        |-- TypeInt.java
+        |-- TypeItemEnum.java
+        |-- Type.java
+        |-- TypeList.java
+        |-- TypeNamed.java
+        |-- TypePointer.java
+        |-- TypeRange.java
+        |-- TypeString.java
+        |-- TypeStruct.java
+        |-- TypeTemplate.java
+        |-- TypeTuple.java
+        `-- TypeVoid.java
 
-5 directories, 23 files
+11 directories, 104 files
