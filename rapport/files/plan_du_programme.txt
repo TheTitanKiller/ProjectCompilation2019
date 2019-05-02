@@ -1,0 +1,20 @@
+ProjectCompilation2019
+.
+|-- 5-LR.pdf
+|-- AUTHORS
+|-- build.xml
+|-- cmdHierachie
+|-- documentation.pdf
+|-- hierarchie.txt
+|-- LICENSE
+|-- data/
+|-- lib/
+|-- parser/
+|-- scanner/
+|-- src/
+    |-- environment/
+    |-- errors/
+    |-- intermediateCode/
+    |-- main/
+    |-- node/
+    |-- type/
