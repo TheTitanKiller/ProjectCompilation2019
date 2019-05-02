@@ -77,19 +77,19 @@ begin
 	b = foo(3, 7)^;
 	b = goo(3, 7);
 	//DONE b = foo(3); //ERROR_EXPECTED "Type error in calling expression"
-	// b = foo(3, false); //ERROR_EXPECTED "Type error in calling expression"
-	// x = foo(3, 7); //ERROR_EXPECTED "Type error in calling expression"
+	//DONE b = foo(3, false); //ERROR_EXPECTED "Type error in calling expression"
+	//DONE x = foo(3, 7); //ERROR_EXPECTED "Type error in calling expression"
 	
-	//z2 [ Thursday ] = 36; //ERROR_EXPECTED "Type error in array access "
+	//DONE z2 [ Thursday ] = 36; //ERROR_EXPECTED "Type error in array access "
 	z2 [ 1 ] = 36;
 	x = z2 [ 1 ];
 	b = goo(z2 [ 1 ], 1);
-	//y = z [ false ]; //ERROR_EXPECTED "Type error in array access"
-	//y = z [ 4 ]; //ERROR_EXPECTED "Type error in affectation"
-	//b = z [ 4 ]; //ERROR_EXPECTED "Type error in affectation"
-	//z = k [ 4 ]; //ERROR_EXPECTED "Type error in affectation"
-	//b = z2 [ Thursday ]; //ERROR_EXPECTED "Type error in affectation"
-	//z2 = 36; // Accessible variable expected
+	//DONE y = z [ false ]; //ERROR_EXPECTED "Type error in array access"
+	//DONE y = z [ 4 ]; //ERROR_EXPECTED "Type error in affectation"
+	//DONE b = z [ 4 ]; //ERROR_EXPECTED "Type error in affectation"
+	//DONE z = k [ 4 ]; //ERROR_EXPECTED "Type error in affectation"
+	//DONE b = z2 [ Thursday ]; //ERROR_EXPECTED "Type error in affectation"
+	// z2 = 36; //ERROR_EXPECTED ? Accessible variable expected
 	
 
 	if (l [ Monday ]) then x = 1;
