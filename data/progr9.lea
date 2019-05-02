@@ -129,12 +129,12 @@ begin
 	p = null;
 	//DONE p = 0; //ERROR_EXPECTED "Type error in affectation"
 	new p;
-	//new x; //ERROR_EXPECTED "Type error in pointer access expression"
+	//DONE new x; //ERROR_EXPECTED "Type error in pointer access expression"
 	p^ = 36;
-	p^ = false;//ERROR_EXPECTED "Type error in pointer access expression"
-	//x^ = null; //ERROR_EXPECTED "Type error in pointer access expression"
+	//DONE p^ = false;//ERROR_EXPECTED "Type error in pointer access expression"
+	//DONE x^ = null; //ERROR_EXPECTED "Type error in pointer access expression"
 	x = p^;
 	dispose p;
-	//dispose x;  //ERROR_EXPECTED "Type error in pointer access expression"
+	//DONE dispose x;  //ERROR_EXPECTED "Type error in pointer access expression"
 
 end
