@@ -42,7 +42,7 @@ public class NodeOp extends NodeExp
 	else if (size() == 2)
 	{ return new NodeOp(this.start, this.end, this.name, (NodeExp) getOp1().clone(), (NodeExp) getOp2().clone()); }
 	return null;
-    };
+    }
     
     public String getNameOp()
     {
@@ -52,11 +52,11 @@ public class NodeOp extends NodeExp
     private NodeExp getOp1()
     {
 	return (NodeExp) get(0);
-    };
+    }
     
     private NodeExp getOp2()
     {
 	return (NodeExp) get(1);
-    };
+    }
     
 }
