@@ -131,7 +131,7 @@ begin
 	new p;
 	//new x; //ERROR_EXPECTED "Type error in pointer access expression"
 	p^ = 36;
-	//p^ = false;//ERROR_EXPECTED "Type error in pointer access expression"
+	p^ = false;//ERROR_EXPECTED "Type error in pointer access expression"
 	//x^ = null; //ERROR_EXPECTED "Type error in pointer access expression"
 	x = p^;
 	dispose p;
