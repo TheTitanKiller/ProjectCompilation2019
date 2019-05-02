@@ -12,6 +12,21 @@ public abstract class TypeRange extends TypeAtomic
 	this.last = max;
     }
     
+    /**
+     *
+     */
+    @Override public boolean equals(Object obj)
+    {
+	if (super.equals(obj))
+	{ return false; }
+	TypeRange t = (TypeRange) obj;
+	if (t.getFirst().equals(getFirst()))
+	{ return false; }
+	if (t.getLast().equals(getLast()))
+	{ return false; }
+	return true;
+    }
+    
     public Type getFirst()
     {
 	return this.first;

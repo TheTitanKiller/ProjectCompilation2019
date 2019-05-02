@@ -9,17 +9,17 @@ public abstract class Type extends ClonableSymbol implements Comparable<Type>, T
     {
 	super(start, end);
     }
-
+    
     // Atteste que le type est bien forme
     @Override public abstract boolean attestWellFormed();
-    
+
     @Override public int compareTo(Type o)
     {
 	// TODO Auto-generated method stub
 	System.err.println("TODO: " + this.getClass().getSimpleName() + ".compareTo(Type o)");
 	return 0;
     }
-    
+
     /*
      * Définition: Une différence Diff(A, B) où A et B sont deux expressions de type
      * est
@@ -69,22 +69,22 @@ public abstract class Type extends ClonableSymbol implements Comparable<Type>, T
 	    return null;
 	}
 	return result;
-	
+
     }
-    
+
     // teste l'égalité entre deux expressions de type
-    @Override public abstract boolean equals(Type obj);
-    
+    @Override public abstract boolean equals(Object obj);
+
     // Applique une substitution à une expression de type
     public abstract Type mapping(Subst subst);
-    
+
     // Affiche dans un format lisible
     @Override public String toString()
     {
 	System.err.println("*** " + this.getClass().getSimpleName() + ".clone() return null");
 	return null;
     }
-    
+
     /*
      * Algorithme d’unification: Soit A et B deux expressions de type \theta est le
      * mgcu de A et B:
@@ -138,5 +138,5 @@ public abstract class Type extends ClonableSymbol implements Comparable<Type>, T
 	}
 	return false;
     }
-    
+
 }

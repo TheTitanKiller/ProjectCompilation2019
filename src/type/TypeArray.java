@@ -8,7 +8,7 @@ public class TypeArray extends TypeComplex
     {
 	super(start, end, t1, t2);
     }
-    
+
     @Override public boolean attestWellFormed()
     {
 	if (!getRangeOREnum().attestWellFormed())
@@ -17,13 +17,19 @@ public class TypeArray extends TypeComplex
 	{ return false; }
 	return true;
     }
-    
+
     @Override public ClonableSymbol clone()
     {
 	Type result = new TypeArray(this.start, this.end, (Type) get(0).clone(), (Type) get(1).clone());
 	return result;
     }
-    
+
+    @Override public boolean equals(Object obj)
+    {
+	// TODO Auto-generated method stub
+	return false;
+    }
+
     public TypeRange getRangeOREnum()
     {
 	return (TypeRange) get(0);
@@ -33,5 +39,5 @@ public class TypeArray extends TypeComplex
     {
 	return get(1);
     }
-    
+
 }
