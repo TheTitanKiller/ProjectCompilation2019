@@ -2,7 +2,6 @@ package node;
 
 public final class NodeNew extends Node
 {
-    
     public NodeNew(int start, int end, Node stm)
     {
 	super(start, end, stm);
