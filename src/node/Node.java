@@ -15,14 +15,14 @@ public abstract class Node extends ClonableSymbol implements NodeInterface
     protected List<Node> elts;
     protected int uniqId;
     int line, colomn;
-
+    
     public Node(int start, int end)
     {
 	super(start, end);
 	this.uniqId = Node.staticUniqId++;
 	this.elts = new ArrayList<Node>();
     }
-
+    
     public Node(int start, int end, Node... args)
     {
 	this(start, end);
@@ -31,7 +31,7 @@ public abstract class Node extends ClonableSymbol implements NodeInterface
 	    this.elts.add(elt);
 	}
     }
-
+    
     public void add(Node elt)
     {
 	if (elt != null)
@@ -40,22 +40,29 @@ public abstract class Node extends ClonableSymbol implements NodeInterface
 	    this.end = elt.getEnd();
 	}
     }
-
+    
     @Override public void checksType()
     {
 	throw new CustomError("-checksType not implemented in " + getClass().getSimpleName(), this);
+    }
+    
+    //TODO Enlever dés que l'arbre est fait
+    @Override public void generateIntermediateCode()
+    {
+	// TODO Auto-generated method stub
+	System.err.println("TODO: " + this.getClass().getSimpleName() + ".generateIntermediateCode()");
     };
-
+    
     public Node get(int i)
     {
 	return this.elts.get(i);
     }
-
+    
     public int size()
     {
 	return this.elts.size();
     }
-
+    
     @Override public final void toDot(String file)
     {
 	try
@@ -73,7 +80,7 @@ public abstract class Node extends ClonableSymbol implements NodeInterface
 	    System.err.println("ERROR: build dot");
 	}
     }
-
+    
     private final void toDot(StringBuffer stringBuffer)
     {
 	stringBuffer.append("node_" + this.uniqId + " [shape=\"ellipse\", label=\"" + toDotNodeName() + "\"];\n");
@@ -83,12 +90,12 @@ public abstract class Node extends ClonableSymbol implements NodeInterface
 	    stringBuffer.append("node_" + this.uniqId + " -> node_" + elt.uniqId + ";\n");
 	}
     }
-
+    
     protected String toDotNodeName()
     {
 	return getClass().getSimpleName();
     }
-
+    
     @Override public String toString()
     {
 	String ret = this.getClass().getSimpleName();
@@ -115,5 +122,5 @@ public abstract class Node extends ClonableSymbol implements NodeInterface
 	}
 	return ret;
     }
-
+    
 }

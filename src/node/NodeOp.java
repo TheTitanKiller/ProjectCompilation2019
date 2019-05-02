@@ -4,9 +4,9 @@ import errors.CustomError;
 
 public class NodeOp extends NodeExp
 {
-
+    
     protected String name;
-
+    
     public NodeOp(int start, int end, String name, NodeExp op)
     {
 	super(start, end, op);
@@ -15,7 +15,7 @@ public class NodeOp extends NodeExp
 	NodeExp exprFct = (NodeExp) get(0);
 	this.type = exprFct.type;
     }
-
+    
     // Opération binaire
     // f : E X F -> F
     public NodeOp(int start, int end, String name, NodeExp op1, NodeExp op2)
@@ -26,7 +26,7 @@ public class NodeOp extends NodeExp
 	NodeExp exprFct = (NodeExp) get(1);
 	this.type = exprFct.type;
     }
-
+    
     @Override public void checksType()
     {
 	getOp1().checksType();
@@ -41,7 +41,7 @@ public class NodeOp extends NodeExp
 	    }
 	}
     }
-
+    
     @Override public NodeOp clone()
     {
 	if (size() == 1)
@@ -51,6 +51,25 @@ public class NodeOp extends NodeExp
 	else if (size() == 2)
 	{ return new NodeOp(this.start, this.end, this.name, (NodeExp) getOp1().clone(), (NodeExp) getOp2().clone()); }
 	return null;
+    }
+
+    @Override public void generateIntermediateCode()
+    {
+	/*
+	String tmp = "";
+	switch(name)
+	{
+		case "println":
+			tmp = "call println 1";
+			break;
+		case "readln":
+			tmp = "call readln 1";
+			break;
+		default:
+			break;
+	}
+	return tmp;
+	*/
     }
     
     public String getNameOp()
@@ -67,21 +86,4 @@ public class NodeOp extends NodeExp
     {
 	return (NodeExp) get(1);
     }
-    
-	@Override public String generateIntermediateCode()
-	{
-		String tmp = "";
-		switch(name)
-		{
-			case "println":
-				tmp = "call println 1";
-				break;
-			case "readln":
-				tmp = "call readln 1";
-				break;
-			default:
-				break;
-		}
-		return tmp;
-	}
 }

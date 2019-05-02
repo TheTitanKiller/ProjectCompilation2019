@@ -2,8 +2,6 @@ package node;
 
 import errors.CustomError;
 import type.Type;
-import main.Main;
-import intermediateCode.*;
 import type.TypeArray;
 import type.TypePointer;
 
@@ -13,7 +11,7 @@ public final class NodeAssign extends Node
     {
 	super(start, end, lhs, rhs);
     }
-    
+
     @Override public void checksType()
     {
 	get(0).checksType();
@@ -36,12 +34,17 @@ public final class NodeAssign extends Node
 		{ throw new CustomError(getClass().getSimpleName() + ": assignment not on same type complexe.", this); }
 	    }
 	}
-
+	
     }
-    
+
     @Override public NodeAssign clone()
     {
 	return new NodeAssign(this.start, this.end, (NodeExp) getLhs().clone(), (NodeExp) getRhs().clone());
+    }
+    
+    @Override public void generateIntermediateCode()
+    {
+	//Main.temps = new TempValueList(new Temp(new TempValue()), Main.temps);
     }
 
     private NodeExp getLhs()
@@ -53,10 +56,5 @@ public final class NodeAssign extends Node
     {
 	return (NodeExp) get(1);
     }
-
-    @Override public String generateIntermediateCode()
-    {
-        Main.temps = new TempValueList(new Temp(new TempValue()), Main.temps);
-    }
-
+    
 }
