@@ -9,7 +9,7 @@ import type.TypeFunct;
 public final class NodeCallFct extends NodeExp
 {
     protected String name;
-    
+
     // Application
     // (f : E1 x E2 ... x Ek -> F), (arg1, arg2, ..., argk)
     public NodeCallFct(int start, int end, String name, TypeFunct type)
@@ -18,7 +18,7 @@ public final class NodeCallFct extends NodeExp
 	this.name = name;
 	this.type = type;
     }
-    
+
     // Application
     // (f : E1 x E2 ... x Ek -> F), (arg1, arg2, ..., argk)
     public NodeCallFct(int start, int end, String name, TypeFunct type, NodeList args)
@@ -27,7 +27,7 @@ public final class NodeCallFct extends NodeExp
 	this.name = name;
 	this.type = type;
     }
-    
+
     // On parcourt les arguments et on vérifie qu'ils sont bien typés
     // On parcourt aussi les paramètres de la fonction
     // et on regarde que les types sont égaux
@@ -40,7 +40,7 @@ public final class NodeCallFct extends NodeExp
 	{
 	    NodeExp arg = (NodeExp) itArgs.next();
 	    arg.checksType();
-	    
+
 	    Type argType = arg.getType();
 	    // chaque paramètre est une feature nom : type
 	    Type paramType = itParams.next();
@@ -51,7 +51,7 @@ public final class NodeCallFct extends NodeExp
 	if (result && (itArgs.hasNext() || itParams.hasNext()))
 	{ throw new CustomError(getClass().getSimpleName() + ": pas le même nombre de paramètres ", this); }
     }
-    
+
     @Override public NodeCallFct clone()
     {
 	NodeCallFct node = new NodeCallFct(this.start, this.end, this.name, (TypeFunct) this.type);
@@ -61,17 +61,31 @@ public final class NodeCallFct extends NodeExp
 	}
 	return node;
     }
-    
+
+    @Override public String generateIntermediateCode()
+    {
+	String inst = "";
+	inst += get(0).generateIntermediateCode(); //register e1 adress fct
+	inst += "CALL(e1,";
+	for (Node n : get(1).elts)
+	{
+	    NodeExp arg = (NodeExp) n;
+	    //inst += (String)arg.getType() arg.value;
+	}
+	inst += ");\n";
+	return inst;
+    }
+
     private NodeList getArgs()
     {
 	return (NodeList) this.elts.get(0);
     }
-    
+
     @Override public Type getType()
     {
 	return ((TypeFunct) this.type).getRet();
     }
-    
+
     @Override protected String toDotNodeName()
     {
 	return "NodeCallFct " + this.name + "()";
@@ -81,5 +95,5 @@ public final class NodeCallFct extends NodeExp
     {
 	return this.name + '_' + super.toString();
     }
-    
+
 }
