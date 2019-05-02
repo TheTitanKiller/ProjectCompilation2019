@@ -126,8 +126,8 @@ begin
 	//b = !(2 < x) && (x == 1) && p ; //ERROR_EXPECTED "Type error in logical expression"
 	//b = !(2 < x) && (x == 1 + false) && p ; //ERROR_EXPECTED "Type error in arithmetic expression"
 
-	p = null; //TODO Probleme c'est quoi null
-	p = 0; //ERROR_EXPECTED "Type error in affectation"
+	p = null;
+	//p = 0; //ERROR_EXPECTED "Type error in affectation"
 	new p;
 	//new x; //ERROR_EXPECTED "Type error in pointer access expression"
 	p^ = 36;
