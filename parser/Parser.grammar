@@ -314,18 +314,20 @@ procedure_definition=
 procedure_definition_head=
 	procedure_head.node 	{: 	try 
 								{
+									((TypeFunct)node.getType()).setDefined(true);
 									procedureEnvironment.putVariable(node.getName(), node);
 								}
 							 	catch (CustomError err)
 							 	{
-							 		//Cas deja defini, mais a remplacer
+							 		//Cas deja declarer, mais verifier definition
+							 		((TypeFunct)node.getType()).setDefined(true);
 							 		procedureEnvironment.replaceVariable(node.getName(), node);
 							 	}
 							 	return node; :}
 	;
 	
 procedure_declaration_head=
-	procedure_head.node 	{: procedureEnvironment.putVariable(node.getName(),  node); return node; :}
+	procedure_head.node 	{: 	procedureEnvironment.putVariable(node.getName(),  node); return node; :}
 	;
 	
 procedure_head=

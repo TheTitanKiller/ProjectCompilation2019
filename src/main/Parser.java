@@ -457,11 +457,13 @@ public class Parser extends beaver.Parser {
 					final NodeId node = (NodeId) _symbol_node.value;
 					 	try 
 								{
+									((TypeFunct)node.getType()).setDefined(true);
 									procedureEnvironment.putVariable(node.getName(), node);
 								}
 							 	catch (CustomError err)
 							 	{
-							 		//Cas deja defini, mais a remplacer
+							 		//Cas deja declarer, mais verifier definition
+							 		((TypeFunct)node.getType()).setDefined(true);
 							 		procedureEnvironment.replaceVariable(node.getName(), node);
 							 	}
 							 	return node;
@@ -471,7 +473,7 @@ public class Parser extends beaver.Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_node = _symbols[offset + 1];
 					final NodeId node = (NodeId) _symbol_node.value;
-					 procedureEnvironment.putVariable(node.getName(),  node); return node;
+					 	procedureEnvironment.putVariable(node.getName(),  node); return node;
 				}
 			},
 			new Action() {	// [47] procedure_head = TOKEN_PROCEDURE.b procedure_name.nid TOKEN_LPAR argt_part.args TOKEN_RPAR.e

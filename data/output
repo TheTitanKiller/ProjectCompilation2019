@@ -104,8 +104,8 @@ Environment::types
 >
 Environment::procedures
 >
-sum: NodeId#sum:(TypeInt_null, TypeInt_null) -> TypeInt_null Defined: false Name: sum#
-pgcd: NodeId#pgcd:(TypeInt_null, TypeInt_null) -> TypeInt_null Defined: false Name: pgcd#
+sum: NodeId#sum:(TypeInt_null, TypeInt_null) -> TypeInt_null Defined: true Name: sum#
+pgcd: NodeId#pgcd:(TypeInt_null, TypeInt_null) -> TypeInt_null Defined: true Name: pgcd#
 >
 StackEnvironment::local_variables_stack
 **
@@ -127,11 +127,11 @@ Environment::types
 >
 Environment::procedures
 >
-hanoi: NodeId#hanoi:(TypeString, TypeString, TypeString, TypeInt_null) -> TypeVoid Defined: false Name: hanoi#
-fact2: NodeId#fact2:(TypeInt_null) -> TypeInt_null Defined: false Name: fact2#
-pair: NodeId#pair:(TypeInt_null) -> TypeBoolean Defined: false Name: pair#
-fact1: NodeId#fact1:(TypeInt_null) -> TypeInt_null Defined: false Name: fact1#
-impair: NodeId#impair:(TypeInt_null) -> TypeBoolean Defined: false Name: impair#
+hanoi: NodeId#hanoi:(TypeString, TypeString, TypeString, TypeInt_null) -> TypeVoid Defined: true Name: hanoi#
+fact2: NodeId#fact2:(TypeInt_null) -> TypeInt_null Defined: true Name: fact2#
+pair: NodeId#pair:(TypeInt_null) -> TypeBoolean Defined: true Name: pair#
+fact1: NodeId#fact1:(TypeInt_null) -> TypeInt_null Defined: true Name: fact1#
+impair: NodeId#impair:(TypeInt_null) -> TypeBoolean Defined: true Name: impair#
 >
 StackEnvironment::local_variables_stack
 **
@@ -180,7 +180,7 @@ java.lang.NullPointerException
 	at node.NodeId.toString(NodeId.java:38)
 	at java.lang.String.valueOf(String.java:2994)
 	at java.lang.StringBuilder.append(StringBuilder.java:131)
-	at environment.Environment.backtrace(Environment.java:44)
+	at environment.Environment.backtrace(Environment.java:46)
 	at main.Parser.backtrace(Unknown Source)
 	at main.Main.main(Main.java:50)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -217,7 +217,7 @@ java.lang.NullPointerException
 	at node.NodeId.toString(NodeId.java:38)
 	at java.lang.String.valueOf(String.java:2994)
 	at java.lang.StringBuilder.append(StringBuilder.java:131)
-	at environment.Environment.backtrace(Environment.java:44)
+	at environment.Environment.backtrace(Environment.java:46)
 	at main.Parser.backtrace(Unknown Source)
 	at main.Main.main(Main.java:50)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -296,7 +296,7 @@ java.lang.NullPointerException
 	at node.NodeId.toString(NodeId.java:38)
 	at java.lang.String.valueOf(String.java:2994)
 	at java.lang.StringBuilder.append(StringBuilder.java:131)
-	at environment.Environment.backtrace(Environment.java:44)
+	at environment.Environment.backtrace(Environment.java:46)
 	at main.Parser.backtrace(Unknown Source)
 	at main.Main.main(Main.java:50)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -325,7 +325,6 @@ java.lang.NullPointerException
 	at org.apache.tools.ant.Project.executeTargets(Project.java:1251)
 	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:460)
 	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:142)
-range3: NodeId#range3:TypeArrayRange[TypeInt_81..TypeInt_64]#
 java.lang.NullPointerException
 	at type.TypeRange.toString(TypeRange.java:27)
 	at type.TypeEnumRange.toString(TypeEnumRange.java:58)
@@ -334,7 +333,7 @@ java.lang.NullPointerException
 	at node.NodeId.toString(NodeId.java:38)
 	at java.lang.String.valueOf(String.java:2994)
 	at java.lang.StringBuilder.append(StringBuilder.java:131)
-	at environment.Environment.backtrace(Environment.java:44)
+	at environment.Environment.backtrace(Environment.java:46)
 	at main.Parser.backtrace(Unknown Source)
 	at main.Main.main(Main.java:50)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -377,7 +376,7 @@ java.lang.NullPointerException
 	at node.NodeId.toString(NodeId.java:38)
 	at java.lang.String.valueOf(String.java:2994)
 	at java.lang.StringBuilder.append(StringBuilder.java:131)
-	at environment.Environment.backtrace(Environment.java:44)
+	at environment.Environment.backtrace(Environment.java:46)
 	at main.Parser.backtrace(Unknown Source)
 	at main.Main.main(Main.java:50)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -416,7 +415,7 @@ java.lang.NullPointerException
 	at node.NodeId.toString(NodeId.java:38)
 	at java.lang.String.valueOf(String.java:2994)
 	at java.lang.StringBuilder.append(StringBuilder.java:131)
-	at environment.Environment.backtrace(Environment.java:44)
+	at environment.Environment.backtrace(Environment.java:46)
 	at main.Parser.backtrace(Unknown Source)
 	at main.Main.main(Main.java:50)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -452,11 +451,12 @@ table1: NodeId#table1:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_n
 entier: NodeId#entier:TypeInt_null#
 ptr1: NodeId#ptr1:TypePointer(TypeInt_null)#
 booleen: NodeId#booleen:TypeBoolean#
+table6: NodeId#table6:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeArray(TypeArrayRange[TypeItemEnum@3=null(3)..TypeItemEnum@3=null(6)], TypeInt_null))#
 >
 Environment::procedures
 >
-goo: NodeId#goo:(TypeInt_null, TypeInt_null) -> TypeBoolean Defined: false Name: goo#
-foo: NodeId#foo:(TypeInt_null, TypeInt_null) -> TypePointer(TypeBoolean) Defined: false Name: foo#
+goo: NodeId#goo:(TypeInt_null, TypeInt_null) -> TypeBoolean Defined: true Name: goo#
+foo: NodeId#foo:(TypeInt_null, TypeInt_null) -> TypePointer(TypeBoolean) Defined: true Name: foo#
 >
 StackEnvironment::local_variables_stack
 **
@@ -490,7 +490,7 @@ java.lang.NullPointerException
 	at node.NodeId.toString(NodeId.java:38)
 	at java.lang.String.valueOf(String.java:2994)
 	at java.lang.StringBuilder.append(StringBuilder.java:131)
-	at environment.Environment.backtrace(Environment.java:44)
+	at environment.Environment.backtrace(Environment.java:46)
 	at environment.StackEnvironment.backtrace(StackEnvironment.java:35)
 	at main.Parser.backtrace(Unknown Source)
 	at main.Main.main(Main.java:50)
@@ -532,7 +532,7 @@ java.lang.NullPointerException
 	at node.NodeId.toString(NodeId.java:38)
 	at java.lang.String.valueOf(String.java:2994)
 	at java.lang.StringBuilder.append(StringBuilder.java:131)
-	at environment.Environment.backtrace(Environment.java:44)
+	at environment.Environment.backtrace(Environment.java:46)
 	at environment.StackEnvironment.backtrace(StackEnvironment.java:35)
 	at main.Parser.backtrace(Unknown Source)
 	at main.Main.main(Main.java:50)
@@ -584,7 +584,7 @@ position: NodeId#position:TypeStruct(TypeFeatureList([x:TypeInt_null], [y:TypeIn
 >
 Environment::procedures
 >
-test: NodeId#test:(TypePointer(TypeStruct(TypeFeatureList([x:TypeInt_null], [y:TypeInt_null])))) -> TypeBoolean Defined: false Name: test#
+test: NodeId#test:(TypePointer(TypeStruct(TypeFeatureList([x:TypeInt_null], [y:TypeInt_null])))) -> TypeBoolean Defined: true Name: test#
 >
 StackEnvironment::local_variables_stack
 **
