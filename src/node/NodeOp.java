@@ -68,4 +68,20 @@ public class NodeOp extends NodeExp
 	return (NodeExp) get(1);
     }
     
+	@Override public String generateIntermediateCode()
+	{
+		String tmp = "";
+		switch(name)
+		{
+			case "println":
+				tmp = "call println 1";
+				break;
+			case "readln":
+				tmp = "call readln 1";
+				break;
+			default:
+				break;
+		}
+		return tmp;
+	}
 }
