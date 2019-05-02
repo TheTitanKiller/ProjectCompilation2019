@@ -50,5 +50,13 @@ public final class NodeArrayAccess extends NodeExp
     {
 	return new NodeArrayAccess(this.start, this.end, (NodeExp) get(0).clone(), (Node) get(1).clone());
     }
+
+    @Override public void generateIntermediateCode()
+    {
+	
+	get(0).generateIntermediateCode();
+	String inst = "" + "";
+	
+    }
     
 }
