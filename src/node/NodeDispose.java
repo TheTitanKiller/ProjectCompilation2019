@@ -2,20 +2,19 @@ package node;
 
 public final class NodeDispose extends Node
 {
-    public NodeDispose(Node e)
+    public NodeDispose(int start, int end, Node e)
     {
-	super(e);
+	super(start, end, e);
     }
     
-    @Override public boolean checksType()
+    @Override public void checksType()
     {
-	super.checksType();
-	return true;
+	return;
     }
     
     @Override public NodeDispose clone()
     {
-	return new NodeDispose((Node) get(0).clone());
+	return new NodeDispose(this.start, this.end, (Node) get(0).clone());
     }
     
 }

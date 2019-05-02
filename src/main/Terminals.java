@@ -48,20 +48,21 @@ public class Terminals {
 	static public final short TOKEN_LBRACKET = 40;
 	static public final short TOKEN_RBRACKET = 41;
 	static public final short TOKEN_COMMA = 42;
-	static public final short TOKEN_END = 43;
-	static public final short TOKEN_AFF = 44;
-	static public final short TOKEN_FUNCTION = 45;
-	static public final short TOKEN_DOTDOT = 46;
-	static public final short TOKEN_PROCEDURE = 47;
-	static public final short TOKEN_CASE = 48;
-	static public final short TOKEN_OF = 49;
-	static public final short TOKEN_LBRACE = 50;
-	static public final short TOKEN_RBRACE = 51;
-	static public final short TOKEN_THEN = 52;
-	static public final short TOKEN_ELSE = 53;
-	static public final short TOKEN_DO = 54;
-	static public final short TOKEN_DEFAULT = 55;
-	static public final short TOKEN_TYPE = 56;
+	static public final short TOKEN_DOT = 43;
+	static public final short TOKEN_END = 44;
+	static public final short TOKEN_AFF = 45;
+	static public final short TOKEN_FUNCTION = 46;
+	static public final short TOKEN_DOTDOT = 47;
+	static public final short TOKEN_PROCEDURE = 48;
+	static public final short TOKEN_CASE = 49;
+	static public final short TOKEN_OF = 50;
+	static public final short TOKEN_LBRACE = 51;
+	static public final short TOKEN_RBRACE = 52;
+	static public final short TOKEN_THEN = 53;
+	static public final short TOKEN_ELSE = 54;
+	static public final short TOKEN_DO = 55;
+	static public final short TOKEN_DEFAULT = 56;
+	static public final short TOKEN_TYPE = 57;
 
 	static public final String[] NAMES = {
 		"EOF",
@@ -107,6 +108,7 @@ public class Terminals {
 		"TOKEN_LBRACKET",
 		"TOKEN_RBRACKET",
 		"TOKEN_COMMA",
+		"TOKEN_DOT",
 		"TOKEN_END",
 		"TOKEN_AFF",
 		"TOKEN_FUNCTION",

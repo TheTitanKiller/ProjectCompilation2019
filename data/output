@@ -1,19 +1,6 @@
 *** Fichier data/progr1.lea
 
 *** Analyse syntaxique ok
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeWhile
---- CheckType NodeOp
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeOp
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeOp
 *** Typage correct
 *** Backtrace
 Environment::types
@@ -35,47 +22,6 @@ a: NodeId#a:TypeInt_null#
 *** Fichier data/progr2.lea
 
 *** Analyse syntaxique ok
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeArrayAccess
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeArrayAccess
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeArrayAccess
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeArrayAccess
---- CheckType NodeLiteral
---- CheckType NodeOp
---- CheckType NodeOp
---- CheckType NodeOp
---- CheckType NodeOp
---- CheckType NodeOp
 *** Typage correct
 *** Backtrace
 Environment::types
@@ -101,74 +47,6 @@ y: NodeId#y:TypeInt_null#
 *** Fichier data/progr3.lea
 
 *** Analyse syntaxique ok
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeArrayAccess
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeArrayAccess
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeArrayAccess
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeArrayAccess
---- CheckType NodeLiteral
---- CheckType NodeOp
---- CheckType NodeOp
---- CheckType NodeOp
---- CheckType NodeOp
---- CheckType NodeOp
---- CheckType NodeNew
---- CheckType NodeAssign
---- CheckType NodePtrAccess
---- CheckType NodeLiteral
---- CheckType NodeOp
---- CheckType NodeOp
---- CheckType NodeNew
---- CheckType NodeOp
---- CheckType NodeAssign
---- CheckType NodePtrAccess
---- CheckType NodeId
---- CheckType NodeOp
---- CheckType NodeNew
---- CheckType NodeAssign
---- CheckType NodePtrAccess
---- CheckType NodeLiteral
---- CheckType NodeOp
---- CheckType NodeDispose
---- CheckType NodeOp
---- CheckType NodeOp
 *** Typage correct
 *** Backtrace
 Environment::types
@@ -197,24 +75,6 @@ y: NodeId#y:TypeInt_null#
 *** Fichier data/progr4.lea
 
 *** Analyse syntaxique ok
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeLiteral
---- CheckType NodeWhile
---- CheckType NodeOp
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeOp
---- CheckType NodeIf
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeOp
 *** Typage correct
 *** Backtrace
 Environment::types
@@ -237,38 +97,6 @@ y: NodeId#y:TypeInt_null#
 *** Fichier data/progr5.lea
 
 *** Analyse syntaxique ok
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeReturn
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeWhile
---- CheckType NodeOp
---- CheckType NodeIf
---- CheckType NodeReturn
---- CheckType NodeList
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeId
---- CheckType NodeCallFct
---- CheckType NodeLiteral
---- CheckType NodeLiteral
---- CheckType NodeOp
---- CheckType NodeOp
 *** Typage correct
 *** Backtrace
 Environment::types
@@ -276,8 +104,8 @@ Environment::types
 >
 Environment::procedures
 >
-sum: NodeId#sum:([i:TypeInt_null], [j:TypeInt_null]) -> TypeInt_null Defined: false Name: sum#
-pgcd: NodeId#pgcd:([i:TypeInt_null], [j:TypeInt_null]) -> TypeInt_null Defined: false Name: pgcd#
+sum: NodeId#sum:(TypeInt_null, TypeInt_null) -> TypeInt_null Defined: false Name: sum#
+pgcd: NodeId#pgcd:(TypeInt_null, TypeInt_null) -> TypeInt_null Defined: false Name: pgcd#
 >
 StackEnvironment::local_variables_stack
 **
@@ -292,55 +120,6 @@ x: NodeId#x:TypeInt_null#
 *** Fichier data/progr6.lea
 
 *** Analyse syntaxique ok
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeIf
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeIf
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeIf
---- CheckType NodeOp
---- CheckType NodeOp
---- CheckType NodeOp
---- CheckType NodeIf
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeIf
---- CheckType NodeReturn
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeIf
---- CheckType NodeList
---- CheckType NodeOp
---- CheckType NodeOp
---- CheckType NodeCallFct
---- CheckType NodeLiteral
---- CheckType NodeLiteral
---- CheckType NodeLiteral
---- CheckType NodeLiteral
---- CheckType NodeOp
---- CheckType NodeOp
 *** Typage correct
 *** Backtrace
 Environment::types
@@ -348,11 +127,11 @@ Environment::types
 >
 Environment::procedures
 >
-hanoi: NodeId#hanoi:([a:TypeString], [b:TypeString], [c:TypeString], [k:TypeInt_null]) -> TypeVoid Defined: false Name: hanoi#
-fact2: NodeId#fact2:([k:TypeInt_null]) -> TypeInt_null Defined: false Name: fact2#
-pair: NodeId#pair:([i:TypeInt_null]) -> TypeBoolean Defined: false Name: pair#
-fact1: NodeId#fact1:([k:TypeInt_null]) -> TypeInt_null Defined: false Name: fact1#
-impair: NodeId#impair:([i:TypeInt_null]) -> TypeBoolean Defined: false Name: impair#
+hanoi: NodeId#hanoi:(TypeString, TypeString, TypeString, TypeInt_null) -> TypeVoid Defined: false Name: hanoi#
+fact2: NodeId#fact2:(TypeInt_null) -> TypeInt_null Defined: false Name: fact2#
+pair: NodeId#pair:(TypeInt_null) -> TypeBoolean Defined: false Name: pair#
+fact1: NodeId#fact1:(TypeInt_null) -> TypeInt_null Defined: false Name: fact1#
+impair: NodeId#impair:(TypeInt_null) -> TypeBoolean Defined: false Name: impair#
 >
 StackEnvironment::local_variables_stack
 **
@@ -367,31 +146,6 @@ x: NodeId#x:TypeInt_null#
 *** Fichier data/progr7.lea
 
 *** Analyse syntaxique ok
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeAssign
---- CheckType NodeArrayAccess
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeArrayAccess
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeArrayAccess
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeArrayAccess
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeArrayAccess
---- CheckType NodeLiteral
---- CheckType NodeOp
---- CheckType NodeOp
---- CheckType NodeOp
 *** Typage correct
 *** Backtrace
 Environment::types
@@ -414,30 +168,84 @@ year: NodeId#year:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_7], TypeArray(Type
 *** Fichier data/progr8.lea
 
 *** Analyse syntaxique ok
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeAssign
---- CheckType NodeArrayAccess
---- CheckType NodeLiteral
---- CheckType NodeAssign
---- CheckType NodeArrayAccess
-type de l'index incorrect
-*** Erreur de typage
+*** Typage correct
 *** Backtrace
 Environment::types
 >
-months: NodeId#months:(TypeItemEnum@JANUARY=0, TypeItemEnum@FEBRUARY=1, TypeItemEnum@MARCH=2, TypeItemEnum@APRIL=3, TypeItemEnum@MAY=4, TypeItemEnum@JUNE=5, TypeItemEnum@JULY=6, TypeItemEnum@AUGUST=7, TypeItemEnum@SEPTEMBER=8, TypeItemEnum@OCTOBER=9, TypeItemEnum@NOVEMBER=10, TypeItemEnum@DECEMBER=11)#
-days: NodeId#days:(TypeItemEnum@SUNDAY=0, TypeItemEnum@MONDAY=1, TypeItemEnum@TUESDAY=2, TypeItemEnum@WEDNESDAY=3, TypeItemEnum@THURSDAY=4, TypeItemEnum@FRIDAY=5, TypeItemEnum@SATURDAY=6)#
+java.lang.NullPointerException
+	at type.TypeRange.toString(TypeRange.java:27)
+	at type.TypeEnumRange.toString(TypeEnumRange.java:58)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at node.NodeId.toString(NodeId.java:38)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at environment.Environment.backtrace(Environment.java:44)
+	at main.Parser.backtrace(Unknown Source)
+	at main.Main.main(Main.java:50)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:218)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:155)
+	at org.apache.tools.ant.taskdefs.Java.run(Java.java:861)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:231)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:135)
+	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:108)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:99)
+	at org.apache.tools.ant.Task.perform(Task.java:350)
+	at org.apache.tools.ant.Target.execute(Target.java:449)
+	at org.apache.tools.ant.Target.performTasks(Target.java:470)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1388)
+	at org.apache.tools.ant.Project.executeTarget(Project.java:1361)
+	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1251)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:460)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:142)
+java.lang.NullPointerException
+	at type.TypeRange.toString(TypeRange.java:27)
+	at type.TypeEnumRange.toString(TypeEnumRange.java:58)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at node.NodeId.toString(NodeId.java:38)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at environment.Environment.backtrace(Environment.java:44)
+	at main.Parser.backtrace(Unknown Source)
+	at main.Main.main(Main.java:50)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:218)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:155)
+	at org.apache.tools.ant.taskdefs.Java.run(Java.java:861)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:231)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:135)
+	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:108)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:99)
+	at org.apache.tools.ant.Task.perform(Task.java:350)
+	at org.apache.tools.ant.Target.execute(Target.java:449)
+	at org.apache.tools.ant.Target.performTasks(Target.java:470)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1388)
+	at org.apache.tools.ant.Project.executeTarget(Project.java:1361)
+	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1251)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:460)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:142)
 >
 Environment::procedures
 >
@@ -447,28 +255,28 @@ StackEnvironment::local_variables_stack
 Layer 0 :
 Environment::Global
 >
-JANUARY: NodeId#JANUARY:TypeItemEnum@JANUARY=0#
-JUNE: NodeId#JUNE:TypeItemEnum@JUNE=5#
-THURSDAY: NodeId#THURSDAY:TypeItemEnum@THURSDAY=4#
-week: NodeId#week:TypeArray(TypeArrayRange[TypeItemEnum@MONDAY=1..TypeItemEnum@FRIDAY=5], TypeString)#
-SUNDAY: NodeId#SUNDAY:TypeItemEnum@SUNDAY=0#
-MAY: NodeId#MAY:TypeItemEnum@MAY=4#
-d: NodeId#d:TypeArrayRange[TypeItemEnum@SUNDAY=0..TypeItemEnum@SATURDAY=6]#
-OCTOBER: NodeId#OCTOBER:TypeItemEnum@OCTOBER=9#
-year: NodeId#year:TypeArray(TypeArrayRange[TypeItemEnum@SUNDAY=0..TypeItemEnum@SATURDAY=6], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeItemEnum@JANUARY=0..TypeItemEnum@DECEMBER=11], TypeString)))#
-TUESDAY: NodeId#TUESDAY:TypeItemEnum@TUESDAY=2#
-FRIDAY: NodeId#FRIDAY:TypeItemEnum@FRIDAY=5#
-DECEMBER: NodeId#DECEMBER:TypeItemEnum@DECEMBER=11#
-FEBRUARY: NodeId#FEBRUARY:TypeItemEnum@FEBRUARY=1#
-SEPTEMBER: NodeId#SEPTEMBER:TypeItemEnum@SEPTEMBER=8#
-NOVEMBER: NodeId#NOVEMBER:TypeItemEnum@NOVEMBER=10#
-WEDNESDAY: NodeId#WEDNESDAY:TypeItemEnum@WEDNESDAY=3#
-MONDAY: NodeId#MONDAY:TypeItemEnum@MONDAY=1#
-SATURDAY: NodeId#SATURDAY:TypeItemEnum@SATURDAY=6#
-MARCH: NodeId#MARCH:TypeItemEnum@MARCH=2#
-AUGUST: NodeId#AUGUST:TypeItemEnum@AUGUST=7#
-JULY: NodeId#JULY:TypeItemEnum@JULY=6#
-APRIL: NodeId#APRIL:TypeItemEnum@APRIL=3#
+JANUARY: NodeId#JANUARY:TypeItemEnum@1=null(0)#
+JUNE: NodeId#JUNE:TypeItemEnum@1=null(5)#
+THURSDAY: NodeId#THURSDAY:TypeItemEnum@0=null(4)#
+week: NodeId#week:TypeArray(TypeArrayRange[TypeItemEnum@0=null(1)..TypeItemEnum@0=null(5)], TypeString)#
+SUNDAY: NodeId#SUNDAY:TypeItemEnum@0=null(0)#
+MAY: NodeId#MAY:TypeItemEnum@1=null(4)#
+d: NodeId#d:TypeArrayRange[TypeItemEnum@0=null(0)..TypeItemEnum@0=null(6)]#
+OCTOBER: NodeId#OCTOBER:TypeItemEnum@1=null(9)#
+year: NodeId#year:TypeArray(TypeArrayRange[TypeItemEnum@0=null(0)..TypeItemEnum@0=null(6)], TypeArray(TypeArrayRange[TypeInt_1..TypeInt_31], TypeArray(TypeArrayRange[TypeItemEnum@1=null(0)..TypeItemEnum@1=null(11)], TypeString)))#
+TUESDAY: NodeId#TUESDAY:TypeItemEnum@0=null(2)#
+FRIDAY: NodeId#FRIDAY:TypeItemEnum@0=null(5)#
+DECEMBER: NodeId#DECEMBER:TypeItemEnum@1=null(11)#
+FEBRUARY: NodeId#FEBRUARY:TypeItemEnum@1=null(1)#
+SEPTEMBER: NodeId#SEPTEMBER:TypeItemEnum@1=null(8)#
+NOVEMBER: NodeId#NOVEMBER:TypeItemEnum@1=null(10)#
+WEDNESDAY: NodeId#WEDNESDAY:TypeItemEnum@0=null(3)#
+MONDAY: NodeId#MONDAY:TypeItemEnum@0=null(1)#
+SATURDAY: NodeId#SATURDAY:TypeItemEnum@0=null(6)#
+MARCH: NodeId#MARCH:TypeItemEnum@1=null(2)#
+AUGUST: NodeId#AUGUST:TypeItemEnum@1=null(7)#
+JULY: NodeId#JULY:TypeItemEnum@1=null(6)#
+APRIL: NodeId#APRIL:TypeItemEnum@1=null(3)#
 >
 **
 *** End backtrace
@@ -476,74 +284,168 @@ APRIL: NodeId#APRIL:TypeItemEnum@APRIL=3#
 *** Fichier data/progr9.lea
 
 *** Analyse syntaxique ok
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeList
---- CheckType NodeId
---- CheckType NodeList
---- CheckType NodeNew
---- CheckType NodeAssign
---- CheckType NodePtrAccess
---- CheckType NodeCallFct
---- CheckType NodeId
-*** Erreur de typage [i:TypeInt_null] != TypeInt_null
-*** Erreur de typage
+*** Typage correct
 *** Backtrace
 Environment::types
 >
-DaysOfWeek: NodeId#DaysOfWeek:(TypeItemEnum@Sunday=0, TypeItemEnum@Monday=1, TypeItemEnum@Tuesday=2, TypeItemEnum@Wednesday=3, TypeItemEnum@Thursday=4, TypeItemEnum@Friday=5, TypeItemEnum@Saturday=6)#
-Months: NodeId#Months:(TypeItemEnum@January=0, TypeItemEnum@February=1, TypeItemEnum@March=2, TypeItemEnum@April=3, TypeItemEnum@May=4, TypeItemEnum@June=5, TypeItemEnum@July=6, TypeItemEnum@August=7, TypeItemEnum@September=8, TypeItemEnum@October=9, TypeItemEnum@November=10, TypeItemEnum@December=11)#
+java.lang.NullPointerException
+	at type.TypeRange.toString(TypeRange.java:27)
+	at type.TypeEnumRange.toString(TypeEnumRange.java:58)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at node.NodeId.toString(NodeId.java:38)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at environment.Environment.backtrace(Environment.java:44)
+	at main.Parser.backtrace(Unknown Source)
+	at main.Main.main(Main.java:50)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:218)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:155)
+	at org.apache.tools.ant.taskdefs.Java.run(Java.java:861)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:231)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:135)
+	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:108)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:99)
+	at org.apache.tools.ant.Task.perform(Task.java:350)
+	at org.apache.tools.ant.Target.execute(Target.java:449)
+	at org.apache.tools.ant.Target.performTasks(Target.java:470)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1388)
+	at org.apache.tools.ant.Project.executeTarget(Project.java:1361)
+	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1251)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:460)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:142)
+range3: NodeId#range3:TypeArrayRange[TypeInt_81..TypeInt_64]#
+java.lang.NullPointerException
+	at type.TypeRange.toString(TypeRange.java:27)
+	at type.TypeEnumRange.toString(TypeEnumRange.java:58)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at node.NodeId.toString(NodeId.java:38)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at environment.Environment.backtrace(Environment.java:44)
+	at main.Parser.backtrace(Unknown Source)
+	at main.Main.main(Main.java:50)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:218)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:155)
+	at org.apache.tools.ant.taskdefs.Java.run(Java.java:861)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:231)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:135)
+	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:108)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:99)
+	at org.apache.tools.ant.Task.perform(Task.java:350)
+	at org.apache.tools.ant.Target.execute(Target.java:449)
+	at org.apache.tools.ant.Target.performTasks(Target.java:470)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1388)
+	at org.apache.tools.ant.Project.executeTarget(Project.java:1361)
+	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1251)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:460)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:142)
 range1: NodeId#range1:TypeArrayRange[TypeInt_64..TypeInt_81]#
 named1: NodeId#named1:TypeString#
-range2: NodeId#range2:TypeArrayRange[TypeItemEnum@Monday=1..TypeItemEnum@Friday=5]#
-ptr2: NodeId#ptr2:TypePointer(TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeArray((TypeItemEnum@Sunday=0, TypeItemEnum@Monday=1, TypeItemEnum@Tuesday=2, TypeItemEnum@Wednesday=3, TypeItemEnum@Thursday=4, TypeItemEnum@Friday=5, TypeItemEnum@Saturday=6), TypeInt_null)))#
-table4: NodeId#table4:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeArray((TypeItemEnum@Sunday=0, TypeItemEnum@Monday=1, TypeItemEnum@Tuesday=2, TypeItemEnum@Wednesday=3, TypeItemEnum@Thursday=4, TypeItemEnum@Friday=5, TypeItemEnum@Saturday=6), TypeInt_null))#
-table3: NodeId#table3:TypeArray(TypeArrayRange[TypeItemEnum@Monday=1..TypeItemEnum@Friday=5], TypeInt_null)#
+range2: NodeId#range2:TypeArrayRange[TypeItemEnum@3=null(1)..TypeItemEnum@3=null(5)]#
+java.lang.NullPointerException
+	at type.TypeRange.toString(TypeRange.java:27)
+	at type.TypeEnumRange.toString(TypeEnumRange.java:58)
+	at type.TypeComplex.toString(TypeComplex.java:103)
+	at type.TypeComplex.toString(TypeComplex.java:103)
+	at type.TypeComplex.toString(TypeComplex.java:103)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at node.NodeId.toString(NodeId.java:38)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at environment.Environment.backtrace(Environment.java:44)
+	at main.Parser.backtrace(Unknown Source)
+	at main.Main.main(Main.java:50)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:218)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:155)
+	at org.apache.tools.ant.taskdefs.Java.run(Java.java:861)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:231)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:135)
+	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:108)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:99)
+	at org.apache.tools.ant.Task.perform(Task.java:350)
+	at org.apache.tools.ant.Target.execute(Target.java:449)
+	at org.apache.tools.ant.Target.performTasks(Target.java:470)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1388)
+	at org.apache.tools.ant.Project.executeTarget(Project.java:1361)
+	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1251)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:460)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:142)
+java.lang.NullPointerException
+	at type.TypeRange.toString(TypeRange.java:27)
+	at type.TypeEnumRange.toString(TypeEnumRange.java:58)
+	at type.TypeComplex.toString(TypeComplex.java:103)
+	at type.TypeComplex.toString(TypeComplex.java:103)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at node.NodeId.toString(NodeId.java:38)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at environment.Environment.backtrace(Environment.java:44)
+	at main.Parser.backtrace(Unknown Source)
+	at main.Main.main(Main.java:50)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:218)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:155)
+	at org.apache.tools.ant.taskdefs.Java.run(Java.java:861)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:231)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:135)
+	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:108)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:99)
+	at org.apache.tools.ant.Task.perform(Task.java:350)
+	at org.apache.tools.ant.Target.execute(Target.java:449)
+	at org.apache.tools.ant.Target.performTasks(Target.java:470)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1388)
+	at org.apache.tools.ant.Project.executeTarget(Project.java:1361)
+	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1251)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:460)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:142)
+table3: NodeId#table3:TypeArray(TypeArrayRange[TypeItemEnum@3=null(1)..TypeItemEnum@3=null(5)], TypeInt_null)#
 chaine: NodeId#chaine:TypeString#
 table2: NodeId#table2:TypeArray(TypeArrayRange[TypeInt_64..TypeInt_81], TypeInt_null)#
 table1: NodeId#table1:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#
@@ -553,46 +455,143 @@ booleen: NodeId#booleen:TypeBoolean#
 >
 Environment::procedures
 >
-goo: NodeId#goo:([i:TypeInt_null], [j:TypeInt_null]) -> TypeBoolean Defined: false Name: goo#
-foo: NodeId#foo:([i:TypeInt_null], [j:TypeInt_null]) -> TypePointer(TypeBoolean) Defined: false Name: foo#
+goo: NodeId#goo:(TypeInt_null, TypeInt_null) -> TypeBoolean Defined: false Name: goo#
+foo: NodeId#foo:(TypeInt_null, TypeInt_null) -> TypePointer(TypeBoolean) Defined: false Name: foo#
 >
 StackEnvironment::local_variables_stack
 **
 Layer 0 :
 Environment::Global
 >
-r2: NodeId#r2:TypeArrayRange[TypeItemEnum@Monday=1..TypeItemEnum@Friday=5]#
-June: NodeId#June:TypeItemEnum@June=5#
-May: NodeId#May:TypeItemEnum@May=4#
-September: NodeId#September:TypeItemEnum@September=8#
-Monday: NodeId#Monday:TypeItemEnum@Monday=1#
-March: NodeId#March:TypeItemEnum@March=2#
-Saturday: NodeId#Saturday:TypeItemEnum@Saturday=6#
-October: NodeId#October:TypeItemEnum@October=9#
-December: NodeId#December:TypeItemEnum@December=11#
-Friday: NodeId#Friday:TypeItemEnum@Friday=5#
-Tuesday: NodeId#Tuesday:TypeItemEnum@Tuesday=2#
-July: NodeId#July:TypeItemEnum@July=6#
-January: NodeId#January:TypeItemEnum@January=0#
-February: NodeId#February:TypeItemEnum@February=1#
-November: NodeId#November:TypeItemEnum@November=10#
+r2: NodeId#r2:TypeArrayRange[TypeItemEnum@3=null(1)..TypeItemEnum@3=null(5)]#
+June: NodeId#June:TypeItemEnum@2=null(5)#
+May: NodeId#May:TypeItemEnum@2=null(4)#
+September: NodeId#September:TypeItemEnum@2=null(8)#
+Monday: NodeId#Monday:TypeItemEnum@3=null(1)#
+March: NodeId#March:TypeItemEnum@2=null(2)#
+Saturday: NodeId#Saturday:TypeItemEnum@3=null(6)#
+October: NodeId#October:TypeItemEnum@2=null(9)#
+December: NodeId#December:TypeItemEnum@2=null(11)#
+Friday: NodeId#Friday:TypeItemEnum@3=null(5)#
+Tuesday: NodeId#Tuesday:TypeItemEnum@3=null(2)#
+July: NodeId#July:TypeItemEnum@2=null(6)#
+January: NodeId#January:TypeItemEnum@2=null(0)#
+February: NodeId#February:TypeItemEnum@2=null(1)#
+November: NodeId#November:TypeItemEnum@2=null(10)#
 b: NodeId#b:TypeBoolean#
-m2: NodeId#m2:TypeArray(TypeArrayRange[TypeItemEnum@Monday=1..TypeItemEnum@Thursday=4], TypeBoolean)#
-k: NodeId#k:TypeArray(TypeArrayRange[TypeItemEnum@Monday=1..TypeItemEnum@Friday=5], TypeInt_null)#
-l: NodeId#l:TypeArray(TypeArrayRange[TypeItemEnum@Monday=1..TypeItemEnum@Friday=5], TypeBoolean)#
-m: NodeId#m:(TypeItemEnum@January=0, TypeItemEnum@February=1, TypeItemEnum@March=2, TypeItemEnum@April=3, TypeItemEnum@May=4, TypeItemEnum@June=5, TypeItemEnum@July=6, TypeItemEnum@August=7, TypeItemEnum@September=8, TypeItemEnum@October=9, TypeItemEnum@November=10, TypeItemEnum@December=11)#
-April: NodeId#April:TypeItemEnum@April=3#
-August: NodeId#August:TypeItemEnum@August=7#
+m2: NodeId#m2:TypeArray(TypeArrayRange[TypeItemEnum@3=null(1)..TypeItemEnum@3=null(4)], TypeBoolean)#
+k: NodeId#k:TypeArray(TypeArrayRange[TypeItemEnum@3=null(1)..TypeItemEnum@3=null(5)], TypeInt_null)#
+l: NodeId#l:TypeArray(TypeArrayRange[TypeItemEnum@3=null(1)..TypeItemEnum@3=null(5)], TypeBoolean)#
+java.lang.NullPointerException
+	at type.TypeRange.toString(TypeRange.java:27)
+	at type.TypeEnumRange.toString(TypeEnumRange.java:58)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at node.NodeId.toString(NodeId.java:38)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at environment.Environment.backtrace(Environment.java:44)
+	at environment.StackEnvironment.backtrace(StackEnvironment.java:35)
+	at main.Parser.backtrace(Unknown Source)
+	at main.Main.main(Main.java:50)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:218)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:155)
+	at org.apache.tools.ant.taskdefs.Java.run(Java.java:861)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:231)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:135)
+	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:108)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:99)
+	at org.apache.tools.ant.Task.perform(Task.java:350)
+	at org.apache.tools.ant.Target.execute(Target.java:449)
+	at org.apache.tools.ant.Target.performTasks(Target.java:470)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1388)
+	at org.apache.tools.ant.Project.executeTarget(Project.java:1361)
+	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1251)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:460)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:142)
+April: NodeId#April:TypeItemEnum@2=null(3)#
+August: NodeId#August:TypeItemEnum@2=null(7)#
 p: NodeId#p:TypePointer(TypeInt_null)#
-Thursday: NodeId#Thursday:TypeItemEnum@Thursday=4#
-month: NodeId#month:(TypeItemEnum@January=0, TypeItemEnum@February=1, TypeItemEnum@March=2, TypeItemEnum@April=3, TypeItemEnum@May=4, TypeItemEnum@June=5, TypeItemEnum@July=6, TypeItemEnum@August=7, TypeItemEnum@September=8, TypeItemEnum@October=9, TypeItemEnum@November=10, TypeItemEnum@December=11)#
-Sunday: NodeId#Sunday:TypeItemEnum@Sunday=0#
-Wednesday: NodeId#Wednesday:TypeItemEnum@Wednesday=3#
+Thursday: NodeId#Thursday:TypeItemEnum@3=null(4)#
+java.lang.NullPointerException
+	at type.TypeRange.toString(TypeRange.java:27)
+	at type.TypeEnumRange.toString(TypeEnumRange.java:58)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at node.NodeId.toString(NodeId.java:38)
+	at java.lang.String.valueOf(String.java:2994)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at environment.Environment.backtrace(Environment.java:44)
+	at environment.StackEnvironment.backtrace(StackEnvironment.java:35)
+	at main.Parser.backtrace(Unknown Source)
+	at main.Main.main(Main.java:50)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:218)
+	at org.apache.tools.ant.taskdefs.ExecuteJava.execute(ExecuteJava.java:155)
+	at org.apache.tools.ant.taskdefs.Java.run(Java.java:861)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:231)
+	at org.apache.tools.ant.taskdefs.Java.executeJava(Java.java:135)
+	at org.apache.tools.ant.taskdefs.Java.execute(Java.java:108)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:292)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:99)
+	at org.apache.tools.ant.Task.perform(Task.java:350)
+	at org.apache.tools.ant.Target.execute(Target.java:449)
+	at org.apache.tools.ant.Target.performTasks(Target.java:470)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1388)
+	at org.apache.tools.ant.Project.executeTarget(Project.java:1361)
+	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1251)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:460)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:142)
+Sunday: NodeId#Sunday:TypeItemEnum@3=null(0)#
+Wednesday: NodeId#Wednesday:TypeItemEnum@3=null(3)#
 x: NodeId#x:TypeInt_null#
 z2: NodeId#z2:TypeArray(TypeArrayRange[TypeInt_1..TypeInt_32], TypeInt_null)#
 y: NodeId#y:TypeInt_null#
 z: NodeId#z:TypeInt_null#
 r1: NodeId#r1:TypeArrayRange[TypeInt_64..TypeInt_81]#
+>
+**
+*** End backtrace
+
+*** Fichier data/progr10.lea
+
+*** Analyse syntaxique ok
+*** Typage correct
+*** Backtrace
+Environment::types
+>
+position: NodeId#position:TypeStruct(TypeFeatureList([x:TypeInt_null], [y:TypeInt_null]))#
+>
+Environment::procedures
+>
+test: NodeId#test:(TypePointer(TypeStruct(TypeFeatureList([x:TypeInt_null], [y:TypeInt_null])))) -> TypeBoolean Defined: false Name: test#
+>
+StackEnvironment::local_variables_stack
+**
+Layer 0 :
+Environment::Global
+>
+pos: NodeId#pos:TypeStruct(TypeFeatureList([x:TypeInt_null], [y:TypeInt_null]))#
 >
 **
 *** End backtrace

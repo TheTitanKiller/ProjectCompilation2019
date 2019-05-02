@@ -2,9 +2,19 @@ package type;
 
 public final class TypeString extends TypeAtomic
 {
-    @Override public Type clone()
+    public TypeString(int start, int end)
     {
-	return new TypeString();
+	super(start, end);
     }
     
+    @Override public boolean attestWellFormed()
+    {
+	return true;
+    }
+
+    @Override public Type clone()
+    {
+	return new TypeString(this.start, this.end);
+    }
+
 }

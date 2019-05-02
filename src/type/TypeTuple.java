@@ -6,24 +6,24 @@ import java.util.Vector;
 // Type servant à la fois pour les arguments d'une fonction et pour les termes d'une liste
 public class TypeTuple extends TypeComplex
 {
-    public TypeTuple()
+    public TypeTuple(int start, int end)
     {
-	super();
+	super(start, end);
     }
     
-    public TypeTuple(Type t)
+    public TypeTuple(int start, int end, Type t)
     {
-	super(t);
+	super(start, end, t);
     }
     
-    public TypeTuple(Type... ts)
+    public TypeTuple(int start, int end, Type... ts)
     {
-	super(ts);
+	super(start, end, ts);
     }
     
-    public TypeTuple(Vector<Type> componant)
+    public TypeTuple(int start, int end, Vector<Type> componant)
     {
-	super(componant);
+	super(start, end, componant);
     }
     
     public Boolean attestAllEqual()
@@ -31,7 +31,8 @@ public class TypeTuple extends TypeComplex
 	Type t = get(0);
 	for (Type o : this.componant)
 	{
-	    if (!t.equals(o)) { return false; }
+	    if (!t.equals(o))
+	    { return false; }
 	}
 	return true;
     }
@@ -48,7 +49,7 @@ public class TypeTuple extends TypeComplex
 	{
 	    componant.add((Type) t.clone());
 	}
-	return new TypeTuple(componant);
+	return new TypeTuple(this.start, this.end, componant);
     }
     
     public Iterator<Type> iterator()

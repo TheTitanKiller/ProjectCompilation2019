@@ -4,11 +4,15 @@ import java.io.FileReader;
 
 import beaver.Scanner;
 import node.Node;
+import intermediateCode.*;
 
 public class Main
 {
     private static boolean checksType = false;
     private static boolean backtrace = false;
+
+	public static LabelLocationList labels = new LabelLocationList(null, null);
+	public static TempValueList temps = new TempValueList(null, null);
     
     public static void main(String[] args) throws Exception
     {
@@ -41,14 +45,8 @@ public class Main
 		    System.err.println("*** Analyse syntaxique ok");
 		    if (checksType)
 		    {
-			if (!result.checksType())
-			{
-			    System.err.println("*** Erreur de typage");
-			}
-			else
-			{
-			    System.err.println("*** Typage correct");
-			}
+			result.checksType();
+			System.err.println("*** Typage correct");
 		    }
 		    if (backtrace)
 		    {
@@ -57,14 +55,14 @@ public class Main
 			System.err.println("*** End backtrace");
 			System.err.println();
 		    }
-		    
+
 		}
 		catch (beaver.Parser.Exception e)
 		{
 		    System.err.println("*** Erreur de syntaxe: " + arg + ":" + e.getMessage());
 		}
 	    }
-	    
+
 	}
     }
 }

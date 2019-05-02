@@ -2,20 +2,19 @@ package node;
 
 public final class NodeCaseList extends NodeExp
 {
-    public NodeCaseList()
+    public NodeCaseList(int start, int end)
     {
-	super();
+	super(start, end);
     }
     
-    @Override public boolean checksType()
+    @Override public void checksType()
     {
-	super.checksType();
-	return true;
+	return;
     }
     
     @Override public NodeCaseList clone()
     {
-	return new NodeCaseList();
+	return new NodeCaseList(this.start, this.end);
     }
     
 }

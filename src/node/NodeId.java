@@ -6,22 +6,21 @@ public final class NodeId extends NodeExp
 {
     protected String name;
 
-    public NodeId(String name, Type type)
+    public NodeId(int start, int end, String name, Type type)
     {
-	super();
+	super(start, end);
 	this.name = name;
 	this.type = type;
     }
     
-    @Override public boolean checksType()
+    @Override public void checksType()
     {
-	super.checksType();
-	return true;
+	return;
     }
 
     @Override public NodeId clone()
     {
-	return new NodeId(this.name, this.type);
+	return new NodeId(this.start, this.end, this.name, this.type);
     }
 
     public String getName()

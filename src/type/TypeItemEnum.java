@@ -4,11 +4,12 @@ public class TypeItemEnum extends TypeAtomic
 {
     
     private Integer const_value;
+    private String name;
     private String refEnumRange;
     
-    public TypeItemEnum(int value, String refEnumRange)
+    public TypeItemEnum(int start, int end, int value, String name, String refEnumRange)
     {
-	super();
+	super(start, end);
 	this.const_value = value;
 	this.refEnumRange = refEnumRange;
     }
@@ -20,7 +21,7 @@ public class TypeItemEnum extends TypeAtomic
     
     @Override public TypeItemEnum clone()
     {
-	return new TypeItemEnum(this.const_value, this.refEnumRange);
+	return new TypeItemEnum(this.start, this.end, this.const_value, this.name, this.refEnumRange);
     }
     
     @Override public int compareTo(Type o)
@@ -39,7 +40,8 @@ public class TypeItemEnum extends TypeAtomic
 	{
 	    return false;
 	}
-	else if (this.const_value != ((TypeItemEnum) obj).const_value) { return false; }
+	else if (this.const_value != ((TypeItemEnum) obj).const_value)
+	{ return false; }
 	return true;
     }
     
@@ -65,7 +67,7 @@ public class TypeItemEnum extends TypeAtomic
     
     @Override public String toString()
     {
-	return super.toString() + '@' + this.refEnumRange + '=' + this.const_value;
+	return super.toString() + '@' + this.refEnumRange + '=' + this.name + "(" + this.const_value + ")";
     }
     
 }

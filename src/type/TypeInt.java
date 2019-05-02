@@ -4,34 +4,39 @@ package type;
 public final class TypeInt extends TypeAtomic
 {
     private Integer const_value;
-    
-    public TypeInt()
+
+    public TypeInt(int start, int end)
     {
-	super();
+	super(start, end);
     }
-    
-    public TypeInt(Integer const_value)
+
+    public TypeInt(int start, int end, Integer const_value)
     {
-	this();
+	this(start, end);
 	this.const_value = const_value;
     }
-    
+
+    @Override public boolean attestWellFormed()
+    {
+	return true;
+    }
+
     @Override public Type clone()
     {
-	return new TypeInt(getConst_value());
+	return new TypeInt(this.start, this.end, getConst_value());
     }
-    
+
     @Override public int compareTo(Type o)
     {
 	if (o instanceof TypeInt)
 	{
 	    TypeInt real_object = (TypeInt) o;
-	    if (this.const_value != null
-		    && real_object.const_value != null) { return this.const_value.compareTo(real_object.const_value); }
+	    if (this.const_value != null && real_object.const_value != null)
+	    { return this.const_value.compareTo(real_object.const_value); }
 	}
 	return 0;
     }
-    
+
     public Integer getConst_value()
     {
 	return this.const_value;
@@ -41,5 +46,5 @@ public final class TypeInt extends TypeAtomic
     {
 	return super.toString() + '_' + getConst_value();
     }
-    
+
 }

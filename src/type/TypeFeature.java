@@ -5,34 +5,33 @@ import main.ClonableSymbol;
 public class TypeFeature extends TypeComplex
 {
     private String name;
-    
-    public TypeFeature(String name, Type t)
+
+    public TypeFeature(int start, int end, String name, Type t)
     {
-	super(t);
+	super(start, end, t);
 	this.name = name;
     }
-    
+
     @Override public boolean attestWellFormed()
     {
-	// TODO Auto-generated method stub
-	return false;
+	return true;
     }
-    
+
     @Override public ClonableSymbol clone()
     {
-	return new TypeFeature(this.name, (Type) get(0).clone());
+	return new TypeFeature(this.start, this.end, this.name, (Type) get(0).clone());
     }
-    
+
     public String getName()
     {
 	return this.name;
     }
-    
+
     public Type getType()
     {
 	return this.componant.get(0);
     }
-    
+
     @Override public String toString()
     {
 	String ret = '[' + this.name + ':';
@@ -43,5 +42,5 @@ public class TypeFeature extends TypeComplex
 	ret += ']';
 	return ret;
     }
-    
+
 }
